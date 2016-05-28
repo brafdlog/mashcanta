@@ -5,8 +5,8 @@ export function getLoanAmount(monthlyPayment, numYears, yearlyInterestPercent) {
     const monthlyInterest = yealyInterestDecimal / 12;
     const numMonths = numYears * 12;
 
-    const r = 1/(1+monthlyInterest);
-    let loanAmount = monthlyPayment*((r- Math.pow(r, numMonths+1))/(1-r));
+    const r = 1 / (1 + monthlyInterest);
+    let loanAmount = monthlyPayment * ((r - Math.pow(r, numMonths + 1)) / (1 - r));
 
     loanAmount = Math.round(loanAmount);
     return loanAmount;
