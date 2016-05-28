@@ -17,8 +17,16 @@ module.exports = {
 		extensions: ['', '.js', '.jsx']
 	},
 	module: {
+		preLoaders: [
+        	{test: /\.jsx?$/, exclude: /(node_modules|bower_components|vendor)/, loader: "eslint-loader"}
+      	],
 		loaders: loaders
 	},
+	eslint: {
+        configFile: path.join(__dirname, './.eslintrc'),
+        fix: true,
+        cache: true
+    },
 	devServer: {
 		contentBase: "./public",
 			noInfo: true, //  --no-info option
