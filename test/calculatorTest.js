@@ -7,7 +7,7 @@ describe('Mashcanta calculator', function() {
             let monthlyPayment = 4350;
             let numYears = 15;
             let interestRate = 3.5;
-            monthlyPayment, numYears, interestRate
+
             let loanAmount = calculator.getLoanAmount(monthlyPayment, numYears, interestRate);
             expect(loanAmount).to.equal(608492);
         });
@@ -16,7 +16,7 @@ describe('Mashcanta calculator', function() {
             let monthlyPayment = 4000;
             let numYears = 10;
             let interestRate = 2.8;
-            monthlyPayment, numYears, interestRate
+
             let loanAmount = calculator.getLoanAmount(monthlyPayment, numYears, interestRate);
             expect(loanAmount).to.equal(418234);
         });
