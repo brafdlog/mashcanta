@@ -1,5 +1,7 @@
+/* eslint-disable */
 const expect = require('chai').expect;
 const calculator = require('../src/calculator');
+const ALLOWED_DIFFERENCE = 0.8;
 
 describe('Mashcanta calculator', function() {
     describe('loan amount by given monthly payment', function() {
@@ -9,7 +11,7 @@ describe('Mashcanta calculator', function() {
             let interestRate = 3.5;
 
             let loanAmount = calculator.getLoanAmount(monthlyPayment, numYears, interestRate);
-            expect(loanAmount).to.equal(608492);
+            expect(loanAmount).to.be.closeTo(608492, ALLOWED_DIFFERENCE);
         });
 
         it('should calculate loan amount for monthly payment of 4000, interest 2.8, 10 years', function() {
@@ -18,7 +20,7 @@ describe('Mashcanta calculator', function() {
             let interestRate = 2.8;
 
             let loanAmount = calculator.getLoanAmount(monthlyPayment, numYears, interestRate);
-            expect(loanAmount).to.equal(418234);
+            expect(loanAmount).to.closeTo(418234, ALLOWED_DIFFERENCE);
         });
     });
 
