@@ -24,8 +24,24 @@ describe('Mashcanta calculator', function() {
         });
     });
 
-    describe('monthly payment', function() {
-        it('returns a monthly payment by given loan amount');        
+    describe('monthly payment by given loan amount', function() {
+        it('should calculate monthly payment for loan amount of 700000, interest 3.5, 15 years', function() {
+            let loanAmount = 700000;
+            let numYears = 15;
+            let interestRate = 3.5;
+
+            let monthlyPayment = calculator.getMonthlyPayment(loanAmount, numYears, interestRate);
+            expect(monthlyPayment).to.closeTo(5004, ALLOWED_DIFFERENCE);
+        });
+
+        it('should calculate monthly payment for loan amount of 1190000, interest 6.7, 22 years', function() {
+            let loanAmount = 1190000;
+            let numYears = 22;
+            let interestRate = 6.7;
+
+            let monthlyPayment = calculator.getMonthlyPayment(loanAmount, numYears, interestRate);
+            expect(monthlyPayment).to.closeTo(8628.21, ALLOWED_DIFFERENCE);
+        });
     });
 
 });
