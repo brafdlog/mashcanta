@@ -1,27 +1,37 @@
-/* eslint id-length: "off" */
-export function getLoanAmount(monthlyPayment, numYears, yearlyInterestPercent) {
-    const { numMonths, r } = transformParams(numYears, yearlyInterestPercent);
+/* eslint id-length: "off", no-param-reassign: "off" */
 
-    const loanAmount = monthlyPayment * ((r - Math.pow(r, numMonths + 1)) / (1 - r));
-    return loanAmount;
-}
-
-export function getMonthlyPayment(loanAmount, numYears, yearlyInterestPercent) {
-    const { numMonths, r } = transformParams(numYears, yearlyInterestPercent);
-
-    const monthlyPayment = loanAmount * ((1 - r) / (r - Math.pow(r, numMonths + 1)));
-    return monthlyPayment;
-}
-
-function transformParams(numYears, yearlyInterestPercent) {
+/**
+ * Get mortgage info. Can pass either loan amount or monthly payment, the one not
+ * passed will be calculated.
+ * @param  {number} loanAmount            The wanted loan amount (optional)
+ * @param  {number} monthlyPayment        The wanted monthly payment (optional)
+ * @param  {number} numYears              Number of years for returning the mortage
+ * @param  {float} yearlyInterestPercent  The yearly interest percent
+ * @return {object}                       An object containing data about the mortgage
+ */
+export function getMortgageInfo({ loanAmount, monthlyPayment, numYears, yearlyInterestPercent }) {
     // The yearlyInterest param will be something like 3.5 and we want to convert it to 0.035
     const yealyInterestDecimal = yearlyInterestPercent / 100;
     const monthlyInterest = yealyInterestDecimal / 12;
     const numMonths = numYears * 12;
 
     const r = 1 / (1 + monthlyInterest);
+
+    if (loanAmount) {
+        monthlyPayment = loanAmount * ((1 - r) / (r - Math.pow(r, numMonths + 1)));
+    } else {
+        loanAmount = monthlyPayment * ((r - Math.pow(r, numMonths + 1)) / (1 - r));
+    }
+
+    const totalPaymentToBank = numMonths * monthlyPayment;
+    const costOfEachDollar = totalPaymentToBank / loanAmount;
+
     return {
-        numMonths,
-        r
+        loanAmount,
+        monthlyPayment,
+        numYears,
+        yearlyInterestPercent,
+        totalPaymentToBank,
+        costOfEachDollar
     };
 }
