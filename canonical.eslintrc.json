@@ -338,7 +338,7 @@
             "allowMultiline": true
         }],
         "react/jsx-equals-spacing": [2, "never"],
-        "react/jsx-handler-names": [2, {
+        "react/jsx-handler-names": [1, {
             "eventHandlerPrefix": "handle",
             "eventHandlerPropPrefix": "on"
         }],
