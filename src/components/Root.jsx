@@ -9,9 +9,9 @@ class Root extends React.Component {
         return (
             <Flex className='container'>
                 <Flex column>
-                <Textfield onChange={this.onMonthlyPaymentChange} pattern='-?[0-9]*(\.[0-9]+)?' error='Input is not a number!' label='Monthly payment' floatingLabel />
-                <Textfield onChange={this.onNumYearsChange} pattern='-?[0-9]*(\.[0-9]+)?' error='Input is not a number!' label='No. of years' floatingLabel />
-                <Textfield onChange={this.onInterestRateChange} pattern='-?[0-9]*(\.[0-9]+)?' error='Input is not a number!' label='Interest rate' floatingLabel />
+                    <Textfield onChange={this.onMonthlyPaymentChange} pattern='-?[0-9]*(\.[0-9]+)?' error='Input is not a number!' label='Monthly payment' floatingLabel />
+                    <Textfield onChange={this.onNumYearsChange} pattern='-?[0-9]*(\.[0-9]+)?' error='Input is not a number!' label='No. of years' floatingLabel />
+                    <Textfield onChange={this.onInterestRateChange} pattern='-?[0-9]*(\.[0-9]+)?' error='Input is not a number!' label='Interest rate' floatingLabel />
                 </Flex>
                 {this.renderMortgageInfo(this.state.mortgageInfo)}
             </Flex>
@@ -38,11 +38,13 @@ class Root extends React.Component {
     }
 
     renderMortgageInfo(mortgageInfo = {}) {
-        return <Flex column>
-                    <InfoLine title='Loan Amount' value={mortgageInfo.loanAmount} />
-                    <InfoLine title='Total Payment' value={mortgageInfo.totalPaymentToBank} />
-                    <InfoLine title='Cost Of Dollar' value={mortgageInfo.costOfEachDollar} />
-                </Flex>;
+        return (
+            <Flex column>
+                <InfoLine title='Loan Amount' value={mortgageInfo.loanAmount} />
+                <InfoLine title='Total Payment' value={mortgageInfo.totalPaymentToBank} />
+                <InfoLine title='Cost Of Dollar' value={mortgageInfo.costOfEachDollar} />
+            </Flex>
+        );
     }
 }
 

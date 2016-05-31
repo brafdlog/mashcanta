@@ -338,7 +338,7 @@
             "allowMultiline": true
         }],
         "react/jsx-equals-spacing": [2, "never"],
-        "react/jsx-handler-names": [1, {
+        "react/jsx-handler-names": [0, {
             "eventHandlerPrefix": "handle",
             "eventHandlerPropPrefix": "on"
         }],
@@ -346,7 +346,7 @@
         "react/jsx-indent-props": [2, 4],
         "react/jsx-key": 1,
         "react/jsx-max-props-per-line": [1, {
-            "maximum": 4
+            "maximum": 5
         }],
         "react/jsx-no-bind": 1,
         "react/jsx-no-duplicate-props": 2,
