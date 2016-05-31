@@ -8,24 +8,36 @@ class Root extends React.Component {
     render() {
         return (
             <Flex className='container'>
-                <MortgageInfoInputForm handleChange={this.onChangeMortgageInfoInput} />
-                <MortgageDetailsDisplay mortgageInfo={this.state.mortgageInfo} />
+                {this.state.mortgageParts.map(mortgagePart =>
+                    <Flex key={mortgagePart.index} className='container'>
+                        <MortgageInfoInputForm handleChange={this.onChangeMortgageInfoInput} />
+                        <MortgageDetailsDisplay mortgageInfo={mortgagePart} />
+                    </Flex>
+                )
+                }
             </Flex>
         );
     }
 
     state = {
-        mortgageInfo: {
-            loanAmount: 0,
-            monthlyPayment: 0,
-            totalPaymentToBank: 0,
-            costOfEachDollar: 0
-        }
+        mortgageParts: [
+            {
+                index: 0,
+                loanAmount: 0,
+                monthlyPayment: 0,
+                totalPaymentToBank: 0,
+                costOfEachDollar: 0
+            }
+        ]
     };
 
     onChangeMortgageInfoInput = (updatedMortgageInput) => {
         const mortgageInfo = Calculator.getMortgageInfo(updatedMortgageInput);
-        this.setState({ mortgageInfo });
+        // Turn string fields intp numbers
+        Object.keys(mortgageInfo).forEach(key => {
+            mortgageInfo[key] = Number(mortgageInfo[key]);
+        });
+        this.setState({ mortgageParts: [mortgageInfo]});
     }
 
 
