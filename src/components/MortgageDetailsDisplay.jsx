@@ -16,17 +16,53 @@ class MortgageDetailsDisplay extends React.Component {
     }
 
     render() {
-        const mortgageInfo = this.props.mortgageInfo;
+        const mortgageInfo = this.cleanDecimals(this.props.mortgageInfo);
+        const { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
+
         return (
             <Flex className='container MortgageDetailsDisplayContainer' column>
-                <InfoLine title='Loan Amount' value={Number(mortgageInfo.loanAmount)} />
-                <InfoLine title='Monthly payment' value={Number(mortgageInfo.monthlyPayment)} />
-                <InfoLine title='Total Payment' value={Number(mortgageInfo.totalPaymentToBank)} />
-                <InfoLine title='Cost Of Dollar' value={Number(mortgageInfo.costOfEachDollar)} />
+                <InfoLine title='Loan Amount' value={loanAmount} />
+                <InfoLine title='Monthly payment' value={monthlyPayment} />
+                <InfoLine title='Total Payment' value={totalPaymentToBank} />
+                <InfoLine title='Cost Of Dollar' value={costOfEachDollar} />
             </Flex>
         );
+    }
+
+    cleanDecimals(mortgageInfo) {
+        let { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = this.props.mortgageInfo;
+        // Remove ugly decimals
+        totalPaymentToBank = this.removeAllDecimals(totalPaymentToBank);
+        costOfEachDollar = this.retainNDecimals(costOfEachDollar, 2);
+        monthlyPayment = this.removeAllDecimals(monthlyPayment);
+        loanAmount = this.removeAllDecimals(loanAmount);
+
+        return { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar };
+    }
+
+    isWholeNumber(someNumber) {
+        return someNumber % 1 === 0;
+    }
+
+    removeAllDecimals(someNumber) {
+        if (!someNumber) {
+            return 0;
+        }
+        return Math.floor(someNumber);
+    }
+
+    retainNDecimals(someNumber, numDecimalsToRetain) {
+        if (!someNumber) {
+            return 0;
+        }
+        if (this.isWholeNumber(someNumber)) {
+            return someNumber;
+        }
+        const numberWithoutDecimals = Number(someNumber.toFixed(numDecimalsToRetain));
+        return numberWithoutDecimals;
     }
 
 }
 
 export default MortgageDetailsDisplay;
+
