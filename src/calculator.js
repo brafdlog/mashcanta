@@ -17,9 +17,9 @@ export function getMortgageInfo({ loanAmount, monthlyPayment, numYears, yearlyIn
 
     const r = 1 / (1 + monthlyInterest);
 
-    if (loanAmount) {
+    if (!monthlyPayment) {
         monthlyPayment = loanAmount * ((1 - r) / (r - Math.pow(r, numMonths + 1)));
-    } else {
+    } else if (!loanAmount) {
         loanAmount = monthlyPayment * ((r - Math.pow(r, numMonths + 1)) / (1 - r));
     }
 
