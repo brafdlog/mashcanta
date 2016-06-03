@@ -3,7 +3,7 @@ import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import * as Calculator from '../calculator';
-import './root.scss';
+import './Root.scss';
 
 class Root extends React.Component {
     render() {
