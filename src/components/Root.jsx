@@ -3,11 +3,12 @@ import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import * as Calculator from '../calculator';
+import './style.scss';
 
 class Root extends React.Component {
     render() {
         return (
-            <Flex className='container'>
+            <Flex className='container rootAppContainer'>
                 {this.state.mortgageParts.map(mortgagePart =>
                     <Flex key={mortgagePart.index} className='container'>
                         <MortgageInfoInputForm handleChange={this.onChangeMortgageInfoInput} />
