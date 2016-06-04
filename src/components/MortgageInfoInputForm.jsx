@@ -1,63 +1,39 @@
 import React, { PropTypes } from 'react';
-import { Textfield } from 'react-mdl';
-import Flex from './Flex';
+import { DataTable, TableHeader } from 'react-mdl';
+import './MortgageInfoInputForm.scss';
+import { addCommasToNumber } from '../utils';
 
-const { func } = PropTypes;
-const NUMBER_VALIDATION_PATTERN = '-?[0-9]*(\.[0-9]+)?';
-const VALIDATION_ERROR_MESSAGE = 'Input is not a number!';
+const { func, shape, number, arrayOf } = PropTypes;
 
 class MortgageInfoInputForm extends React.Component {
 
     static propTypes = {
-        handleChange: func
+        handleChange: func,
+        mortgageParts: arrayOf(shape({
+            order: number,
+            loanAmount: number,
+            numYears: number,
+            yearlyInterest: number
+        }))
     }
 
     render() {
-        const style = {
-            width: '125px'
-        };
         return (
-            <Flex className='container MortgageInfoInputFormContainer' column>
-                <Textfield style={style} onChange={this.onMonthlyPaymentChange} pattern={NUMBER_VALIDATION_PATTERN} error={VALIDATION_ERROR_MESSAGE}
-                    label='Monthly payment' floatingLabel
-                />
-                <Textfield style={style} onChange={this.onLoanAmountChange} pattern={NUMBER_VALIDATION_PATTERN} error={VALIDATION_ERROR_MESSAGE}
-                    label='Loan amount' floatingLabel
-                />
-                <Textfield style={style} onChange={this.onNumYearsChange} pattern={NUMBER_VALIDATION_PATTERN} error={VALIDATION_ERROR_MESSAGE}
-                    label='No. of years' floatingLabel
-                />
-                <Textfield style={style} onChange={this.onInterestRateChange} pattern={NUMBER_VALIDATION_PATTERN} error={VALIDATION_ERROR_MESSAGE}
-                    label='Interest rate' floatingLabel
-                />
-            </Flex>
+            <div className='MortgageInfoInputFormContainer'>
+                <DataTable shadow={2} rows={this.props.mortgageParts}>
+                    <TableHeader numeric name='loanAmount' cellFormatter={this.formatLoanAmountCell} tooltip='The loan amount'>Loan amount</TableHeader>
+                    <TableHeader numeric name='numYears' tooltip='Number of years'>Number of years</TableHeader>
+                    <TableHeader numeric name='yearlyInterest' cellFormatter={this.formatInterestRateCell} tooltip='Yearly interest rate'>Interest rate</TableHeader>
+                </DataTable>
+            </div>
         );
     }
 
-    state = { }
+    formatInterestRateCell = (interestRate) => `${interestRate}%`
 
-    onChange = (propName, newValueStr) => {
-        const newValue = Number(newValueStr);
-        this.setState({ [propName]: newValue }, () => {
-            this.props.handleChange({ ...this.state });
-        });
-    }
-
-    onMonthlyPaymentChange = ({ target }) => {
-        this.onChange('monthlyPayment', target.value);
-    }
-
-    onNumYearsChange = ({ target }) => {
-        this.onChange('numYears', target.value);
-    }
-
-    onInterestRateChange = ({ target }) => {
-        this.onChange('yearlyInterestPercent', target.value);
-    }
-
-    onLoanAmountChange = ({ target }) => {
-        const loanAmount = target.value * 1000;
-        this.onChange('loanAmount', loanAmount);
+    formatLoanAmountCell = (loanAmount) => {
+        const loanAmountWithCommas = addCommasToNumber(loanAmount * 1000);
+        return `\$${loanAmountWithCommas}`;
     }
 
 }

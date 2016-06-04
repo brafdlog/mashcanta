@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Flex from './Flex';
 import InfoLine from './InfoLine';
-
+import { addCommasToNumber } from '../utils';
 const { number, shape } = PropTypes;
 
 class MortgageDetailsDisplay extends React.Component {
@@ -16,9 +16,8 @@ class MortgageDetailsDisplay extends React.Component {
     }
 
     render() {
-        const mortgageInfo = this.cleanDecimals(this.props.mortgageInfo);
+        const mortgageInfo = this.formatNumbersNicely(this.props.mortgageInfo);
         const { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
-
         return (
             <Flex className='container MortgageDetailsDisplayContainer' column>
                 <InfoLine title='Loan Amount' value={loanAmount} />
@@ -29,13 +28,17 @@ class MortgageDetailsDisplay extends React.Component {
         );
     }
 
-    cleanDecimals(mortgageInfo) {
+    formatNumbersNicely(mortgageInfo) {
         let { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = this.props.mortgageInfo;
         // Remove ugly decimals
         totalPaymentToBank = this.removeAllDecimals(totalPaymentToBank);
         costOfEachDollar = this.retainNDecimals(costOfEachDollar, 2);
         monthlyPayment = this.removeAllDecimals(monthlyPayment);
         loanAmount = this.removeAllDecimals(loanAmount);
+
+        totalPaymentToBank = addCommasToNumber(totalPaymentToBank);
+        monthlyPayment = addCommasToNumber(monthlyPayment);
+        loanAmount = addCommasToNumber(loanAmount);
 
         return { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar };
     }

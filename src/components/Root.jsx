@@ -1,36 +1,71 @@
 import React from 'react';
+import { generateId } from '../utils';
 import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
+import AddNewPart from './AddNewPart';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import * as Calculator from '../calculator';
 import './Root.scss';
 
 class Root extends React.Component {
     render() {
+        const { mortgageParts } = this.state.mortgageInfo;
         return (
             <Flex className='container rootAppContainer'>
-                {this.state.mortgageParts.map(mortgagePart =>
-                    <Flex key={mortgagePart.index} className='container'>
-                        <MortgageInfoInputForm handleChange={this.onChangeMortgageInfoInput} />
-                        <MortgageDetailsDisplay mortgageInfo={mortgagePart} />
-                    </Flex>
-                )
-                }
+                <Flex className='container' column >
+                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onChangeMortgageInfoInput} />
+                    <AddNewPart handleAddPart={this.onAddNewPart} />
+                </Flex>
+                <Flex className='container MortgageDetailsDisplayContainer' column>
+                    <MortgageDetailsDisplay mortgageInfo={this.calculateDetailsDisplayDetails()} />
+                </Flex>
             </Flex>
         );
     }
 
     state = {
-        mortgageParts: [
-            {
-                index: 0,
-                loanAmount: 0,
-                monthlyPayment: 0,
-                totalPaymentToBank: 0,
-                costOfEachDollar: 0
-            }
-        ]
+        mortgageInfo: {
+            mortgageParts: [
+
+            ]
+        }
     };
+
+    calculateDetailsDisplayDetails = () => {
+        const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgageInfo(mortgagePart));
+        let loanAmount = 0;
+        let monthlyPayment = 0;
+        let totalPaymentToBank = 0;
+        calculatedMortgageInfoParts.forEach(mortgagePart => {
+            loanAmount += mortgagePart.loanAmount;
+            monthlyPayment += mortgagePart.monthlyPayment;
+            totalPaymentToBank += mortgagePart.totalPaymentToBank;
+        });
+        const costOfEachDollar = totalPaymentToBank / loanAmount;
+
+        loanAmount *= 1000;
+        totalPaymentToBank *= 1000;
+        monthlyPayment *= 1000;
+        return {
+            loanAmount,
+            monthlyPayment,
+            totalPaymentToBank,
+            costOfEachDollar
+        };
+    }
+
+    onAddNewPart = ({ numYears, yearlyInterest, loanAmount }) => {
+        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
+        mortgageParts.push({
+            id: generateId(),
+            order: mortgageParts.length,
+            loanAmount,
+            numYears,
+            yearlyInterest
+        });
+        const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts };
+        this.setState({ mortgageInfo: updatedMortgageInfo });
+    }
 
     onChangeMortgageInfoInput = (updatedMortgageInput) => {
         const mortgageInfo = Calculator.getMortgageInfo(updatedMortgageInput);
@@ -40,7 +75,6 @@ class Root extends React.Component {
         });
         this.setState({ mortgageParts: [mortgageInfo]});
     }
-
 
 }
 

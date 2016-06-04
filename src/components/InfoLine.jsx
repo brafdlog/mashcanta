@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
 import Flex from './Flex.jsx';
+import './InfoLine.scss';
 
-const { string, number } = PropTypes;
+const { string, number, oneOfType } = PropTypes;
 
 const InfoLine = props => {
     return (
-        <Flex column>
-            <div><b>{props.title}</b></div>
+        <Flex className='InfoLine'>
+            <div className='infoLineTitle'><b>{props.title}</b>:</div>
             <div>{props.value}</div>
         </Flex>
     );
@@ -14,7 +15,7 @@ const InfoLine = props => {
 
 InfoLine.propTypes = {
     title: string,
-    value: number
+    value: oneOfType([string, number])
 };
 
 export default InfoLine;
