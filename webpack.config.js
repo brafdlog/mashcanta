@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
-var loaders = require('./webpack.loaders');
+var getLoaders = require('./webpack.loaders');
 
 module.exports = {
 	entry: [
@@ -20,7 +20,7 @@ module.exports = {
 		preLoaders: [
         	{test: /\.jsx?$/, exclude: /(node_modules|bower_components|vendor)/, loader: "eslint-loader"}
       	],
-		loaders: loaders
+		loaders: getLoaders()
 	},
 	eslint: {
         configFile: path.join(__dirname, './.eslintrc'),

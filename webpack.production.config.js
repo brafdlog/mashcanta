@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
-var loaders = require('./webpack.loaders');
+var getLoaders = require('./webpack.loaders');
 
 module.exports = {
 	entry: [
@@ -14,6 +14,13 @@ module.exports = {
 		extensions: ['', '.js', '.jsx']
 	},
 	module: {
-		loaders: loaders
-	}
+		loaders: getLoaders(true)
+	},
+	plugins: [
+	  new webpack.DefinePlugin({
+	    'process.env': {
+	      'NODE_ENV': JSON.stringify('production')
+	    }
+	  })
+	]
 };
