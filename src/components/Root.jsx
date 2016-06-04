@@ -7,6 +7,14 @@ import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import * as Calculator from '../calculator';
 import './Root.scss';
 
+const EMPTY_STATE = {
+    mortgageInfo: {
+        mortgageParts: [
+
+        ]
+    }
+};
+
 class Root extends React.Component {
     render() {
         const { mortgageParts } = this.state.mortgageInfo;
@@ -14,7 +22,7 @@ class Root extends React.Component {
             <Flex className='container rootAppContainer'>
                 <Flex className='container' column >
                     <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onChangeMortgageInfoInput} />
-                    <AddNewPart handleAddPart={this.onAddNewPart} />
+                    <AddNewPart handleAddPart={this.onAddNewPart} handleClearClicked={this.onClearClicked} />
                 </Flex>
                 <Flex className='container MortgageDetailsDisplayContainer' column>
                     <MortgageDetailsDisplay mortgageInfo={this.calculateDetailsDisplayDetails()} />
@@ -65,6 +73,10 @@ class Root extends React.Component {
         });
         const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts };
         this.setState({ mortgageInfo: updatedMortgageInfo });
+    }
+
+    onClearClicked = () => {
+        this.setState(EMPTY_STATE);
     }
 
     onChangeMortgageInfoInput = (updatedMortgageInput) => {
