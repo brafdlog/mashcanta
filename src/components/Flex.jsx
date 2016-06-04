@@ -41,9 +41,9 @@ Flex.propTypes = {
 
 Flex.defaultProps = {
     /** Sets align-item */
-    align: 'center',
+    align: 'flex-start',
     /** Sets justify-content */
-    justify: 'center'
+    justify: 'flex-start'
 };
 
 export default Flex;
