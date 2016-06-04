@@ -16,6 +16,14 @@ const EMPTY_STATE = {
 };
 
 class Root extends React.Component {
+
+    constructor(props) {
+        super(props);
+        const storedInfo = this.getFromStorage();
+        const initialState = storedInfo ? { mortgageInfo: storedInfo } : EMPTY_STATE;
+        this.state = initialState;
+    }
+
     render() {
         const { mortgageParts } = this.state.mortgageInfo;
         return (
@@ -38,6 +46,16 @@ class Root extends React.Component {
             ]
         }
     };
+
+    getFromStorage = () => {
+        const infoFromStorage = localStorage.getItem('mortgageInfo');
+        return infoFromStorage && JSON.parse(infoFromStorage);
+    }
+
+    saveToStorage = (infoToSave) => {
+        const infoJson = JSON.stringify(infoToSave);
+        localStorage.setItem('mortgageInfo', infoJson);
+    }
 
     calculateDetailsDisplayDetails = () => {
         const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgageInfo(mortgagePart));
@@ -73,6 +91,7 @@ class Root extends React.Component {
         });
         const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts };
         this.setState({ mortgageInfo: updatedMortgageInfo });
+        this.saveToStorage(updatedMortgageInfo);
     }
 
     onClearClicked = () => {
