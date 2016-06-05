@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Flex from './Flex';
 import { formatWholeDollarAmount, retainNDecimals } from '../utils';
 import InfoLine from './InfoLine';
+import './MortgageDetailsDisplay.scss';
 const { number, shape } = PropTypes;
 
 class MortgageDetailsDisplay extends React.Component {
@@ -19,7 +20,7 @@ class MortgageDetailsDisplay extends React.Component {
         const mortgageInfo = this.formatNumbersNicely(this.props.mortgageInfo);
         const { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
         return (
-            <Flex className='container MortgageDetailsDisplayContainer' column>
+            <Flex className='container MortgageDetailsDisplay' column>
                 <InfoLine title='Loan Amount' value={loanAmount} />
                 <InfoLine title='Monthly payment' value={monthlyPayment} />
                 <InfoLine title='Total Payment' value={totalPaymentToBank} />
