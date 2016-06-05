@@ -69,9 +69,6 @@ class Root extends React.Component {
         });
         const costOfEachDollar = totalPaymentToBank / loanAmount;
 
-        loanAmount *= 1000;
-        totalPaymentToBank *= 1000;
-        monthlyPayment *= 1000;
         return {
             loanAmount,
             monthlyPayment,

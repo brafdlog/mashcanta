@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Flex from './Flex';
+import { formatWholeDollarAmount, retainNDecimals } from '../utils';
 import InfoLine from './InfoLine';
-import { addCommasToNumber } from '../utils';
 const { number, shape } = PropTypes;
 
 class MortgageDetailsDisplay extends React.Component {
@@ -31,38 +31,12 @@ class MortgageDetailsDisplay extends React.Component {
     formatNumbersNicely(mortgageInfo) {
         let { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = this.props.mortgageInfo;
         // Remove ugly decimals
-        totalPaymentToBank = this.removeAllDecimals(totalPaymentToBank);
-        costOfEachDollar = this.retainNDecimals(costOfEachDollar, 2);
-        monthlyPayment = this.removeAllDecimals(monthlyPayment);
-        loanAmount = this.removeAllDecimals(loanAmount);
-
-        totalPaymentToBank = addCommasToNumber(totalPaymentToBank);
-        monthlyPayment = addCommasToNumber(monthlyPayment);
-        loanAmount = addCommasToNumber(loanAmount);
+        totalPaymentToBank = formatWholeDollarAmount(totalPaymentToBank);
+        costOfEachDollar = retainNDecimals(costOfEachDollar, 2);
+        monthlyPayment = formatWholeDollarAmount(monthlyPayment);
+        loanAmount = formatWholeDollarAmount(loanAmount);
 
         return { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar };
-    }
-
-    isWholeNumber(someNumber) {
-        return someNumber % 1 === 0;
-    }
-
-    removeAllDecimals(someNumber) {
-        if (!someNumber) {
-            return 0;
-        }
-        return Math.floor(someNumber);
-    }
-
-    retainNDecimals(someNumber, numDecimalsToRetain) {
-        if (!someNumber) {
-            return 0;
-        }
-        if (this.isWholeNumber(someNumber)) {
-            return someNumber;
-        }
-        const numberWithoutDecimals = Number(someNumber.toFixed(numDecimalsToRetain));
-        return numberWithoutDecimals;
     }
 
 }

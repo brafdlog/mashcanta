@@ -75,7 +75,7 @@ class AddNewPart extends React.Component {
     }
 
     onLoanAmountChange = ({ target }) => {
-        this.onChange('loanAmount', target.value);
+        this.onChange('loanAmount', target.value * 1000);
     }
 
 }

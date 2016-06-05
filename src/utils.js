@@ -10,4 +10,28 @@ export const generateId = (idLength) => {
     return id;
 };
 
+export const removeAllDecimals = (someNumber) => {
+    if (!someNumber) {
+        return 0;
+    }
+    return Math.floor(someNumber);
+};
+
+const isWholeNumber = (someNumber) => someNumber % 1 === 0;
+
+export const retainNDecimals = (someNumber, numDecimalsToRetain) => {
+    if (!someNumber) {
+        return 0;
+    }
+    if (isWholeNumber(someNumber)) {
+        return someNumber;
+    }
+    const numberWithoutDecimals = Number(someNumber.toFixed(numDecimalsToRetain));
+    return numberWithoutDecimals;
+};
+
 export const addCommasToNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+export const formatWholeDollarAmount = (original) => '$' + addCommasToNumber(removeAllDecimals(original));
+
+export const formatPrecent = (original) => retainNDecimals(original, 2) + '%';
