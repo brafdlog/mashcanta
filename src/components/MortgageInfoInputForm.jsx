@@ -13,7 +13,8 @@ class MortgageInfoInputForm extends React.Component {
             order: number,
             loanAmount: number,
             numYears: number,
-            yearlyInterest: number
+            yearlyInterest: number,
+            monthlyPayment: number
         }))
     }
 
@@ -24,6 +25,7 @@ class MortgageInfoInputForm extends React.Component {
                     <TableHeader numeric name='loanAmount' cellFormatter={formatWholeDollarAmount} tooltip='The loan amount'>Loan amount</TableHeader>
                     <TableHeader numeric name='numYears' tooltip='Number of years'>Number of years</TableHeader>
                     <TableHeader numeric name='yearlyInterest' cellFormatter={formatPrecent} tooltip='Yearly interest rate'>Interest rate</TableHeader>
+                    <TableHeader numeric name='monthlyPayment' cellFormatter={formatWholeDollarAmount} tooltip='Monthly payment'>Monthly payment</TableHeader>
                 </DataTable>
             </div>
         );

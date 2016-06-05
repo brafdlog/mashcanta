@@ -79,13 +79,18 @@ class Root extends React.Component {
 
     onAddNewPart = ({ numYears, yearlyInterest, loanAmount }) => {
         const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
-        mortgageParts.push({
+
+        const newMortgagePart = {
             id: generateId(),
             order: mortgageParts.length,
             loanAmount,
             numYears,
             yearlyInterest
-        });
+        };
+        const calculatedInfo = Calculator.getMortgageInfo(newMortgagePart);
+        newMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment;
+
+        mortgageParts.push(newMortgagePart);
         const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts };
         this.setState({ mortgageInfo: updatedMortgageInfo });
         this.saveToStorage(updatedMortgageInfo);
