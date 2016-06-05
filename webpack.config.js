@@ -28,7 +28,7 @@ module.exports = {
         cache: true
     },
 	devServer: {
-		contentBase: "./public",
+		contentBase: "./dev-server",
 			noInfo: true, //  --no-info option
 			hot: true,
 			inline: true
