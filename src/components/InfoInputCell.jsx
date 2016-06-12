@@ -40,16 +40,34 @@ class InfoInputCell extends React.Component {
         };
         const formattedContent = this.props.cellFormatter(content);
         return (
-            <div className='InfoInputCellContainer'>
-                <Textfield
-                    onChange={this.onChange}
-                    label={label}
-                    value={formattedContent}
-                    style={style}
-                    disabled={this.props.disabled}
-                />
+            <div className='InfoInputCellContainer' identifier={this.getCellIdentifier()} onClick={this.props.disabled ? '' : this.onClick}>
+                {this.state.isBeingEdited ?
+                    <Textfield className='textField'
+                        onChange={this.onChange}
+                        label={label}
+                        value={formattedContent}
+                        style={style}
+                        disabled={this.props.disabled}
+                    /> : <div style={style}> {formattedContent} </div>
+                }
             </div>
         );
+    }
+
+    getCellIdentifier() {
+        return btoa(this.props.content);
+    }
+
+    onClick = (event) => {
+        /* global $ */
+        // This code handles changing editing state when user clicked outside the cell
+        $(document).on('click.inputCell', even => {
+            if (!$(even.target).closest(`.InfoInputCellContainer[identifier=\"${this.getCellIdentifier()}\"]`).length) {
+                this.setState({ isBeingEdited: false });
+                $(document).off('click.inputCell');
+            }
+        });
+        this.setState({ isBeingEdited: true });
     }
 
     onChange = (event) => {
