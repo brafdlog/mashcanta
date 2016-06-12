@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { List, ListItem, ListItemContent } from 'react-mdl';
+import { List, ListItem, ListItemContent, ListItemAction, Icon } from 'react-mdl';
 import './MortgageInfoInputForm.scss';
 import Flex from './Flex';
 import InfoInputCell from './InfoInputCell';
@@ -11,6 +11,7 @@ class MortgageInfoInputForm extends React.Component {
 
     static propTypes = {
         handleChange: func,
+        handleDelete: func,
         mortgageParts: arrayOf(shape({
             id: string,
             order: number,
@@ -25,7 +26,7 @@ class MortgageInfoInputForm extends React.Component {
         return (
             <div className='MortgageInfoInputFormContainer'>
                 <List>
-                    <ListItem className='headingListItem' key='heading'>
+                    <ListItem className='headingListItem listItem' key='heading'>
                         <ListItemContent>
                             <Flex>
                                 <span> Loan Amount </span>
@@ -37,7 +38,7 @@ class MortgageInfoInputForm extends React.Component {
                     </ListItem>
                     {this.props.mortgageParts.map(part => {
                         return (
-                            <ListItem key={part.id}>
+                            <ListItem className='listItem' key={part.id}>
                                 <ListItemContent>
                                     <Flex>
                                         <InfoInputCell content={part.loanAmount} onContentChange={this.buildChangeHandler(part, 'loanAmount')} cellFormatter={formatWholeDollarAmount} />
@@ -46,6 +47,9 @@ class MortgageInfoInputForm extends React.Component {
                                         <InfoInputCell content={part.monthlyPayment} onContentChange={this.buildChangeHandler(part, 'monthlyPayment')} cellFormatter={formatWholeDollarAmount} disabled width={70} />
                                     </Flex>
                                 </ListItemContent>
+                                <ListItemAction className='listItemAction'>
+                                    <a href='#' onClick={this.buildDeleteHandler(part.id)}><Icon name='delete' /></a>
+                                </ListItemAction>
                             </ListItem>
                         );
                     })}
@@ -58,10 +62,18 @@ class MortgageInfoInputForm extends React.Component {
         return this.onChange.bind(this, part.id, propName);
     }
 
+    buildDeleteHandler(partId) {
+        return this.onDelete.bind(this, partId);
+    }
+
     onChange(partId, propChanged, newValue) {
         const originalPart = this.props.mortgageParts.find(part => part.id === partId);
         const updatedPart = { ...originalPart, [propChanged]: newValue };
         this.props.handleChange(updatedPart);
+    }
+
+    onDelete(partId) {
+        this.props.handleDelete(partId);
     }
 
 }

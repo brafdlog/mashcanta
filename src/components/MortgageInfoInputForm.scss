@@ -11,4 +11,22 @@
         }
     }
 
+    .listItem {
+        .listItemAction {
+            display: none;
+            margin-left: 0;
+            position: relative;
+            right: 47px;
+            a {
+                color: #8f1010;
+            }
+        }
+
+        &:hover {
+            .listItemAction {
+                display: block;
+            }
+        }
+    }
+
 }

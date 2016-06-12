@@ -30,7 +30,7 @@ class Root extends React.Component {
         return (
             <Flex className='container rootAppContainer'>
                 <Flex className='container' column >
-                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart} />
+                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart} handleDelete={this.onDeletePart} />
                     <AddNewPart handleAddPart={this.onAddNewPart} handleClearClicked={this.onClearClicked} />
                 </Flex>
                 <Flex className='container MortgageDetailsDisplayContainer' column>
@@ -70,6 +70,12 @@ class Root extends React.Component {
             totalPaymentToBank,
             costOfEachDollar
         };
+    }
+
+    onDeletePart = partId => {
+        let mortgageParts = [...this.state.mortgageInfo.mortgageParts];
+        mortgageParts = mortgageParts.filter(part => part.id !== partId);
+        this.setUpdatedMortgageParts(mortgageParts);
     }
 
     onAddNewPart = ({ numYears, yearlyInterest, loanAmount }) => {
