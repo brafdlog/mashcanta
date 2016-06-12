@@ -1,15 +1,18 @@
 import React, { PropTypes } from 'react';
-import { DataTable, TableHeader } from 'react-mdl';
+import { List, ListItem, ListItemContent } from 'react-mdl';
 import './MortgageInfoInputForm.scss';
+import Flex from './Flex';
+import InfoInputCell from './InfoInputCell';
 import { formatWholeDollarAmount, formatPrecent } from '../utils';
 
-const { func, shape, number, arrayOf } = PropTypes;
+const { func, shape, number, arrayOf, string } = PropTypes;
 
 class MortgageInfoInputForm extends React.Component {
 
     static propTypes = {
         handleChange: func,
         mortgageParts: arrayOf(shape({
+            id: string,
             order: number,
             loanAmount: number,
             numYears: number,
@@ -21,14 +24,44 @@ class MortgageInfoInputForm extends React.Component {
     render() {
         return (
             <div className='MortgageInfoInputFormContainer'>
-                <DataTable shadow={2} rows={this.props.mortgageParts}>
-                    <TableHeader numeric name='loanAmount' cellFormatter={formatWholeDollarAmount} tooltip='The loan amount'>Loan amount</TableHeader>
-                    <TableHeader numeric name='numYears' tooltip='Number of years'>Number of years</TableHeader>
-                    <TableHeader numeric name='yearlyInterest' cellFormatter={formatPrecent} tooltip='Yearly interest rate'>Interest rate</TableHeader>
-                    <TableHeader numeric name='monthlyPayment' cellFormatter={formatWholeDollarAmount} tooltip='Monthly payment'>Monthly payment</TableHeader>
-                </DataTable>
+                <List>
+                    <ListItem className='headingListItem' key='heading'>
+                        <ListItemContent>
+                            <Flex>
+                                <span> Loan Amount </span>
+                                <span> Years </span>
+                                <span> Interest </span>
+                                <span> Monthly payment </span>
+                            </Flex>
+                        </ListItemContent>
+                    </ListItem>
+                    {this.props.mortgageParts.map(part => {
+                        return (
+                            <ListItem key={part.id}>
+                                <ListItemContent>
+                                    <Flex>
+                                        <InfoInputCell content={part.loanAmount} onContentChange={this.buildChangeHandler(part, 'loanAmount')} cellFormatter={formatWholeDollarAmount} />
+                                        <InfoInputCell content={part.numYears} onContentChange={this.buildChangeHandler(part, 'numYears')} width={40} />
+                                        <InfoInputCell content={part.yearlyInterest} onContentChange={this.buildChangeHandler(part, 'yearlyInterest')} cellFormatter={formatPrecent} width={40} />
+                                        <InfoInputCell content={part.monthlyPayment} onContentChange={this.buildChangeHandler(part, 'monthlyPayment')} cellFormatter={formatWholeDollarAmount} disabled width={70} />
+                                    </Flex>
+                                </ListItemContent>
+                            </ListItem>
+                        );
+                    })}
+                </List>
             </div>
         );
+    }
+
+    buildChangeHandler(part, propName) {
+        return this.onChange.bind(this, part.id, propName);
+    }
+
+    onChange(partId, propChanged, newValue) {
+        const originalPart = this.props.mortgageParts.find(part => part.id === partId);
+        const updatedPart = { ...originalPart, [propChanged]: newValue };
+        this.props.handleChange(updatedPart);
     }
 
 }

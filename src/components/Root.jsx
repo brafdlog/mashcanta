@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { generateId } from '../utils';
 import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
@@ -29,7 +30,7 @@ class Root extends React.Component {
         return (
             <Flex className='container rootAppContainer'>
                 <Flex className='container' column >
-                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onChangeMortgageInfoInput} />
+                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart} />
                     <AddNewPart handleAddPart={this.onAddNewPart} handleClearClicked={this.onClearClicked} />
                 </Flex>
                 <Flex className='container MortgageDetailsDisplayContainer' column>
@@ -39,13 +40,7 @@ class Root extends React.Component {
         );
     }
 
-    state = {
-        mortgageInfo: {
-            mortgageParts: [
-
-            ]
-        }
-    };
+    state = EMPTY_STATE;
 
     getFromStorage = () => {
         const infoFromStorage = localStorage.getItem('mortgageInfo');
@@ -91,22 +86,29 @@ class Root extends React.Component {
         newMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment;
 
         mortgageParts.push(newMortgagePart);
-        const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts };
+        this.setUpdatedMortgageParts(mortgageParts);
+    }
+
+    onUpdateMortgagePart = updatedMortgagePart => {
+        // Clear the monthly payment so it will be recalculated
+        updatedMortgagePart.monthlyPayment = null;
+        const calculatedInfo = Calculator.getMortgageInfo(updatedMortgagePart);
+        updatedMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment;
+
+        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
+        const index = _.findIndex(mortgageParts, ['id', updatedMortgagePart.id]);
+        mortgageParts[index] = updatedMortgagePart;
+        this.setUpdatedMortgageParts(mortgageParts);
+    }
+
+    setUpdatedMortgageParts = updatedMorgageParts => {
+        const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts: updatedMorgageParts };
         this.setState({ mortgageInfo: updatedMortgageInfo });
         this.saveToStorage(updatedMortgageInfo);
     }
 
     onClearClicked = () => {
         this.setState(EMPTY_STATE);
-    }
-
-    onChangeMortgageInfoInput = (updatedMortgageInput) => {
-        const mortgageInfo = Calculator.getMortgageInfo(updatedMortgageInput);
-        // Turn string fields intp numbers
-        Object.keys(mortgageInfo).forEach(key => {
-            mortgageInfo[key] = Number(mortgageInfo[key]);
-        });
-        this.setState({ mortgageParts: [mortgageInfo]});
     }
 
 }

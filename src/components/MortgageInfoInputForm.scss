@@ -1,9 +1,14 @@
 .MortgageInfoInputFormContainer {
     
-
-
-    // Implementation specific css - remove if changing from data table component
-    .mdl-data-table td {
-        text-align: center;
+    ul > li {
+        padding: 0;
+    }   
+    
+    .headingListItem {
+        span {
+            font-size: 15px;
+            margin-right: 10px;
+        }
     }
+
 }

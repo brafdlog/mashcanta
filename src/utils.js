@@ -26,8 +26,13 @@ export const retainNDecimals = (someNumber, numDecimalsToRetain) => {
     if (isWholeNumber(someNumber)) {
         return someNumber;
     }
-    const numberWithoutDecimals = Number(someNumber.toFixed(numDecimalsToRetain));
-    return numberWithoutDecimals;
+    try {
+        const numberWithoutDecimals = Number(someNumber.toFixed(numDecimalsToRetain));
+        return numberWithoutDecimals;
+    } catch (error) {
+        console.log('Failed running retainNDecimals on ' + someNumber, error);
+        return someNumber;
+    }
 };
 
 export const addCommasToNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -35,3 +40,15 @@ export const addCommasToNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(
 export const formatWholeDollarAmount = (original) => '$' + addCommasToNumber(removeAllDecimals(original));
 
 export const formatPrecent = (original) => retainNDecimals(original, 2) + '%';
+
+export const replaceAll = (str, search, replacement) => {
+    return str.replace(new RegExp(search, 'g'), replacement);
+};
+
+export const formattedStringToNumber = fomattedStr => {
+    if (_.isNumber(fomattedStr)) {
+        return fomattedStr;
+    }
+    const withoutFormattingChars = replaceAll(fomattedStr, '[.,%$]', '');
+    return Number(withoutFormattingChars);
+};
