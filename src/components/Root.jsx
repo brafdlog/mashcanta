@@ -30,7 +30,9 @@ class Root extends React.Component {
         return (
             <Flex className='container rootAppContainer'>
                 <Flex className='container' column >
-                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart} handleDelete={this.onDeletePart} />
+                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
+                        handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
+                    />
                     <AddNewPart handleAddPart={this.onAddNewPart} handleClearClicked={this.onClearClicked} />
                 </Flex>
                 <Flex className='container MortgageDetailsDisplayContainer' column>
@@ -72,6 +74,34 @@ class Root extends React.Component {
         };
     }
 
+    onMovePartUp = partId => {
+        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
+        const partIndex = _.findIndex(mortgageParts, ['id', partId]);
+        if (partIndex > 0) {
+            this.swapPartOrder(mortgageParts, partIndex, partIndex - 1);
+        }
+    }
+
+    onMovePartDown = partId => {
+        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
+        const partIndex = _.findIndex(mortgageParts, ['id', partId]);
+        const isLastPart = partIndex === mortgageParts.length - 1;
+        if (!isLastPart) {
+            this.swapPartOrder(mortgageParts, partIndex, partIndex + 1);
+        }
+    }
+
+    swapPartOrder(mortgageParts, firstPartIndex, secondPartIndex) {
+        const firstPart = { ...mortgageParts[firstPartIndex]};
+        mortgageParts[firstPartIndex] = firstPart;
+        const secondPart = { ...mortgageParts[secondPartIndex]};
+        mortgageParts[secondPartIndex] = secondPart;
+        const partOrder = firstPart.order;
+        firstPart.order = secondPart.order;
+        secondPart.order = partOrder;
+        this.setUpdatedMortgageParts(mortgageParts);
+    }
+
     onDeletePart = partId => {
         let mortgageParts = [...this.state.mortgageInfo.mortgageParts];
         mortgageParts = mortgageParts.filter(part => part.id !== partId);
@@ -108,6 +138,8 @@ class Root extends React.Component {
     }
 
     setUpdatedMortgageParts = updatedMorgageParts => {
+        // Sort parts by order
+        updatedMorgageParts.sort((part1, part2) => part1.order - part2.order);
         const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts: updatedMorgageParts };
         this.setState({ mortgageInfo: updatedMortgageInfo });
         this.saveToStorage(updatedMortgageInfo);

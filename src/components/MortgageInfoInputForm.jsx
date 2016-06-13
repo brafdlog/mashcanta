@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { List, ListItem, ListItemContent, ListItemAction, Icon } from 'react-mdl';
+import { List, ListItem, ListItemContent, ListItemAction, IconButton } from 'react-mdl';
 import './MortgageInfoInputForm.scss';
 import Flex from './Flex';
 import InfoInputCell from './InfoInputCell';
@@ -12,6 +12,8 @@ class MortgageInfoInputForm extends React.Component {
     static propTypes = {
         handleChange: func,
         handleDelete: func,
+        handleMoveUp: func,
+        handleMoveDown: func,
         mortgageParts: arrayOf(shape({
             id: string,
             order: number,
@@ -48,7 +50,11 @@ class MortgageInfoInputForm extends React.Component {
                                     </Flex>
                                 </ListItemContent>
                                 <ListItemAction className='listItemAction'>
-                                    <a href='#' onClick={this.buildDeleteHandler(part.id)}><Icon name='delete' /></a>
+                                    <div className='iconsContainer'>
+                                        <IconButton name='keyboard_arrow_up' onClick={this.buildMoveHandler('up', part.id)} />
+                                        <IconButton name='keyboard_arrow_down' onClick={this.buildMoveHandler('down', part.id)} />
+                                        <IconButton name='delete' onClick={this.buildDeleteHandler(part.id)} />
+                                    </div>
                                 </ListItemAction>
                             </ListItem>
                         );
@@ -64,6 +70,13 @@ class MortgageInfoInputForm extends React.Component {
 
     buildDeleteHandler(partId) {
         return this.onDelete.bind(this, partId);
+    }
+
+    buildMoveHandler(direction, partId) {
+        if (direction === 'up') {
+            return this.props.handleMoveUp.bind(this, partId);
+        }
+        return this.props.handleMoveDown.bind(this, partId);
     }
 
     onChange(partId, propChanged, newValue) {
