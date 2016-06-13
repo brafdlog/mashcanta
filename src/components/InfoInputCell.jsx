@@ -14,7 +14,8 @@ class InfoInputCell extends React.Component {
         label: string,
         width: number,
         cellFormatter: func,
-        disabled: bool
+        disabled: bool,
+        marginLeft: number
     }
 
     static defaultProps = {
@@ -34,10 +35,13 @@ class InfoInputCell extends React.Component {
     }
 
     render() {
-        const { label, content, width } = this.props;
+        const { label, content, width, marginLeft } = this.props;
         const style = {
             width: width + 'px'
         };
+        if (marginLeft) {
+            style.marginLeft = marginLeft + 'px';
+        }
         const formattedContent = this.props.cellFormatter(content);
         return (
             <div className='InfoInputCellContainer' identifier={this.getCellIdentifier()} onClick={this.props.disabled ? '' : this.onClick}>

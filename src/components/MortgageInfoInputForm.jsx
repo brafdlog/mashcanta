@@ -46,7 +46,9 @@ class MortgageInfoInputForm extends React.Component {
                                         <InfoInputCell content={part.loanAmount} onContentChange={this.buildChangeHandler(part, 'loanAmount')} cellFormatter={formatWholeDollarAmount} />
                                         <InfoInputCell content={part.numYears} onContentChange={this.buildChangeHandler(part, 'numYears')} width={40} />
                                         <InfoInputCell content={part.yearlyInterest} onContentChange={this.buildChangeHandler(part, 'yearlyInterest')} cellFormatter={formatPrecent} width={40} />
-                                        <InfoInputCell content={part.monthlyPayment} onContentChange={this.buildChangeHandler(part, 'monthlyPayment')} cellFormatter={formatWholeDollarAmount} disabled width={70} />
+                                        <InfoInputCell content={part.monthlyPayment} onContentChange={this.buildChangeHandler(part, 'monthlyPayment')} cellFormatter={formatWholeDollarAmount}
+                                            disabled width={70} marginLeft={25}
+                                        />
                                     </Flex>
                                 </ListItemContent>
                                 <ListItemAction className='listItemAction'>
