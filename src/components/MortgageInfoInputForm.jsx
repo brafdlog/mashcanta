@@ -25,6 +25,7 @@ class MortgageInfoInputForm extends React.Component {
     }
 
     render() {
+        const { mortgageParts } = this.props;
         return (
             <div className='MortgageInfoInputFormContainer'>
                 <List>
@@ -38,7 +39,7 @@ class MortgageInfoInputForm extends React.Component {
                             </Flex>
                         </ListItemContent>
                     </ListItem>
-                    {this.props.mortgageParts.map(part => {
+                    {mortgageParts.map((part, partIndex) => {
                         return (
                             <ListItem className='listItem' key={part.id}>
                                 <ListItemContent>
@@ -53,8 +54,8 @@ class MortgageInfoInputForm extends React.Component {
                                 </ListItemContent>
                                 <ListItemAction className='listItemAction'>
                                     <div className='iconsContainer'>
-                                        <IconButton name='keyboard_arrow_up' onClick={this.buildMoveHandler('up', part.id)} />
-                                        <IconButton name='keyboard_arrow_down' onClick={this.buildMoveHandler('down', part.id)} />
+                                        <IconButton name='keyboard_arrow_up' disabled={partIndex === 0} onClick={this.buildMoveHandler('up', part.id)} />
+                                        <IconButton name='keyboard_arrow_down' disabled={partIndex === mortgageParts.length - 1} onClick={this.buildMoveHandler('down', part.id)} />
                                         <IconButton name='delete' onClick={this.buildDeleteHandler(part.id)} />
                                     </div>
                                 </ListItemAction>
