@@ -33,7 +33,7 @@ class MortgageDetailsDisplay extends React.Component {
         let { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = this.props.mortgageInfo;
         // Remove ugly decimals
         totalPaymentToBank = formatWholeDollarAmount(totalPaymentToBank);
-        costOfEachDollar = retainNDecimals(costOfEachDollar, 2);
+        costOfEachDollar = retainNDecimals(costOfEachDollar, 3);
         monthlyPayment = formatWholeDollarAmount(monthlyPayment);
         loanAmount = formatWholeDollarAmount(loanAmount);
 
