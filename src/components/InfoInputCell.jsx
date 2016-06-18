@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
-import { Textfield } from 'react-mdl';
 import { formattedStringToNumber } from '../utils';
 import './InfoInputCell.scss';
 
@@ -28,57 +26,58 @@ class InfoInputCell extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isBeingEdited: false
+            content: props.content
         };
-        this.isNumericContent = _.isNumber(props.content);
-        this.onChange = this.onChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
     }
 
     render() {
-        const { label, content, width, marginLeft } = this.props;
+        const { width, marginLeft } = this.props;
         const style = {
             width: width + 'px'
         };
         if (marginLeft) {
             style.marginLeft = marginLeft + 'px';
         }
+        // Get content to display from state
+        const content = this.state.content;
         const formattedContent = this.props.cellFormatter(content);
         return (
-            <div className='InfoInputCellContainer' identifier={this.getCellIdentifier()} onClick={this.props.disabled ? '' : this.onClick}>
-                {this.state.isBeingEdited ?
-                    <Textfield className='textField'
-                        onChange={this.onChange}
-                        label={label}
-                        value={formattedContent}
-                        style={style}
-                        disabled={this.props.disabled}
-                    /> : <div style={style}> {formattedContent} </div>
-                }
+            <div className='InfoInputCellContainer'>
+                <input className='cellInput' onChange={this.handleChange} onBlur={this.handleBlur} value={formattedContent} style={style}
+                    onKeyPress={this.handleKeyPress} ref={this.saveInputElement}
+                />
             </div>
         );
+    }
+
+    state = {
+        content: '',
+        isBeingEdited: false
     }
 
     getCellIdentifier() {
         return btoa(this.props.content);
     }
 
-    onClick = (event) => {
-        /* global $ */
-        // This code handles changing editing state when user clicked outside the cell
-        $(document).on('click.inputCell', even => {
-            if (!$(even.target).closest(`.InfoInputCellContainer[identifier=\"${this.getCellIdentifier()}\"]`).length) {
-                this.setState({ isBeingEdited: false });
-                $(document).off('click.inputCell');
-            }
-        });
-        this.setState({ isBeingEdited: true });
+    handleBlur(event) {
+        const numberWithoutFormatting = this.getUnformattedContentFromEvent(event);
+        this.props.onContentChange(numberWithoutFormatting);
     }
 
-    onChange = (event) => {
+    handleChange(event) {
+        const numberWithoutFormatting = this.getUnformattedContentFromEvent(event);
+        this.setState({
+            content: numberWithoutFormatting
+        });
+    }
+
+    getUnformattedContentFromEvent = event => {
         const newContent = event.target.value;
         const numberWithoutFormatting = formattedStringToNumber(newContent);
-        this.props.onContentChange(numberWithoutFormatting);
-    };
+        return numberWithoutFormatting;
+    }
 
 }
 
