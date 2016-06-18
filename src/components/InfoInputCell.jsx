@@ -30,6 +30,7 @@ class InfoInputCell extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+        this.saveInputElementReference = this.saveInputElementReference.bind(this);
     }
 
     render() {
@@ -46,10 +47,22 @@ class InfoInputCell extends React.Component {
         return (
             <div className='InfoInputCellContainer'>
                 <input className='cellInput' onChange={this.handleChange} onBlur={this.handleBlur} value={formattedContent} style={style}
-                    onKeyPress={this.handleKeyPress} ref={this.saveInputElement}
+                    onKeyPress={this.handleKeyPress} ref={this.saveInputElementReference}
                 />
             </div>
         );
+    }
+
+    saveInputElementReference(inputElement) {
+        this.inputElement = inputElement;
+    }
+
+    handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            this.handleBlur(event);
+            /* global $ */
+            $(this.inputElement).blur();
+        }
     }
 
     state = {
