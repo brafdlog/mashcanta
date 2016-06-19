@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { List, ListItem, ListItemContent, ListItemAction, IconButton } from 'react-mdl';
+import cx from 'classnames';
 import './MortgageInfoInputForm.scss';
 import Flex from './Flex';
 import InfoInputCell from './InfoInputCell';
@@ -15,6 +16,7 @@ class MortgageInfoInputForm extends React.Component {
         handleDelete: func,
         handleMoveUp: func,
         handleMoveDown: func,
+        className: string,
         mortgageParts: arrayOf(shape({
             id: string,
             order: number,
@@ -26,9 +28,9 @@ class MortgageInfoInputForm extends React.Component {
     }
 
     render() {
-        const { mortgageParts } = this.props;
+        const { mortgageParts, className } = this.props;
         return (
-            <div className='MortgageInfoInputFormContainer'>
+            <div className={cx('MortgageInfoInputFormContainer', className)}>
                 <List>
                     <ListItem className='headingListItem listItem' key='heading'>
                         <ListItemContent>
