@@ -9,7 +9,7 @@
  * @param  {float} yearlyInterest  The yearly interest percent
  * @return {object}                       An object containing data about the mortgage
  */
-export function getMortgageInfo({ loanAmount, monthlyPayment, numYears, yearlyInterest }) {
+export function getMortgageInfo({ loanAmount = 0, monthlyPayment = 0, numYears = 0, yearlyInterest = 0 }) {
     // The yearlyInterest param will be something like 3.5 and we want to convert it to 0.035
     const yealyInterestDecimal = yearlyInterest / 100;
     const monthlyInterest = yealyInterestDecimal / 12;
@@ -23,8 +23,11 @@ export function getMortgageInfo({ loanAmount, monthlyPayment, numYears, yearlyIn
         loanAmount = monthlyPayment * ((r - Math.pow(r, numMonths + 1)) / (1 - r));
     }
 
+    monthlyPayment = monthlyPayment || 0;
+    loanAmount = loanAmount || 0;
+
     const totalPaymentToBank = numMonths * monthlyPayment;
-    const costOfEachDollar = totalPaymentToBank / loanAmount;
+    const costOfEachDollar = (totalPaymentToBank / loanAmount) || 0;
 
     return {
         loanAmount,

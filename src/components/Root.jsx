@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
+import { FABButton, Icon } from 'react-mdl';
 import { generateId } from '../utils';
 import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
-import AddNewPart from './AddNewPart';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import * as Calculator from '../calculator';
 import './Root.scss';
@@ -33,7 +33,9 @@ class Root extends React.Component {
                     <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
                         handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
                     />
-                    <AddNewPart handleAddPart={this.onAddNewPart} handleClearClicked={this.onClearClicked} />
+                    <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
+                        <Icon name='add' />
+                    </FABButton>
                 </Flex>
                 <Flex className='container MortgageDetailsDisplayContainer' column>
                     <MortgageDetailsDisplay mortgageInfo={this.calculateDetailsDisplayDetails()} />
@@ -108,19 +110,17 @@ class Root extends React.Component {
         this.setUpdatedMortgageParts(mortgageParts);
     }
 
-    onAddNewPart = ({ numYears, yearlyInterest, loanAmount }) => {
+    onAddNewPart = () => {
         const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
 
         const newMortgagePart = {
             id: generateId(),
             order: mortgageParts.length,
-            loanAmount,
-            numYears,
-            yearlyInterest
+            loanAmount: 0,
+            numYears: 0,
+            yearlyInterest: 0,
+            monthlyPayment: 0
         };
-        const calculatedInfo = Calculator.getMortgageInfo(newMortgagePart);
-        newMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment;
-
         mortgageParts.push(newMortgagePart);
         this.setUpdatedMortgageParts(mortgageParts);
     }
@@ -129,7 +129,7 @@ class Root extends React.Component {
         // Clear the monthly payment so it will be recalculated
         updatedMortgagePart.monthlyPayment = null;
         const calculatedInfo = Calculator.getMortgageInfo(updatedMortgagePart);
-        updatedMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment;
+        updatedMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment || 0;
 
         const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
         const index = _.findIndex(mortgageParts, ['id', updatedMortgagePart.id]);
