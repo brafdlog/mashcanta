@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import str from './localization';
 
 const POSSIBLE_ID_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -37,18 +38,18 @@ export const retainNDecimals = (someNumber, numDecimalsToRetain) => {
 
 export const addCommasToNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-export const formatWholeDollarAmount = (original) => '$' + addCommasToNumber(removeAllDecimals(original));
+export const formatWholeDollarAmount = (original) => str('currencySymbol') + addCommasToNumber(removeAllDecimals(original));
 
 export const formatPrecent = (original) => retainNDecimals(original, 2) + '%';
 
-export const replaceAll = (str, search, replacement) => {
-    return str.replace(new RegExp(search, 'g'), replacement);
+export const replaceAll = (originalString, search, replacement) => {
+    return originalString.replace(new RegExp(search, 'g'), replacement);
 };
 
 export const formattedStringToNumber = fomattedStr => {
     if (_.isNumber(fomattedStr)) {
         return fomattedStr;
     }
-    const withoutFormattingChars = replaceAll(fomattedStr, '[,%$]', '');
+    const withoutFormattingChars = replaceAll(fomattedStr, `[,%${str('currencySymbol')}]`, '');
     return Number(withoutFormattingChars);
 };

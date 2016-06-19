@@ -4,6 +4,7 @@ import './MortgageInfoInputForm.scss';
 import Flex from './Flex';
 import InfoInputCell from './InfoInputCell';
 import { formatWholeDollarAmount, formatPrecent } from '../utils';
+import str from '../localization';
 
 const { func, shape, number, arrayOf, string } = PropTypes;
 
@@ -32,10 +33,10 @@ class MortgageInfoInputForm extends React.Component {
                     <ListItem className='headingListItem listItem' key='heading'>
                         <ListItemContent>
                             <Flex>
-                                <span> Loan Amount </span>
-                                <span> Years </span>
-                                <span> Interest </span>
-                                <span> Monthly payment </span>
+                                <span> {str('loanAmount')} </span>
+                                <span> {str('years')} </span>
+                                <span> {str('interest')} </span>
+                                <span> {str('monthlyPayment')} </span>
                             </Flex>
                         </ListItemContent>
                     </ListItem>

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Textfield, Button } from 'react-mdl';
 import Flex from './Flex';
+import str from '../localization';
 import './AddNewPart.scss';
 
 const { func } = PropTypes;
@@ -32,8 +33,8 @@ class AddNewPart extends React.Component {
                         label='Interest rate' onChange={this.onInterestRateChange} floatingLabel
                     />
                 </Flex>
-                <Button raised colored onClick={this.onAddClicked}>Add</Button>
-                <Button className='clearButton' raised colored onClick={this.props.handleClearClicked}>Clear all</Button>
+                <Button raised colored onClick={this.onAddClicked}>{str('add')}</Button>
+                <Button className='clearButton' raised colored onClick={this.props.handleClearClicked}>{str('clearAll')}</Button>
             </div>
         );
     }
