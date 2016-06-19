@@ -97,13 +97,16 @@ class InfoInputCell extends React.Component {
     handleFocus(event) {
         const cellContent = event.target.value;
         const contentWithoutFormatting = formattedStringToNumber(cellContent);
+
+        // If the content was zero, clear the cell so the user doesn't need to delete the zero
+        const content = contentWithoutFormatting || '';
         this.setState({
-            content: contentWithoutFormatting
+            content
         });
     }
 
     getUnformattedContentFromEvent = event => {
-        const newContent = event.target.value;
+        const newContent = event.target.value || 0;
         const numberWithoutFormatting = formattedStringToNumber(newContent);
         return numberWithoutFormatting;
     }
