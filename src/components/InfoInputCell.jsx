@@ -52,7 +52,7 @@ class InfoInputCell extends React.Component {
         return (
             <div className='InfoInputCellContainer'>
                 <input className='cellInput' onChange={this.handleChange} onBlur={this.handleBlur} value={content} style={style}
-                    onKeyPress={this.handleKeyPress} onFocus={this.handleFocus} ref={this.saveInputElementReference}
+                    onKeyPress={this.handleKeyPress} onFocus={this.handleFocus} ref={this.saveInputElementReference} disabled={disabled}
                 />
             </div>
         );
