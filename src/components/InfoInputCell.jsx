@@ -33,6 +33,7 @@ class InfoInputCell extends React.Component {
         this.handleBlur = this.handleBlur.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.saveInputElementReference = this.saveInputElementReference.bind(this);
+        this.getCellContent = this.getCellContent.bind(this);
     }
 
     render() {
@@ -45,13 +46,7 @@ class InfoInputCell extends React.Component {
         if (marginLeft) {
             style.marginLeft = marginLeft + 'px';
         }
-        // Get content to display from state
-        let content = this.state.content;
-
-        // If the cell is in focus don't format the content
-        if (!$(this.inputElement).is(':focus')) {
-            content = this.props.cellFormatter(content);
-        }
+        const content = this.getCellContent();
         return (
             <div className={cx('InfoInputCellContainer', className)}>
                 <input className='cellInput' onChange={this.handleChange} onBlur={this.handleBlur} value={content} style={style}
@@ -59,6 +54,17 @@ class InfoInputCell extends React.Component {
                 />
             </div>
         );
+    }
+
+    getCellContent() {
+        // Get content to display. For disabled cells this will always be from the props
+        let content = this.props.disabled ? this.props.content : this.state.content;
+
+        // If the cell is in focus don't format the content
+        if (!$(this.inputElement).is(':focus')) {
+            content = this.props.cellFormatter(content);
+        }
+        return content;
     }
 
     saveInputElementReference(inputElement) {
