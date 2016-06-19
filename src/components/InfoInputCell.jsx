@@ -30,11 +30,12 @@ class InfoInputCell extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleBlur = this.handleBlur.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
         this.saveInputElementReference = this.saveInputElementReference.bind(this);
     }
 
     render() {
-        const { width, marginLeft } = this.props;
+        const { width, marginLeft, disabled } = this.props;
         const style = {
             width: width + 'px'
         };
@@ -42,12 +43,16 @@ class InfoInputCell extends React.Component {
             style.marginLeft = marginLeft + 'px';
         }
         // Get content to display from state
-        const content = this.state.content;
-        const formattedContent = this.props.cellFormatter(content);
+        let content = this.state.content;
+
+        // If the cell is in focus don't format the content
+        if (!$(this.inputElement).is(':focus')) {
+            content = this.props.cellFormatter(content);
+        }
         return (
             <div className='InfoInputCellContainer'>
-                <input className='cellInput' onChange={this.handleChange} onBlur={this.handleBlur} value={formattedContent} style={style}
-                    onKeyPress={this.handleKeyPress} ref={this.saveInputElementReference}
+                <input className='cellInput' onChange={this.handleChange} onBlur={this.handleBlur} value={content} style={style}
+                    onKeyPress={this.handleKeyPress} onFocus={this.handleFocus} ref={this.saveInputElementReference}
                 />
             </div>
         );
@@ -80,9 +85,17 @@ class InfoInputCell extends React.Component {
     }
 
     handleChange(event) {
-        const numberWithoutFormatting = this.getUnformattedContentFromEvent(event);
+        const newCellContent = event.target.value;
         this.setState({
-            content: numberWithoutFormatting
+            content: newCellContent
+        });
+    }
+
+    handleFocus(event) {
+        const cellContent = event.target.value;
+        const contentWithoutFormatting = formattedStringToNumber(cellContent);
+        this.setState({
+            content: contentWithoutFormatting
         });
     }
 

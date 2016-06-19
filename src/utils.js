@@ -49,6 +49,6 @@ export const formattedStringToNumber = fomattedStr => {
     if (_.isNumber(fomattedStr)) {
         return fomattedStr;
     }
-    const withoutFormattingChars = replaceAll(fomattedStr, '[.,%$]', '');
+    const withoutFormattingChars = replaceAll(fomattedStr, '[,%$]', '');
     return Number(withoutFormattingChars);
 };
