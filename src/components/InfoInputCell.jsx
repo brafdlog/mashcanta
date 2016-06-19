@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
 import { formattedStringToNumber } from '../utils';
 import './InfoInputCell.scss';
 
@@ -8,6 +9,7 @@ class InfoInputCell extends React.Component {
 
     static propTypes = {
         content: oneOfType([string, number]),
+        className: string,
         onContentChange: func,
         label: string,
         width: number,
@@ -17,7 +19,6 @@ class InfoInputCell extends React.Component {
     }
 
     static defaultProps = {
-        width: 100,
         label: '',
         // By default do nothing in the cell formatter
         cellFormatter: content => content
@@ -35,10 +36,12 @@ class InfoInputCell extends React.Component {
     }
 
     render() {
-        const { width, marginLeft, disabled } = this.props;
-        const style = {
-            width: width + 'px'
-        };
+        const { width, marginLeft, disabled, className } = this.props;
+        const style = {};
+
+        if (width) {
+            style.width = width + 'px';
+        }
         if (marginLeft) {
             style.marginLeft = marginLeft + 'px';
         }
@@ -50,7 +53,7 @@ class InfoInputCell extends React.Component {
             content = this.props.cellFormatter(content);
         }
         return (
-            <div className='InfoInputCellContainer'>
+            <div className={cx('InfoInputCellContainer', className)}>
                 <input className='cellInput' onChange={this.handleChange} onBlur={this.handleBlur} value={content} style={style}
                     onKeyPress={this.handleKeyPress} onFocus={this.handleFocus} ref={this.saveInputElementReference} disabled={disabled}
                 />

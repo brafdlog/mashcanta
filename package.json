@@ -28,6 +28,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
+    "classnames": "^2.2.5",
     "css-loader": "0.23.1",
     "eslint": "^2.11.0",
     "eslint-config-canonical": "^1.7.9",

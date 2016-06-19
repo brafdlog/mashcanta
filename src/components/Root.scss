@@ -1,5 +1,6 @@
 .rootAppContainer {
-    margin-left: 10px;
+    direction: rtl;
+    margin-right: 20px;
     margin-top: 10px;
 
     .MortgageInfoInputFormContainer {
@@ -7,7 +8,7 @@
     }
 
     .MortgageDetailsDisplayContainer {
-        margin-left: 20px;
+        margin-right: 20px;
         margin-top: 20px;
     }
 }

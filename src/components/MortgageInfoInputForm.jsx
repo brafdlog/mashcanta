@@ -33,10 +33,10 @@ class MortgageInfoInputForm extends React.Component {
                     <ListItem className='headingListItem listItem' key='heading'>
                         <ListItemContent>
                             <Flex>
-                                <span> {str('loanAmount')} </span>
-                                <span> {str('years')} </span>
-                                <span> {str('interest')} </span>
-                                <span> {str('monthlyPayment')} </span>
+                                <span className='columnHeading amountColumn'> {str('amount')} </span>
+                                <span className='columnHeading numYearsColumn'> {str('years')} </span>
+                                <span className='columnHeading interestColumn'> {str('interest')} </span>
+                                <span className='columnHeading monthlyPaymentColumn'> {str('monthlyPayment')} </span>
                             </Flex>
                         </ListItemContent>
                     </ListItem>
@@ -45,11 +45,11 @@ class MortgageInfoInputForm extends React.Component {
                             <ListItem className='listItem' key={part.id}>
                                 <ListItemContent>
                                     <Flex>
-                                        <InfoInputCell content={part.loanAmount} onContentChange={this.buildChangeHandler(part, 'loanAmount')} cellFormatter={formatWholeDollarAmount} />
-                                        <InfoInputCell content={part.numYears} onContentChange={this.buildChangeHandler(part, 'numYears')} width={40} />
-                                        <InfoInputCell content={part.yearlyInterest} onContentChange={this.buildChangeHandler(part, 'yearlyInterest')} cellFormatter={formatPrecent} width={40} />
-                                        <InfoInputCell content={part.monthlyPayment} onContentChange={this.buildChangeHandler(part, 'monthlyPayment')} cellFormatter={formatWholeDollarAmount}
-                                            disabled width={70} marginLeft={25}
+                                        <InfoInputCell className='column amountColumn' content={part.loanAmount} onContentChange={this.buildChangeHandler(part, 'loanAmount')} cellFormatter={formatWholeDollarAmount} />
+                                        <InfoInputCell className='column numYearsColumn' content={part.numYears} onContentChange={this.buildChangeHandler(part, 'numYears')} />
+                                        <InfoInputCell className='column interestColumn' content={part.yearlyInterest} onContentChange={this.buildChangeHandler(part, 'yearlyInterest')} cellFormatter={formatPrecent} />
+                                        <InfoInputCell className='column monthlyPaymentColumn' content={part.monthlyPayment} onContentChange={this.buildChangeHandler(part, 'monthlyPayment')} cellFormatter={formatWholeDollarAmount}
+                                            disabled marginLeft={25}
                                         />
                                     </Flex>
                                 </ListItemContent>
