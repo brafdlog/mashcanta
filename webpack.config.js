@@ -3,11 +3,10 @@ var path = require('path');
 var getLoaders = require('./webpack.loaders');
 
 module.exports = {
-	entry: [
-		'webpack-dev-server/client?http://0.0.0.0:8181', // WebpackDevServer host and port
-		'webpack/hot/only-dev-server',
-		'./src/index.jsx' // Your appʼs entry point
-	],
+	entry: {
+		app: './src/index.jsx',
+		vendor: ['lodash', 'react', 'react-dom']
+	},
 	devtool: process.env.WEBPACK_DEVTOOL || 'source-map',
 	output: {
 		path: path.join(__dirname, 'public'),
@@ -34,6 +33,7 @@ module.exports = {
 			inline: true
 		},
 	plugins: [
-		new webpack.NoErrorsPlugin()
+		new webpack.NoErrorsPlugin(),
+		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
 	]
 };
