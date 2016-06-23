@@ -11,7 +11,8 @@ const ENGLISH_STRINGS = {
     totalPayment: 'Total Payment',
     costOfDollar: 'Cost Of Dollar',
     add: 'Add',
-    clearAll: 'Clear all'
+    clearAll: 'Clear all',
+    loanCost: 'Loan cost'
 };
 
 const HEBREW_STRINGS = {
@@ -24,7 +25,8 @@ const HEBREW_STRINGS = {
     totalPayment: 'תשלום סה״כ',
     costOfDollar: 'עלות כל שקל',
     add: 'הוסף',
-    clearAll: 'נקה הכל'
+    clearAll: 'נקה הכל',
+    loanCost: 'עלות ההלואה'
 };
 
 const strings = {

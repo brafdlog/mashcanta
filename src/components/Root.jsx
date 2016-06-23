@@ -5,6 +5,7 @@ import { generateId } from '../utils';
 import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
+import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import * as Calculator from '../calculator';
 import './Root.scss';
 
@@ -27,19 +28,29 @@ class Root extends React.Component {
 
     render() {
         const { mortgageParts } = this.state.mortgageInfo;
+        const loanDetails = this.calculateDetailsDisplayDetails();
+        const loanAmount = loanDetails.loanAmount;
+        const loanCost = loanDetails.totalPaymentToBank - loanAmount;
+        const showGraph = loanAmount && loanDetails.totalPaymentToBank > 0;
         return (
-            <Flex className='container rootAppContainer'>
-                <Flex className='container' column >
-                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
-                        handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
-                    />
-                    <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
-                        <Icon name='add' />
-                    </FABButton>
+            <Flex className='container rootAppContainer' column>
+                <Flex>
+                    <Flex className='container' column >
+                        <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
+                            handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
+                        />
+                        <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
+                            <Icon name='add' />
+                        </FABButton>
+                    </Flex>
+                    <Flex className='container MortgageDetailsDisplayContainer' column>
+                        <MortgageDetailsDisplay mortgageInfo={loanDetails} />
+                    </Flex>
                 </Flex>
-                <Flex className='container MortgageDetailsDisplayContainer' column>
-                    <MortgageDetailsDisplay mortgageInfo={this.calculateDetailsDisplayDetails()} />
+                <Flex>
+                    {showGraph ? <CostOfDollarGraph loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                 </Flex>
+
             </Flex>
         );
     }
