@@ -16,9 +16,6 @@ class CostOfDollarGraph extends React.Component {
         loanCost: number
     }
 
-    static defaultProps = {
-    }
-
     render() {
         const { loanAmount, loanCost, className } = this.props;
 
@@ -43,6 +40,7 @@ class CostOfDollarGraph extends React.Component {
                     sectorBorderColor='white'
                     hoverAnimation={false}
                     valueTextFormatter={formatWholeDollarAmount}
+                    title={str('loanCost')}
                 />
             </div>
         );
