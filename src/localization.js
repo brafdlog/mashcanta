@@ -4,6 +4,7 @@ const languageCode = 'he';
 const ENGLISH_STRINGS = {
     currencySymbol: '$',
     years: 'Years',
+    year: 'Year',
     interest: 'Interest',
     loanAmount: 'Loan Amount',
     amount: 'Amount',
@@ -12,12 +13,14 @@ const ENGLISH_STRINGS = {
     costOfDollar: 'Cost Of Dollar',
     add: 'Add',
     clearAll: 'Clear all',
-    loanCost: 'Loan cost'
+    loanCost: 'Loan cost',
+    paymentsGraph: 'Payment Graph'
 };
 
 const HEBREW_STRINGS = {
     currencySymbol: '₪',
     years: 'שנים',
+    year: 'שנה',
     interest: 'ריבית',
     loanAmount: 'סכום ההלואה',
     amount: 'סכום',
@@ -26,7 +29,8 @@ const HEBREW_STRINGS = {
     costOfDollar: 'עלות כל שקל',
     add: 'הוסף',
     clearAll: 'נקה הכל',
-    loanCost: 'עלות ההלואה'
+    loanCost: 'עלות ההלואה',
+    paymentsGraph: 'גרף תשלומים'
 };
 
 const strings = {

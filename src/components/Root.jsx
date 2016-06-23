@@ -6,6 +6,7 @@ import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
+import PaymentsGraph from './graphs/PaymentsGraph';
 import * as Calculator from '../calculator';
 import './Root.scss';
 
@@ -49,6 +50,7 @@ class Root extends React.Component {
                 </Flex>
                 <Flex>
                     {showGraph ? <CostOfDollarGraph loanAmount={loanAmount} loanCost={loanCost} /> : ''}
+                    {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                 </Flex>
 
             </Flex>
