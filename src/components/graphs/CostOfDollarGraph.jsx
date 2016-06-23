@@ -41,6 +41,7 @@ class CostOfDollarGraph extends React.Component {
                     radius={110}
                     innerRadius={50}
                     sectorBorderColor='white'
+                    hoverAnimation={false}
                     valueTextFormatter={formatWholeDollarAmount}
                 />
             </div>
