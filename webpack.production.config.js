@@ -3,9 +3,10 @@ var path = require('path');
 var getLoaders = require('./webpack.loaders');
 
 module.exports = {
-	entry: [
-		'./src/index.jsx' // appʼs entry point
-	],
+	entry: {
+		app: './src/index.jsx',
+		vendor: ['lodash', 'react', 'react-dom']
+	},
 	output: {
 		path: path.join(__dirname, 'public'),
 		filename: 'bundle.js'
@@ -21,6 +22,7 @@ module.exports = {
 	    'process.env': {
 	      'NODE_ENV': JSON.stringify('production')
 	    }
-	  })
+	  }),
+	  new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
 	]
 };
