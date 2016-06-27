@@ -10,7 +10,7 @@ describe('Mashcanta calculator', function() {
             let numYears = 15;
             let interestRate = 3.5;
 
-            const mortgageInfo = calculator.getMortgageInfo({ monthlyPayment, numYears, yearlyInterest: interestRate });
+            const mortgageInfo = calculator.getMortgagePartInfo({ monthlyPayment, numYears, yearlyInterest: interestRate });
             expect(mortgageInfo.loanAmount).to.be.closeTo(608492, ALLOWED_DIFFERENCE);
             expect(mortgageInfo.totalPaymentToBank).to.equal(783000);
             expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.286, 0.001);
@@ -21,7 +21,7 @@ describe('Mashcanta calculator', function() {
             let numYears = 10;
             let interestRate = 2.8;
 
-            const mortgageInfo = calculator.getMortgageInfo({ monthlyPayment, numYears, yearlyInterest: interestRate });
+            const mortgageInfo = calculator.getMortgagePartInfo({ monthlyPayment, numYears, yearlyInterest: interestRate });
             expect(mortgageInfo.loanAmount).to.be.closeTo(418234, ALLOWED_DIFFERENCE);
             expect(mortgageInfo.totalPaymentToBank).to.equal(480000);
             expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.148, 0.001);
@@ -34,7 +34,7 @@ describe('Mashcanta calculator', function() {
             let numYears = 15;
             let interestRate = 3.5;
 
-            const mortgageInfo = calculator.getMortgageInfo({ loanAmount, numYears, yearlyInterest: interestRate });
+            const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate });
             expect(mortgageInfo.monthlyPayment).to.be.closeTo(5004, ALLOWED_DIFFERENCE);
             expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(900752, ALLOWED_DIFFERENCE);
             expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.287, 0.001);
@@ -45,7 +45,7 @@ describe('Mashcanta calculator', function() {
             let numYears = 22;
             let interestRate = 6.7;
 
-            const mortgageInfo = calculator.getMortgageInfo({ loanAmount, numYears, yearlyInterest: interestRate });
+            const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate });
             expect(mortgageInfo.monthlyPayment).to.be.closeTo(8628.21, ALLOWED_DIFFERENCE);
             expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(2277847, ALLOWED_DIFFERENCE);
             expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.914, 0.001);

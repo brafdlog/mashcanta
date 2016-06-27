@@ -70,7 +70,7 @@ class Root extends React.Component {
     }
 
     calculateDetailsDisplayDetails = () => {
-        const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgageInfo(mortgagePart));
+        const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgagePartInfo(mortgagePart));
         let loanAmount = 0;
         let monthlyPayment = 0;
         let totalPaymentToBank = 0;
@@ -141,7 +141,7 @@ class Root extends React.Component {
     onUpdateMortgagePart = updatedMortgagePart => {
         // Clear the monthly payment so it will be recalculated
         updatedMortgagePart.monthlyPayment = null;
-        const calculatedInfo = Calculator.getMortgageInfo(updatedMortgagePart);
+        const calculatedInfo = Calculator.getMortgagePartInfo(updatedMortgagePart);
         updatedMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment || 0;
 
         const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
