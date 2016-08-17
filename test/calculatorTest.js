@@ -4,6 +4,7 @@ import * as calculator from '../src/calculator';
 const ALLOWED_DIFFERENCE = 0.8;
 
 describe('Mashcanta calculator', function() {
+    
     describe('getMortgagePartInfo', function() {
         it('should calculate mortgage details for loan amount of 700000, interest 3.5, 15 years', function() {
             let loanAmount = 700000;
@@ -63,6 +64,60 @@ describe('Mashcanta calculator', function() {
                 principal: 3080.2,
                 interest: 5548.01
             });
+        });
+    });
+
+    describe('mergeMortgateInfoParts', function() {
+        it('should merge multiple parts and calculate the totals', function() {
+            const part1 = {
+                loanAmount: 1000,
+                monthlyPayment: 100,
+                totalPaymentToBank: 1500,
+                paymentDetailsPerMonth: [
+                    {
+                        principal: 100,
+                        interest: 200
+                    },
+                    {
+                        principal: 150,
+                        interest: 150
+                    }
+                ]
+            }
+
+            const part2 = {
+                loanAmount: 2000,
+                monthlyPayment: 300,
+                totalPaymentToBank: 4000,
+                paymentDetailsPerMonth: [
+                    {
+                        principal: 10,
+                        interest: 17
+                    },
+                    {
+                        principal: 12,
+                        interest: 11
+                    }
+                ]
+            }
+
+            const mergedMortgageInfo = calculator.mergeMortgateInfoParts([part1, part2]);
+
+            expect(mergedMortgageInfo.loanAmount).to.equal(3000);
+            expect(mergedMortgageInfo.monthlyPayment).to.equal(400);
+            expect(mergedMortgageInfo.totalPaymentToBank).to.equal(5500);
+            expect(mergedMortgageInfo.costOfEachDollar).to.be.closeTo(1.833, ALLOWED_DIFFERENCE);
+            expect(mergedMortgageInfo.paymentDetailsPerMonth).to.deep.equal([
+                {
+                    principal: 110,
+                    interest: 217
+                },
+                {
+                    principal: 162,
+                    interest: 161
+                }
+            ]);
+
         });
     });
 

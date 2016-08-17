@@ -1,5 +1,6 @@
 /* eslint id-length: "off", no-param-reassign: "off" */
 import { retainNDecimals } from './utils';
+import _ from 'lodash';
 
 /**
  * Get mortgage info
@@ -57,22 +58,46 @@ export function getMonthlyPaymentByLoanAmount({ loanAmount = 0, numYears = 0, ye
     return monthlyPayment || 0;
 }
 
+/**
+ * Gets the calculated info of mortgage parts and merges them to get the totals
+ * for the whole mortgage
+ * @param  an array of calculated mortgage parts info elements
+ */
 export function mergeMortgateInfoParts(calculatedMortgageInfoParts) {
+    let paymentDetailsPerMonth = [];
     let loanAmount = 0;
     let monthlyPayment = 0;
     let totalPaymentToBank = 0;
+
     calculatedMortgageInfoParts.forEach(mortgagePart => {
         loanAmount += mortgagePart.loanAmount;
         monthlyPayment += mortgagePart.monthlyPayment;
         totalPaymentToBank += mortgagePart.totalPaymentToBank;
+
+        // merge the paymentDetailsPerMonth
+        paymentDetailsPerMonth = mortgagePart.paymentDetailsPerMonth.map((monthPaymentDetails, monthIndex) => {
+            if (!paymentDetailsPerMonth[monthIndex]) {
+                paymentDetailsPerMonth[monthIndex] = {
+                    principal: 0,
+                    interest: 0
+                };
+            }
+            const sum = {
+                principal: monthPaymentDetails.principal + paymentDetailsPerMonth[monthIndex].principal,
+                interest: monthPaymentDetails.interest + paymentDetailsPerMonth[monthIndex].interest
+            };
+            return sum;
+        });
     });
+
     const costOfEachDollar = totalPaymentToBank / loanAmount;
 
     return {
         loanAmount,
         monthlyPayment,
         totalPaymentToBank,
-        costOfEachDollar
+        costOfEachDollar,
+        paymentDetailsPerMonth
     };
 }
 
