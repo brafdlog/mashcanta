@@ -29,7 +29,9 @@ class Root extends React.Component {
 
     render() {
         const { mortgageParts } = this.state.mortgageInfo;
-        const loanDetails = this.calculateDetailsDisplayDetails();
+        const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgagePartInfo(mortgagePart));
+
+        const loanDetails = Calculator.mergeMortgateInfoParts(calculatedMortgageInfoParts);
         const loanAmount = loanDetails.loanAmount;
         const loanCost = loanDetails.totalPaymentToBank - loanAmount;
         const showGraph = loanAmount && loanDetails.totalPaymentToBank > 0;
@@ -67,26 +69,6 @@ class Root extends React.Component {
     saveToStorage = (infoToSave) => {
         const infoJson = JSON.stringify(infoToSave);
         localStorage.setItem('mortgageInfo', infoJson);
-    }
-
-    calculateDetailsDisplayDetails = () => {
-        const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgagePartInfo(mortgagePart));
-        let loanAmount = 0;
-        let monthlyPayment = 0;
-        let totalPaymentToBank = 0;
-        calculatedMortgageInfoParts.forEach(mortgagePart => {
-            loanAmount += mortgagePart.loanAmount;
-            monthlyPayment += mortgagePart.monthlyPayment;
-            totalPaymentToBank += mortgagePart.totalPaymentToBank;
-        });
-        const costOfEachDollar = totalPaymentToBank / loanAmount;
-
-        return {
-            loanAmount,
-            monthlyPayment,
-            totalPaymentToBank,
-            costOfEachDollar
-        };
     }
 
     onMovePartUp = partId => {

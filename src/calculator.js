@@ -57,6 +57,25 @@ export function getMonthlyPaymentByLoanAmount({ loanAmount = 0, numYears = 0, ye
     return monthlyPayment || 0;
 }
 
+export function mergeMortgateInfoParts(calculatedMortgageInfoParts) {
+    let loanAmount = 0;
+    let monthlyPayment = 0;
+    let totalPaymentToBank = 0;
+    calculatedMortgageInfoParts.forEach(mortgagePart => {
+        loanAmount += mortgagePart.loanAmount;
+        monthlyPayment += mortgagePart.monthlyPayment;
+        totalPaymentToBank += mortgagePart.totalPaymentToBank;
+    });
+    const costOfEachDollar = totalPaymentToBank / loanAmount;
+
+    return {
+        loanAmount,
+        monthlyPayment,
+        totalPaymentToBank,
+        costOfEachDollar
+    };
+}
+
 /*
  * Change the given parameters to parameters that are needed for the calculations
  */
