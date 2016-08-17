@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
-import rd3 from 'rd3';
 import './CostOfDollarGraph.scss';
 import str from '../../localization';
-import { formatWholeDollarAmount } from '../../utils';
-const PieChart = rd3.PieChart;
+import { removeAllDecimals } from '../../utils';
+import { Doughnut } from 'react-chartjs-2';
 
 const { string, number } = PropTypes;
 
@@ -19,29 +18,43 @@ class CostOfDollarGraph extends React.Component {
     render() {
         const { loanAmount, loanCost, className } = this.props;
 
-        const pieChartData = [
-            {
-                label: str('loanCost'),
-                value: loanCost
-            },
-            {
-                label: str('loanAmount'),
-                value: loanAmount
-            }
-        ];
+        const loanAmountFormatted = removeAllDecimals(loanAmount);
+        const loanCostFormatted = removeAllDecimals(loanCost);
+
+        const pieChartData = {
+            labels: [
+                str('loanCost'),
+                str('loanAmount')
+            ],
+            datasets: [{
+                data: [loanCostFormatted, loanAmountFormatted],
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB'
+                ],
+                hoverBackgroundColor: [
+                    '#FF6384',
+                    '#36A2EB'
+                ]
+            }]
+        };
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false
+            // TODO here need to format the tooltip using formatWholeDollarAmount
+            // tooltips: {
+            //     callbacks: {
+            //         label: (tooltipItem, data) => {
+            //             return tooltipItems.yLabel + 'moo';
+            //         }
+            //     }
+            // }
+        };
         return (
             <div className={cx('CostOfDollarGraphContainer', className)}>
-                <PieChart
-                    data={pieChartData}
-                    width={450}
-                    height={400}
-                    radius={110}
-                    innerRadius={50}
-                    sectorBorderColor='white'
-                    hoverAnimation={false}
-                    valueTextFormatter={formatWholeDollarAmount}
-                    title={str('loanCost')}
-                />
+                <h3 className='graphTitle'>{str('loanCost')}</h3>
+                <Doughnut data={pieChartData} options={options} />
             </div>
         );
     }
