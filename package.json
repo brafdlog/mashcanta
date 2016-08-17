@@ -7,7 +7,7 @@
     "deploy": "npm run test && npm run build && firebase deploy",
     "build": "NODE_ENV=production webpack -p --config webpack.production.config.js --progress --profile --colors",
     "dev": "webpack-dev-server --port 8181 --progress --profile --colors --hot",
-    "test": "mocha ./test/**/*.js --compilers js:babel-register"
+    "test": "mocha ./test/**/*.js --compilers js:babel-register --watch"
   },
   "repository": {
     "type": "git",
