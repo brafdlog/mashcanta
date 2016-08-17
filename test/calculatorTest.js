@@ -1,6 +1,6 @@
 /* eslint-disable */
-const expect = require('chai').expect;
-const calculator = require('../src/calculator');
+import { expect } from 'chai';
+import * as calculator from '../src/calculator';
 const ALLOWED_DIFFERENCE = 0.8;
 
 describe('Mashcanta calculator', function() {
