@@ -1,6 +1,5 @@
 /* eslint id-length: "off", no-param-reassign: "off" */
 import { retainNDecimals } from './utils';
-import _ from 'lodash';
 
 /**
  * Get mortgage info
