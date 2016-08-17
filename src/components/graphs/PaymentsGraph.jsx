@@ -1,3 +1,4 @@
+/* eslint id-length: "off" */
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import rd3 from 'rd3';
