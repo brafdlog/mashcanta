@@ -50,11 +50,11 @@ class PaymentsGraph extends React.Component {
         ];
         return (
             <div className={cx('PaymentsGraphContainer', className)}>
+                <h3 className='graphTitle'>{str('paymentsGraph')}</h3>
                 <BarChart
                     data={barData}
                     width={700}
                     height={300}
-                    title={str('paymentsGraph')}
                     xAxisLabel={str('year')}
                     yAxisLabel={str('monthlyPayment')}
                 />
