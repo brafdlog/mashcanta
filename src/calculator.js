@@ -57,6 +57,9 @@ export function getMonthlyPaymentByLoanAmount({ loanAmount = 0, numYears = 0, ye
     return monthlyPayment || 0;
 }
 
+/*
+ * Change the given parameters to parameters that are needed for the calculations
+ */
 function transformParameters(numYears, yearlyInterest) {
     const monthlyInterest = calculateMonthlyInterest(yearlyInterest);
     const numMonths = numYears * 12;
@@ -71,6 +74,15 @@ function transformParameters(numYears, yearlyInterest) {
     };
 }
 
+/*
+ * For each month calculate how much of that month's payment will be interest and how
+ * much will be principal.
+ * @returns an array of objects, each looks something like this:
+ * {
+ *     principal: 1000,
+ *     interest: 2000
+ * }
+ */
 function calculatePaymentDetailsPerMonth(loanAmount, numMonths, monthlyPayment, monthlyInterest) {
     const paymentDetailsPerMonth = [];
 
