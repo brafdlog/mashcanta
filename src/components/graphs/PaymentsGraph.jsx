@@ -7,7 +7,7 @@ import { Bar } from 'react-chartjs-2';
 import _ from 'lodash';
 import './PaymentsGraph.scss';
 
-const { string, number, arrayOf, shape } = PropTypes;
+const { string, number, arrayOf, shape, bool } = PropTypes;
 
 class PaymentsGraph extends React.Component {
 
@@ -19,23 +19,28 @@ class PaymentsGraph extends React.Component {
         })).isRequired,
         maxXElements: number,
         width: number,
-        height: number
+        height: number,
+        yearlyGraph: bool
     }
 
     static defaultProps = {
         maxXElements: 30,
         width: 800,
-        height: 300
+        height: 300,
+        yearlyGraph: true
     }
 
     render() {
-        const { className, paymentDetailsPerMonth, width, height } = this.props;
+        const { className, paymentDetailsPerMonth, width, height, yearlyGraph } = this.props;
 
-        const paymentDetailsPerMonthSliced = paymentDetailsPerMonth.slice(0, this.props.maxXElements);
-        const numXValues = paymentDetailsPerMonthSliced.length;
+        const paymentDetailsPerYear = this.batchToYears(paymentDetailsPerMonth);
+
+        const paymentDetailsPerPeriod = yearlyGraph ? paymentDetailsPerYear : paymentDetailsPerMonth;
+        const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(0, this.props.maxXElements);
+        const numXValues = paymentDetailsPerPeriodSliced.length;
 
         const data = {
-            labels: _.range(numXValues),
+            labels: _.range(1, numXValues + 1),
             datasets: [
                 {
                     label: str('principal'),
@@ -44,7 +49,7 @@ class PaymentsGraph extends React.Component {
                     // borderWidth: 1,
                     // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                     // hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: paymentDetailsPerMonthSliced.map(monthPaymentDetails => removeAllDecimals(monthPaymentDetails.principal))
+                    data: paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails.principal))
                 },
                 {
                     label: str('interest'),
@@ -53,7 +58,7 @@ class PaymentsGraph extends React.Component {
                     // borderWidth: 1,
                     // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                     // hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: paymentDetailsPerMonthSliced.map(monthPaymentDetails => removeAllDecimals(monthPaymentDetails.interest))
+                    data: paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails.interest))
                 }
             ]
         };
@@ -74,6 +79,30 @@ class PaymentsGraph extends React.Component {
                 <Bar data={data} options={options} width={width} height={height} />
             </div>
         );
+    }
+
+    batchToYears(paymentDetailsPerMonth) {
+        let currentYearPaymentDetails;
+        let currentYear = -1;
+        const paymentDetailsPerYear = [];
+
+        paymentDetailsPerMonth.forEach((paymentDetails, monthIndex) => {
+            if (monthIndex % 12 === 0) {
+                if (monthIndex > 0) {
+                    paymentDetailsPerYear[currentYear] = currentYearPaymentDetails;
+                }
+
+                currentYear++;
+                currentYearPaymentDetails = {
+                    interest: 0,
+                    principal: 0
+                };
+            }
+            currentYearPaymentDetails.interest += paymentDetails.interest;
+            currentYearPaymentDetails.principal += paymentDetails.principal;
+        });
+
+        return paymentDetailsPerYear;
     }
 
 }
