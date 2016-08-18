@@ -51,7 +51,7 @@ class Root extends React.Component {
                     </Flex>
                 </Flex>
                 <Flex>
-                    {showGraph ? <CostOfDollarGraph loanAmount={loanAmount} loanCost={loanCost} /> : ''}
+                    {showGraph ? <CostOfDollarGraph className='costGraph' loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                     {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={loanDetails.paymentDetailsPerMonth} maxXElements={20} /> : ''}
                 </Flex>
 
