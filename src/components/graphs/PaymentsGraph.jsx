@@ -102,6 +102,8 @@ class PaymentsGraph extends React.Component {
             currentYearPaymentDetails.principal += paymentDetails.principal;
         });
 
+        paymentDetailsPerYear[currentYear] = currentYearPaymentDetails;
+
         return paymentDetailsPerYear;
     }
 
