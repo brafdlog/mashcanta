@@ -24,7 +24,10 @@ class Root extends React.Component {
         super(props);
         const storedInfo = this.getFromStorage();
         const initialState = storedInfo ? { mortgageInfo: storedInfo } : EMPTY_STATE;
-        this.state = initialState;
+        this.state = {
+            ...initialState,
+            loading: true
+        };
     }
 
     render() {
@@ -35,6 +38,13 @@ class Root extends React.Component {
         const loanAmount = loanDetails.loanAmount;
         const loanCost = loanDetails.totalPaymentToBank - loanAmount;
         const showGraph = loanAmount && loanDetails.totalPaymentToBank > 0;
+        if (this.state.loading) {
+            return (
+                <div className='loaderContainer'>
+                    <div className='loader'></div>
+                </div>
+            );
+        }
         return (
             <Flex className='container rootAppContainer' column>
                 <Flex>
@@ -60,6 +70,15 @@ class Root extends React.Component {
     }
 
     state = EMPTY_STATE;
+
+    componentDidMount() {
+        /* eslint react/no-did-mount-set-state: "off" */
+        setInterval(() => {
+            this.setState({
+                loading: false
+            });
+        }, 0);
+    }
 
     getFromStorage = () => {
         const infoFromStorage = localStorage.getItem('mortgageInfo');
