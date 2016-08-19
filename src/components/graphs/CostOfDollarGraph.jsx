@@ -42,11 +42,13 @@ class CostOfDollarGraph extends React.Component {
         const options = {
             responsive: true,
             maintainAspectRatio: false
-            // TODO here need to format the tooltip using formatWholeDollarAmount
+            // TODO here need to format the tooltip using formatWholeDollarAmount.
+            // The tooltip configuration works but it causes the animation to go crazy
             // tooltips: {
             //     callbacks: {
             //         label: (tooltipItem, data) => {
-            //             return tooltipItems.yLabel + 'moo';
+            //             const mooo = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+            //             return formatWholeDollarAmount(mooo);
             //         }
             //     }
             // }
