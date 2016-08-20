@@ -1,5 +1,6 @@
 /* eslint id-length: "off", no-param-reassign: "off" */
 import { retainNDecimals } from './utils';
+import { SHPITZER } from './consts';
 
 /**
  * Get mortgage info
@@ -8,16 +9,16 @@ import { retainNDecimals } from './utils';
  * @param  {float} yearlyInterest         The yearly interest percent
  * @return {object}                       An object containing data about the mortgage
  */
-export function getMortgagePartInfo({ loanAmount = 0, numYears = 0, yearlyInterest = 0 }) {
-    const { numMonths } = transformParameters(numYears, yearlyInterest);
+export function getMortgagePartInfo({ loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER }) {
+    const paymentDetailsPerMonth = calculatePaymentDetailsPerMonth(loanAmount, numYears, yearlyInterest, amortizationType);
 
-    const monthlyPayment = getMonthlyPaymentByLoanAmount({ loanAmount, numYears, yearlyInterest });
-    const monthlyInterest = calculateMonthlyInterest(yearlyInterest);
-    const paymentDetailsPerMonth = calculatePaymentDetailsPerMonth(loanAmount, numMonths, monthlyPayment, monthlyInterest);
-
-    const totalPaymentToBank = numMonths * monthlyPayment;
+    const totalPaymentToBank = paymentDetailsPerMonth
+        .map(monthPay => monthPay.principal + monthPay.interest)
+        .reduce((sum, monthPayment) => sum + monthPayment);
     const costOfEachDollar = (totalPaymentToBank / loanAmount) || 0;
 
+    // for shpitzer this will be same monthly payment always and for keren shava this will the be the first month's payment
+    const monthlyPayment = paymentDetailsPerMonth[0].interest + paymentDetailsPerMonth[0].principal;
     return {
         loanAmount,
         numYears,
@@ -126,13 +127,23 @@ function transformParameters(numYears, yearlyInterest) {
  *     interest: 2000
  * }
  */
-function calculatePaymentDetailsPerMonth(loanAmount, numMonths, monthlyPayment, monthlyInterest) {
+function calculatePaymentDetailsPerMonth(loanAmount, numYears, yearlyInterest, amortizationType) {
+    const { numMonths } = transformParameters(numYears, yearlyInterest);
+    const monthlyInterest = calculateMonthlyInterest(yearlyInterest);
+
     const paymentDetailsPerMonth = [];
 
     let currentLoanAmount = loanAmount;
     for (let i = 0; i < numMonths; i++) {
         const monthlyInterestPayment = currentLoanAmount * monthlyInterest;
-        const monthlyPrincipalPayment = monthlyPayment - monthlyInterestPayment;
+        let monthlyPrincipalPayment;
+        if (amortizationType === SHPITZER) {
+            const monthlyPayment = getMonthlyPaymentByLoanAmount({ loanAmount, numYears, yearlyInterest });
+            monthlyPrincipalPayment = monthlyPayment - monthlyInterestPayment;
+        } else {
+            monthlyPrincipalPayment = loanAmount / numMonths;
+        }
+
         paymentDetailsPerMonth[i] = {
             principal: retainNDecimals(monthlyPrincipalPayment, 2),
             interest: retainNDecimals(monthlyInterestPayment, 2)

@@ -1,68 +1,134 @@
 /* eslint-disable */
 import { expect } from 'chai';
 import * as calculator from '../src/calculator';
+import { KEREN_SHAVA } from '../src/consts';
 const ALLOWED_DIFFERENCE = 0.8;
 
 describe('Mashcanta calculator', function() {
     
     describe('getMortgagePartInfo', function() {
-        it('should calculate mortgage details for loan amount of 700000, interest 3.5, 15 years', function() {
-            let loanAmount = 700000;
-            let numYears = 15;
-            let interestRate = 3.5;
 
-            const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate });
-            expect(mortgageInfo.monthlyPayment).to.be.closeTo(5004, ALLOWED_DIFFERENCE);
-            expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(900752, ALLOWED_DIFFERENCE);
-            expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.287, 0.001);
-            const paymentDetailsPerMonth = mortgageInfo.paymentDetailsPerMonth;
+        describe('shpitzer', function() {
+            it('should calculate mortgage details for loan amount of 700000, interest 3.5, 15 years', function() {
+                let loanAmount = 700000;
+                let numYears = 15;
+                let interestRate = 3.5;
 
-            expect(paymentDetailsPerMonth[0]).to.deep.equal({
-                principal: 2962.51,
-                interest: 2041.67  
-            });
-            expect(paymentDetailsPerMonth[4]).to.deep.equal({
-                principal: 2997.23,
-                interest: 2006.95
-            });
-            expect(paymentDetailsPerMonth[13]).to.deep.equal({
-                principal: 3076.83,
-                interest: 1927.35
-            });
-            expect(paymentDetailsPerMonth[39]).to.deep.equal({
-                principal: 3318.86,
-                interest: 1685.32
+                const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate });
+                expect(mortgageInfo.monthlyPayment).to.be.closeTo(5004, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(900752, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.287, 0.001);
+                const paymentDetailsPerMonth = mortgageInfo.paymentDetailsPerMonth;
+
+                expect(paymentDetailsPerMonth[0]).to.deep.equal({
+                    principal: 2962.51,
+                    interest: 2041.67  
+                });
+                expect(paymentDetailsPerMonth[4]).to.deep.equal({
+                    principal: 2997.23,
+                    interest: 2006.95
+                });
+                expect(paymentDetailsPerMonth[13]).to.deep.equal({
+                    principal: 3076.83,
+                    interest: 1927.35
+                });
+                expect(paymentDetailsPerMonth[39]).to.deep.equal({
+                    principal: 3318.86,
+                    interest: 1685.32
+                });
+
             });
 
+            it('should calculate mortgage details for loan amount of 1190000, interest 6.7, 22 years', function() {
+                let loanAmount = 1190000;
+                let numYears = 22;
+                let interestRate = 6.7;
+
+                const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate });
+                expect(mortgageInfo.monthlyPayment).to.be.closeTo(8628.21, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(2277847, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.914, 0.001);
+
+                const paymentDetailsPerMonth = mortgageInfo.paymentDetailsPerMonth;
+
+                expect(paymentDetailsPerMonth[4]).to.deep.equal({
+                    principal: 2028.73,
+                    interest: 6599.48
+                });
+                expect(paymentDetailsPerMonth[17]).to.deep.equal({
+                    principal: 2181.01,
+                    interest: 6447.2
+                });
+                expect(paymentDetailsPerMonth[25]).to.deep.equal({
+                    principal: 2280.36,
+                    interest: 6347.85
+                });
+                expect(paymentDetailsPerMonth[79]).to.deep.equal({
+                    principal: 3080.2,
+                    interest: 5548.01
+                });
+            });
         });
 
-        it('should calculate mortgage details for loan amount of 1190000, interest 6.7, 22 years', function() {
-            let loanAmount = 1190000;
-            let numYears = 22;
-            let interestRate = 6.7;
+        describe('keren shava', function() {
+            it('should calculate mortgage details for loan amount of 700000, interest 3.5, 15 years', function() {
+                let loanAmount = 700000;
+                let numYears = 15;
+                let interestRate = 3.5;
 
-            const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate });
-            expect(mortgageInfo.monthlyPayment).to.be.closeTo(8628.21, ALLOWED_DIFFERENCE);
-            expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(2277847, ALLOWED_DIFFERENCE);
-            expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.914, 0.001);
+                const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate, amortizationType: KEREN_SHAVA });
+                expect(mortgageInfo.monthlyPayment).to.be.closeTo(5930.56, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(884770.83, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.263, 0.001);
+                const paymentDetailsPerMonth = mortgageInfo.paymentDetailsPerMonth;
 
-            const paymentDetailsPerMonth = mortgageInfo.paymentDetailsPerMonth;
+                expect(paymentDetailsPerMonth[0]).to.deep.equal({
+                    principal: 3888.89,
+                    interest: 2041.67  
+                });
+                expect(paymentDetailsPerMonth[4]).to.deep.equal({
+                    principal: 3888.89,
+                    interest: 1996.30
+                });
+                expect(paymentDetailsPerMonth[13]).to.deep.equal({
+                    principal: 3888.89,
+                    interest: 1894.21
+                });
+                expect(paymentDetailsPerMonth[39]).to.deep.equal({
+                    principal: 3888.89,
+                    interest: 1599.31
+                });
 
-            expect(paymentDetailsPerMonth[4]).to.deep.equal({
-                principal: 2028.73,
-                interest: 6599.48
             });
-            expect(paymentDetailsPerMonth[17]).to.deep.equal({
-                principal: 2181.01,
-                interest: 6447.2
-            });
-            expect(paymentDetailsPerMonth[25]).to.deep.equal({
-                principal: 2280.36,
-                interest: 6347.85
-            });
-            expect(paymentDetailsPerMonth[79]).to.deep.equal({
-                principal: 3080.2,
-                interest: 5548.01
+
+            it('should calculate mortgage details for loan amount of 1190000, interest 6.7, 22 years', function() {
+                let loanAmount = 1190000;
+                let numYears = 22;
+                let interestRate = 6.7;
+
+                const mortgageInfo = calculator.getMortgagePartInfo({ loanAmount, numYears, yearlyInterest: interestRate, amortizationType: KEREN_SHAVA });
+                expect(mortgageInfo.monthlyPayment).to.be.closeTo(11151.74, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.totalPaymentToBank).to.be.closeTo(2070353, ALLOWED_DIFFERENCE);
+                expect(mortgageInfo.costOfEachDollar).to.be.closeTo(1.739, 0.001);
+
+                const paymentDetailsPerMonth = mortgageInfo.paymentDetailsPerMonth;
+
+                expect(paymentDetailsPerMonth[4]).to.deep.equal({
+                    principal: 4507.58,
+                    interest: 6543.50
+                });
+                expect(paymentDetailsPerMonth[17]).to.deep.equal({
+                    principal: 4507.58,
+                    interest: 6216.32
+                });
+                expect(paymentDetailsPerMonth[25]).to.deep.equal({
+                    principal: 4507.58,
+                    interest: 6014.98
+                });
+                expect(paymentDetailsPerMonth[79]).to.deep.equal({
+                    principal: 4507.58,
+                    interest: 4655.95
+                });
             });
         });
     });
