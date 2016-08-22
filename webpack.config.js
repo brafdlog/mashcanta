@@ -34,6 +34,9 @@ module.exports = {
 		},
 	plugins: [
 		new webpack.NoErrorsPlugin(),
+		new webpack.DefinePlugin({
+		  'env': JSON.stringify('dev')
+		}),
 		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
 	]
 };
