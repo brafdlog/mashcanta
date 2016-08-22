@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { FABButton, Icon } from 'react-mdl';
 import { generateId } from '../utils';
+import { getConfig } from '../config';
 import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
@@ -31,6 +32,8 @@ class Root extends React.Component {
     }
 
     render() {
+        const moo = getConfig();
+        console.log(moo);
         const { mortgageParts } = this.state.mortgageInfo;
         const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgagePartInfo(mortgagePart));
 
