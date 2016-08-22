@@ -3,15 +3,12 @@
 const isProd = env === 'production';
 
 const COMMON_CONFIG = {
-    
 };
 
 const DEV_CONFIG = {
-    
 };
 
 const PROD_CONFIG = {
-    
 };
 
 let config;

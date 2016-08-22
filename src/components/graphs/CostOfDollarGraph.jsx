@@ -4,9 +4,11 @@ import './CostOfDollarGraph.scss';
 import str from '../../localization';
 import { removeAllDecimals } from '../../utils';
 import { Doughnut } from 'react-chartjs-2';
+import pureRender from 'pure-render-decorator';
 
 const { string, number } = PropTypes;
 
+@pureRender
 class CostOfDollarGraph extends React.Component {
 
     static propTypes = {

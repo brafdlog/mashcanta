@@ -6,9 +6,11 @@ import { removeAllDecimals } from '../../utils';
 import { Bar } from 'react-chartjs-2';
 import _ from 'lodash';
 import './PaymentsGraph.scss';
+import pureRender from 'pure-render-decorator';
 
 const { string, number, arrayOf, shape, bool } = PropTypes;
 
+@pureRender
 class PaymentsGraph extends React.Component {
 
     static propTypes = {

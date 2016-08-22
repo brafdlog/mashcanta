@@ -6,9 +6,11 @@ import Flex from './Flex';
 import InfoInputCell from './InfoInputCell';
 import { formatWholeDollarAmount, formatPrecent } from '../utils';
 import str from '../localization';
+import pureRender from 'pure-render-decorator';
 
 const { func, shape, number, arrayOf, string } = PropTypes;
 
+@pureRender
 class MortgageInfoInputForm extends React.Component {
 
     static propTypes = {

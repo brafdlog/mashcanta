@@ -4,8 +4,11 @@ import { formatWholeDollarAmount, retainNDecimals } from '../utils';
 import InfoLine from './InfoLine';
 import './MortgageDetailsDisplay.scss';
 import str from '../localization';
+import pureRender from 'pure-render-decorator';
+
 const { number, shape } = PropTypes;
 
+@pureRender
 class MortgageDetailsDisplay extends React.Component {
 
     static propTypes = {

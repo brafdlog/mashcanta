@@ -17,6 +17,7 @@
   "keywords": [],
   "author": "Jonathan Goldfarb",
   "dependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "jsx-loader": "^0.13.2",
     "react": "15.1.0",
     "react-dom": "15.1.0"
@@ -43,6 +44,7 @@
     "lodash": "^4.13.1",
     "mocha": "^2.5.3",
     "node-sass": "^3.7.0",
+    "pure-render-decorator": "^1.1.1",
     "react-chartjs-2": "^1.2.3",
     "react-hot-loader": "1.3.0",
     "react-mdl": "^1.5.4",

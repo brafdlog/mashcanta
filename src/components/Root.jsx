@@ -9,6 +9,7 @@ import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import * as Calculator from '../calculator';
 import './Root.scss';
+import pureRender from 'pure-render-decorator';
 
 const EMPTY_STATE = {
     mortgageInfo: {
@@ -18,6 +19,7 @@ const EMPTY_STATE = {
     }
 };
 
+@pureRender
 class Root extends React.Component {
 
     constructor(props) {
