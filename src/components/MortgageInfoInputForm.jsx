@@ -52,7 +52,7 @@ class MortgageInfoInputForm extends React.Component {
                             <ListItem className='listItem' key={part.id}>
                                 <ListItemContent>
                                     <Flex align='center'>
-                                        <select className='column amortizationColumn' value={part.amortizationType || SHPITZER} onChange={this.handleUpdateAmortization.bind(this, part.id)}>
+                                        <select className='column amortizationColumn' value={part.amortizationType || SHPITZER} onChange={this.buildAmortizationChangeHandler(part)}>
                                             <option value={SHPITZER}>{str('shpitzer')}</option>
                                             <option value={KEREN_SHAVA}>{str('kerenShava')}</option>
                                         </select>
@@ -78,6 +78,8 @@ class MortgageInfoInputForm extends React.Component {
             </div>
         );
     }
+
+    buildAmortizationChangeHandler = part => this.handleUpdateAmortization.bind(this, part.id);
 
     handleUpdateAmortization = (partId, event) => {
         const amortizationValueToUpdate = event.target.options[event.target.selectedIndex].value;
