@@ -5,10 +5,11 @@ import './MortgageInfoInputForm.scss';
 import Flex from './Flex';
 import InfoInputCell from './InfoInputCell';
 import { formatWholeDollarAmount, formatPrecent } from '../utils';
+import { KEREN_SHAVA, SHPITZER } from '../consts';
 import str from '../localization';
 import pureRender from 'pure-render-decorator';
 
-const { func, shape, number, arrayOf, string } = PropTypes;
+const { func, shape, number, arrayOf, string, oneOf } = PropTypes;
 
 @pureRender
 class MortgageInfoInputForm extends React.Component {
@@ -25,7 +26,8 @@ class MortgageInfoInputForm extends React.Component {
             loanAmount: number,
             numYears: number,
             yearlyInterest: number,
-            monthlyPayment: number
+            monthlyPayment: number,
+            amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
         }))
     }
 
@@ -37,6 +39,7 @@ class MortgageInfoInputForm extends React.Component {
                     <ListItem className='headingListItem listItem' key='heading'>
                         <ListItemContent>
                             <Flex>
+                                <span className='columnHeading amortizationColumn'> {str('amortizationType')} </span>
                                 <span className='columnHeading amountColumn'> {str('amount')} </span>
                                 <span className='columnHeading numYearsColumn'> {str('years')} </span>
                                 <span className='columnHeading interestColumn'> {str('interest')} </span>
@@ -48,7 +51,11 @@ class MortgageInfoInputForm extends React.Component {
                         return (
                             <ListItem className='listItem' key={part.id}>
                                 <ListItemContent>
-                                    <Flex>
+                                    <Flex align='center'>
+                                        <select className='column amortizationColumn' value={part.amortizationType || SHPITZER} onChange={this.handleUpdateAmortization.bind(this, part.id)}>
+                                            <option value={SHPITZER}>{str('shpitzer')}</option>
+                                            <option value={KEREN_SHAVA}>{str('kerenShava')}</option>
+                                        </select>
                                         <InfoInputCell className='column amountColumn' content={part.loanAmount} onContentChange={this.buildChangeHandler(part, 'loanAmount')} cellFormatter={formatWholeDollarAmount} />
                                         <InfoInputCell className='column numYearsColumn' content={part.numYears} onContentChange={this.buildChangeHandler(part, 'numYears')} />
                                         <InfoInputCell className='column interestColumn' content={part.yearlyInterest} onContentChange={this.buildChangeHandler(part, 'yearlyInterest')} cellFormatter={formatPrecent} />
@@ -70,6 +77,11 @@ class MortgageInfoInputForm extends React.Component {
                 </List>
             </div>
         );
+    }
+
+    handleUpdateAmortization = (partId, event) => {
+        const amortizationValueToUpdate = event.target.options[event.target.selectedIndex].value;
+        return this.onChange(partId, 'amortizationType', amortizationValueToUpdate);
     }
 
     buildChangeHandler(part, propName) {

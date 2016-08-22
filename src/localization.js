@@ -9,12 +9,16 @@ const ENGLISH_STRINGS = {
     principal: 'Principal',
     loanAmount: 'Loan Amount',
     amount: 'Amount',
+    amortizationType: 'AmortizationType',
     monthlyPayment: 'Monthly payment',
+    firstPayment: 'First payment',
     totalPayment: 'Total Payment',
     costOfDollar: 'Cost Of Dollar',
     add: 'Add',
     clearAll: 'Clear all',
     loanCost: 'Loan cost',
+    kerenShava: 'kerenShava',
+    shpitzer: 'shpitzer',
     paymentsGraph: 'Payment Graph'
 };
 
@@ -26,12 +30,16 @@ const HEBREW_STRINGS = {
     principal: 'קרן',
     loanAmount: 'סכום ההלואה',
     amount: 'סכום',
+    amortizationType: 'שיטת החזר',
     monthlyPayment: 'תשלום חודשי',
+    firstPayment: 'תשלום ראשון',
     totalPayment: 'תשלום סה״כ',
     costOfDollar: 'עלות כל שקל',
     add: 'הוסף',
     clearAll: 'נקה הכל',
     loanCost: 'עלות ההלואה',
+    kerenShava: 'קרן שווה',
+    shpitzer: 'שפיצר',
     paymentsGraph: 'גרף תשלומים'
 };
 
