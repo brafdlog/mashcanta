@@ -8,8 +8,13 @@ import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import * as Calculator from '../calculator';
+import { getConfig } from '../config';
 import './Root.scss';
 import pureRender from 'pure-render-decorator';
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 
 const EMPTY_STATE = {
     mortgageInfo: {
@@ -24,6 +29,11 @@ class Root extends React.Component {
 
     constructor(props) {
         super(props);
+
+        // Init firebase
+        const config = getConfig('firebaseConfig');
+        firebase.initializeApp(config);
+
         const storedInfo = this.getFromStorage();
         const initialState = storedInfo ? { mortgageInfo: storedInfo } : EMPTY_STATE;
         this.state = {
