@@ -1,3 +1,3 @@
 
-export const KEREN_SHAVA = 'kerent shava';
+export const KEREN_SHAVA = 'keren shava';
 export const SHPITZER = 'shpitzer';
