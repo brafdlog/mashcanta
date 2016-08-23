@@ -9,6 +9,9 @@ describe('Mashcanta calculator', function() {
     describe('getMortgagePartInfo', function() {
 
         describe('shpitzer', function() {
+            it('should not fail when there are no mortgage parts', function() {
+                calculator.getMortgagePartInfo({ });
+            });
             it('should calculate mortgage details for loan amount of 700000, interest 3.5, 15 years', function() {
                 let loanAmount = 700000;
                 let numYears = 15;

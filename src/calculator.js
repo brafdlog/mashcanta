@@ -12,13 +12,20 @@ import { SHPITZER } from './consts';
 export function getMortgagePartInfo({ loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER }) {
     const paymentDetailsPerMonth = calculatePaymentDetailsPerMonth(loanAmount, numYears, yearlyInterest, amortizationType);
 
-    const totalPaymentToBank = paymentDetailsPerMonth
+    let totalPaymentToBank = 0;
+    let monthlyPayment = 0;
+
+    // The if will be false when there are no mortgage parts. In that case we just want to return zero values
+    if (paymentDetailsPerMonth && paymentDetailsPerMonth.length) {
+        totalPaymentToBank = paymentDetailsPerMonth
         .map(monthPay => monthPay.principal + monthPay.interest)
         .reduce((sum, monthPayment) => sum + monthPayment);
-    const costOfEachDollar = (totalPaymentToBank / loanAmount) || 0;
 
-    // for shpitzer this will be same monthly payment always and for keren shava this will the be the first month's payment
-    const monthlyPayment = paymentDetailsPerMonth[0].interest + paymentDetailsPerMonth[0].principal;
+        // for shpitzer this will be same monthly payment always and for keren shava this will the be the first month's payment
+        monthlyPayment = paymentDetailsPerMonth[0].interest + paymentDetailsPerMonth[0].principal;
+    }
+
+    const costOfEachDollar = (totalPaymentToBank / loanAmount) || 0;
     return {
         loanAmount,
         numYears,
