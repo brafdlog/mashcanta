@@ -9,7 +9,7 @@ if (getConfig('useFirebaseStorage')) {
     firebase.initializeApp(config);
 }
 
-const localStorage = {
+const localStorageImpl = {
     getFromStorage: (key) => {
         let infoFromStorage = localStorage.getItem(key);
         infoFromStorage = infoFromStorage && JSON.parse(infoFromStorage);
@@ -22,7 +22,7 @@ const localStorage = {
     }
 };
 
-const firebaseStorage = {
+const firebaseStorageImpl = {
     getFromStorage: (key) => {
         const ref = firebase.database().ref(`test/${key}`);
         const promise = ref.once('value');
@@ -34,7 +34,7 @@ const firebaseStorage = {
     }
 };
 
-const storageImpl = getConfig('useFirebaseStorage') ? firebaseStorage : localStorage;
+const storageImpl = getConfig('useFirebaseStorage') ? firebaseStorageImpl : localStorageImpl;
 
 export const getFromStorage = (key) => storageImpl.getFromStorage(key);
 export const saveToStorage = (key, dataToSave) => storageImpl.saveToStorage(key, dataToSave);
