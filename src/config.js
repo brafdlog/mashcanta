@@ -3,6 +3,7 @@
 const isProd = env === 'production';
 
 const COMMON_CONFIG = {
+    useFirebaseStorage: true,
     firebaseConfig: {
        ***REMOVED***
         authDomain: 'mashcanta.firebaseapp.com',
@@ -15,6 +16,7 @@ const DEV_CONFIG = {
 };
 
 const PROD_CONFIG = {
+    useFirebaseStorage: false
 };
 
 let config;

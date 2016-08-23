@@ -8,13 +8,10 @@ import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import * as Calculator from '../calculator';
-import { getConfig } from '../config';
+import { getFromStorage, saveToStorage } from '../storage';
+
 import './Root.scss';
 import pureRender from 'pure-render-decorator';
-
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
 
 const EMPTY_STATE = {
     mortgageInfo: {
@@ -29,15 +26,8 @@ class Root extends React.Component {
 
     constructor(props) {
         super(props);
-
-        // Init firebase
-        const config = getConfig('firebaseConfig');
-        firebase.initializeApp(config);
-
-        const storedInfo = this.getFromStorage();
-        const initialState = storedInfo ? { mortgageInfo: storedInfo } : EMPTY_STATE;
         this.state = {
-            ...initialState,
+            ...EMPTY_STATE,
             loading: true
         };
     }
@@ -85,21 +75,14 @@ class Root extends React.Component {
 
     componentDidMount() {
         /* eslint react/no-did-mount-set-state: "off" */
-        setInterval(() => {
+        getFromStorage('mortgageInfo').then(snapshot => {
+            const storedMortgageInfo = snapshot.val();
+            const mortgageInfoState = storedMortgageInfo ? { mortgageInfo: storedMortgageInfo } : {};
             this.setState({
+                ...mortgageInfoState,
                 loading: false
             });
-        }, 0);
-    }
-
-    getFromStorage = () => {
-        const infoFromStorage = localStorage.getItem('mortgageInfo');
-        return infoFromStorage && JSON.parse(infoFromStorage);
-    }
-
-    saveToStorage = (infoToSave) => {
-        const infoJson = JSON.stringify(infoToSave);
-        localStorage.setItem('mortgageInfo', infoJson);
+        });
     }
 
     onMovePartUp = partId => {
@@ -168,7 +151,7 @@ class Root extends React.Component {
         updatedMorgageParts.sort((part1, part2) => part1.order - part2.order);
         const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts: updatedMorgageParts };
         this.setState({ mortgageInfo: updatedMortgageInfo });
-        this.saveToStorage(updatedMortgageInfo);
+        saveToStorage('mortgageInfo', updatedMortgageInfo);
     }
 
     onClearClicked = () => {
