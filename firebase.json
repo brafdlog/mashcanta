@@ -1,5 +1,4 @@
 {
-    "firebase": "mashcanta",
   "database": {
     "rules": "database.rules.json"
   },
