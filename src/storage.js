@@ -26,7 +26,7 @@ const firebaseStorageImpl = {
     getFromStorage: (key) => {
         const ref = firebase.database().ref(`test/${key}`);
         const promise = ref.once('value');
-        return promise;
+        return promise.then(snapshot => snapshot.val());
     },
     saveToStorage: (key, dataToSave) => {
         const ref = firebase.database().ref(`test/${key}`);

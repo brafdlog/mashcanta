@@ -75,8 +75,7 @@ class Root extends React.Component {
 
     componentDidMount() {
         /* eslint react/no-did-mount-set-state: "off" */
-        getFromStorage('mortgageInfo').then(snapshot => {
-            const storedMortgageInfo = snapshot.val();
+        getFromStorage('mortgageInfo').then(storedMortgageInfo => {
             const mortgageInfoState = storedMortgageInfo ? { mortgageInfo: storedMortgageInfo } : {};
             this.setState({
                 ...mortgageInfoState,
