@@ -1,3 +1,5 @@
 {
-    "extends" : ["eslint:recommended", "./canonical.eslintrc.json"]
+    "extends" : ["eslint:recommended", "./canonical.eslintrc.json"],
+    "rules": {
+    }
 }
