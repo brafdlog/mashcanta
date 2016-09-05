@@ -13,10 +13,12 @@ const COMMON_CONFIG = {
 };
 
 const DEV_CONFIG = {
+   ***REMOVED***
 };
 
 const PROD_CONFIG = {
-    useFirebaseStorage: false
+    useFirebaseStorage: false,
+   ***REMOVED***
 };
 
 let config;
