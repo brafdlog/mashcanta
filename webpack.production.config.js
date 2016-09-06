@@ -18,9 +18,12 @@ module.exports = {
 		loaders: getLoaders(true)
 	},
 	plugins: [
-	  new webpack.DefinePlugin({
-	    'env': JSON.stringify('production')
-	  }),
-	  new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+		new webpack.DefinePlugin({
+			'env': JSON.stringify('production'),
+			'process.env': { 
+				NODE_ENV: JSON.stringify("production") 
+			}
+		}),
+		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
 	]
 };
