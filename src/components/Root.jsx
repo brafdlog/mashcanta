@@ -48,26 +48,31 @@ class Root extends React.Component {
             );
         }
         return (
-            <Flex className='container rootAppContainer' column>
-                <Flex>
-                    <Flex className='container' column >
-                        <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
-                            handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
-                        />
-                        <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
-                            <Icon name='add' />
-                        </FABButton>
-                    </Flex>
-                    <Flex className='container MortgageDetailsDisplayContainer' column>
+            <div className='container-fluid rootAppContainer'>
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <Flex className='container' column >
+                            <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
+                                handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
+                            />
+                            <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
+                                <Icon name='add' />
+                            </FABButton>
+                        </Flex>
+                    </div>
+                    <div className='col-md-4 MortgageDetailsDisplayContainer'>
                         <MortgageDetailsDisplay mortgageInfo={loanDetails} />
-                    </Flex>
-                </Flex>
-                <Flex>
-                    {showGraph ? <CostOfDollarGraph className='costGraph' loanAmount={loanAmount} loanCost={loanCost} /> : ''}
-                    {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={loanDetails.paymentDetailsPerMonth} maxXElements={20} /> : ''}
-                </Flex>
-
-            </Flex>
+                    </div>
+                </div>
+                <div className='row'>
+                    <div className='col-md-3'>
+                        {showGraph ? <CostOfDollarGraph className='costGraph' loanAmount={loanAmount} loanCost={loanCost} /> : ''}
+                    </div>
+                    <div className='col-md-9'>
+                        {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={loanDetails.paymentDetailsPerMonth} maxXElements={20} /> : ''}
+                    </div>
+                </div>
+            </div>
         );
     }
 

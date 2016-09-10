@@ -24,7 +24,7 @@ class MortgageDetailsDisplay extends React.Component {
         const mortgageInfo = this.formatNumbersNicely(this.props.mortgageInfo);
         const { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
         return (
-            <Flex className='container MortgageDetailsDisplay' column>
+            <Flex className='MortgageDetailsDisplay' column>
                 <InfoLine title={str('loanAmount')} value={loanAmount} />
                 <InfoLine title={str('monthlyPayment')} value={monthlyPayment} />
                 <InfoLine title={str('totalPayment')} value={totalPaymentToBank} />
