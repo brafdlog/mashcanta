@@ -66,8 +66,8 @@ class MortgageInfoInputForm extends React.Component {
                                 </ListItemContent>
                                 <ListItemAction className='listItemAction'>
                                     <div className='iconsContainer'>
-                                        <IconButton name='keyboard_arrow_up' disabled={partIndex === 0} onClick={this.buildMoveHandler('up', part.id)} />
-                                        <IconButton name='keyboard_arrow_down' disabled={partIndex === mortgageParts.length - 1} onClick={this.buildMoveHandler('down', part.id)} />
+                                        <IconButton className='hidden-xs' name='keyboard_arrow_up' disabled={partIndex === 0} onClick={this.buildMoveHandler('up', part.id)} />
+                                        <IconButton className='hidden-xs' name='keyboard_arrow_down' disabled={partIndex === mortgageParts.length - 1} onClick={this.buildMoveHandler('down', part.id)} />
                                         <IconButton name='delete' onClick={this.buildDeleteHandler(part.id)} />
                                     </div>
                                 </ListItemAction>
