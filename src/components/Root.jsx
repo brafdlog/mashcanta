@@ -51,14 +51,12 @@ class Root extends React.Component {
             <div className='container-fluid rootAppContainer'>
                 <div className='row'>
                     <div className='col-md-6'>
-                        <Flex className='container' column >
-                            <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
-                                handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
-                            />
-                            <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
-                                <Icon name='add' />
-                            </FABButton>
-                        </Flex>
+                        <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
+                            handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
+                        />
+                        <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
+                            <Icon name='add' />
+                        </FABButton>
                     </div>
                     <div className='col-md-4 MortgageDetailsDisplayContainer'>
                         <MortgageDetailsDisplay mortgageInfo={loanDetails} />
