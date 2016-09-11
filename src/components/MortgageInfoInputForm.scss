@@ -1,44 +1,48 @@
 .MortgageInfoInputFormContainer {
     
-    ul > li {
-        padding: 0;
+    .iconsContainer {
+        display: flex;
     }
 
-    .headingListItem {
-        min-height: 20px;
+    // ul > li {
+    //     padding: 0;
+    // }
+
+    // .headingListItem {
+    //     min-height: 20px;
         
-        .columnHeading {
-            font-size: 15px;
-        }
-        .monthlyPaymentColumn {
-            width: 100px;
-        }
-    }
+    //     .columnHeading {
+    //         font-size: 15px;
+    //     }
+    //     .monthlyPaymentColumn {
+    //         width: 100px;
+    //     }
+    // }
+    
+    // .InfoInputCellContainer {
+    //     .cellInput {
+    //         width: inherit;
+    //     }
+    // }
     
     .InfoInputCellContainer {
-        .cellInput {
-            width: inherit;
-        }
-    }
-
-    .column, .columnHeading {
         margin-right: 10px;
     }
-    
-    .amountColumn, {
-        width: 70px
+
+    .amountColumn .cellInput {
+        max-width: 70px
     }
-    .numYearsColumn, {
-        width: 40px
+    .numYearsColumn .cellInput {
+        max-width: 40px
     }
-    .interestColumn, {
-        width: 40px
+    .interestColumn .cellInput {
+        max-width: 40px
     }
-    .monthlyPaymentColumn, {
-        width: 80px
+    .monthlyPaymentColumn .cellInput {
+        max-width: 60px
     }
-    .amortizationColumn {
-        width: 100px;
+    .amortizationColumn .cellInput {
+        max-width: 100px;
         margin-left: 10px;
     }
 
