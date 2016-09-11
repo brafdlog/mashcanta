@@ -50,7 +50,7 @@ class Root extends React.Component {
         return (
             <div className='container-fluid rootAppContainer'>
                 <div className='row'>
-                    <div className='col-md-6'>
+                    <div className='col-md-5'>
                         <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
                             handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
                         />
@@ -58,15 +58,15 @@ class Root extends React.Component {
                             <Icon name='add' />
                         </FABButton>
                     </div>
-                    <div className='col-md-4 MortgageDetailsDisplayContainer'>
+                    <div className='col-md-2 MortgageDetailsDisplayContainer'>
                         <MortgageDetailsDisplay mortgageInfo={loanDetails} />
+                    </div>
+                    <div className='col-md-3 col-md-offset-1'>
+                        {showGraph ? <CostOfDollarGraph className='costGraph' loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-md-3'>
-                        {showGraph ? <CostOfDollarGraph className='costGraph' loanAmount={loanAmount} loanCost={loanCost} /> : ''}
-                    </div>
-                    <div className='col-md-9'>
+                    <div className='col-md-12'>
                         {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={loanDetails.paymentDetailsPerMonth} maxXElements={20} /> : ''}
                     </div>
                 </div>
