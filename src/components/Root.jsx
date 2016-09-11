@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import { FABButton, Icon } from 'react-mdl';
 import { generateId } from '../utils';
-import Flex from './Flex.jsx';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
