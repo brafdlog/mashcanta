@@ -19,14 +19,14 @@ class PaymentsGraph extends React.Component {
             principal: number,
             interest: number
         })).isRequired,
-        maxXElements: number,
+        maxElements: number,
         width: number,
         height: number,
         yearlyGraph: bool
     }
 
     static defaultProps = {
-        maxXElements: 30,
+        maxElements: 30,
         width: 800,
         height: 300,
         yearlyGraph: true
@@ -38,7 +38,7 @@ class PaymentsGraph extends React.Component {
         const paymentDetailsPerYear = this.batchToYears(paymentDetailsPerMonth);
 
         const paymentDetailsPerPeriod = yearlyGraph ? paymentDetailsPerYear : paymentDetailsPerMonth;
-        const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(0, this.props.maxXElements);
+        const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(0, this.props.maxElements);
         const numXValues = paymentDetailsPerPeriodSliced.length;
 
         const data = {
