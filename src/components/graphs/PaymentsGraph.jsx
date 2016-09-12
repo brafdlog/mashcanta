@@ -8,7 +8,7 @@ import _ from 'lodash';
 import './PaymentsGraph.scss';
 import pureRender from 'pure-render-decorator';
 
-const { string, number, arrayOf, shape, bool } = PropTypes;
+const { string, number, arrayOf, shape, bool, func } = PropTypes;
 
 @pureRender
 class PaymentsGraph extends React.Component {
@@ -22,11 +22,12 @@ class PaymentsGraph extends React.Component {
         maxElements: number,
         width: number,
         height: number,
-        yearlyGraph: bool
+        yearlyGraph: bool,
+        handleUpdateGranularity: func
     }
 
     static defaultProps = {
-        maxElements: 30,
+        maxElements: 80,
         width: 800,
         height: 300,
         yearlyGraph: true
@@ -78,9 +79,17 @@ class PaymentsGraph extends React.Component {
         return (
             <div className={cx('PaymentsGraphContainer', className)}>
                 <h3 className='graphTitle'>{str('paymentsGraph')}</h3>
+                <div className='granularitySelectionWrapper'>
+                    <label><input type='radio' value='monthly' checked={!this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
+                    <label><input type='radio' value='yearly' checked={this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
+                </div>
                 <Bar data={data} options={options} width={width} height={height} />
             </div>
         );
+    }
+
+    handleChangeGranularity = ({ target }) => {
+        this.props.handleUpdateGranularity(target.value);
     }
 
     batchToYears(paymentDetailsPerMonth) {
