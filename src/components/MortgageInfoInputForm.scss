@@ -1,49 +1,42 @@
 .MortgageInfoInputFormContainer {
     
-    .iconsContainer {
-        display: flex;
-    }
+    .listItem {
+        .InfoInputCellContainer {
+            margin: 5px 10px 5px 0;
+        }
 
-    // ul > li {
-    //     padding: 0;
-    // }
+        .amountColumn .cellInput {
+            max-width: 70px
+        }
+        .numYearsColumn .cellInput {
+            max-width: 40px
+        }
+        .interestColumn .cellInput {
+            max-width: 40px
+        }
+        .monthlyPaymentColumn .cellInput {
+            max-width: 60px
+        }
+        .amortizationColumn .cellInput {
+            max-width: 100px;
+            margin-left: 10px;
+        }
 
-    // .headingListItem {
-    //     min-height: 20px;
+        .iconsContainer {
+            display: flex;
+            .deletePartIcon {
+                display: none;
+            }
+        }
         
-    //     .columnHeading {
-    //         font-size: 15px;
-    //     }
-    //     .monthlyPaymentColumn {
-    //         width: 100px;
-    //     }
-    // }
-    
-    // .InfoInputCellContainer {
-    //     .cellInput {
-    //         width: inherit;
-    //     }
-    // }
-    
-    .InfoInputCellContainer {
-        margin-right: 10px;
-    }
+        &:hover {
+            .iconsContainer {
+                .deletePartIcon {
+                    display: block;
+                }
+            }
+        }
 
-    .amountColumn .cellInput {
-        max-width: 70px
-    }
-    .numYearsColumn .cellInput {
-        max-width: 40px
-    }
-    .interestColumn .cellInput {
-        max-width: 40px
-    }
-    .monthlyPaymentColumn .cellInput {
-        max-width: 60px
-    }
-    .amortizationColumn .cellInput {
-        max-width: 100px;
-        margin-left: 10px;
     }
 
 }

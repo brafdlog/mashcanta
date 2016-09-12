@@ -71,9 +71,11 @@ class MortgageInfoInputForm extends React.Component {
                                     </td>
                                     <td>
                                         <div className='iconsContainer'>
-                                            <IconButton className='hidden-xs' name='keyboard_arrow_up' disabled={partIndex === 0} onClick={this.buildMoveHandler('up', part.id)} />
-                                            <IconButton className='hidden-xs' name='keyboard_arrow_down' disabled={partIndex === mortgageParts.length - 1} onClick={this.buildMoveHandler('down', part.id)} />
-                                            <IconButton name='delete' onClick={this.buildDeleteHandler(part.id)} />
+                                            {/*
+                                                <IconButton className='hidden-xs' name='keyboard_arrow_up' disabled={partIndex === 0} onClick={this.buildMoveHandler('up', part.id)} />
+                                                <IconButton className='hidden-xs' name='keyboard_arrow_down' disabled={partIndex === mortgageParts.length - 1} onClick={this.buildMoveHandler('down', part.id)} />
+                                            */}
+                                            <IconButton className='deletePartIcon' name='delete' onClick={this.buildDeleteHandler(part.id)} />
                                         </div>
                                     </td>
                                 </tr>
