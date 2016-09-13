@@ -24,8 +24,12 @@
 
         .iconsContainer {
             display: flex;
-            .deletePartIcon {
-                display: none;
+            
+            // Don't want to hide delete icon on devices with no hover
+            @media (min-width:1025px) {
+                .deletePartIcon {
+                    display: none;
+                }
             }
         }
         
