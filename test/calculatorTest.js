@@ -150,6 +150,10 @@ describe('Mashcanta calculator', function() {
                     {
                         principal: 150,
                         interest: 150
+                    },
+                    {
+                        principal: 12,
+                        interest: 11
                     }
                 ]
             }
@@ -184,6 +188,10 @@ describe('Mashcanta calculator', function() {
                 {
                     principal: 162,
                     interest: 161
+                },
+                {
+                    principal: 12,
+                    interest: 11
                 }
             ]);
 

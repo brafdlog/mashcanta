@@ -1,6 +1,12 @@
 /* eslint id-length: "off", no-param-reassign: "off" */
 import { retainNDecimals } from './utils';
 import { SHPITZER } from './consts';
+import _ from 'lodash';
+
+const ZERO_MONTHLY_PAYMENT = {
+    principal: 0,
+    interest: 0
+};
 
 /**
  * Get mortgage info
@@ -76,18 +82,23 @@ export function mergeMortgateInfoParts(calculatedMortgageInfoParts) {
     let monthlyPayment = 0;
     let totalPaymentToBank = 0;
 
-    calculatedMortgageInfoParts.forEach(mortgagePart => {
+    const calculatedPartsClone = _.cloneDeep(calculatedMortgageInfoParts);
+
+    calculatedPartsClone.forEach(mortgagePart => {
         loanAmount += mortgagePart.loanAmount;
         monthlyPayment += mortgagePart.monthlyPayment;
         totalPaymentToBank += mortgagePart.totalPaymentToBank;
 
+        // If the current part has less months than the paymentDetailsPerMonth fill with empty values so the calculation
+        // will be correct
+        if (mortgagePart.paymentDetailsPerMonth.length < paymentDetailsPerMonth.length) {
+            _.times(paymentDetailsPerMonth.length - mortgagePart.paymentDetailsPerMonth.length, () => mortgagePart.paymentDetailsPerMonth.push(ZERO_MONTHLY_PAYMENT));
+        }
+
         // merge the paymentDetailsPerMonth
         paymentDetailsPerMonth = mortgagePart.paymentDetailsPerMonth.map((monthPaymentDetails, monthIndex) => {
             if (!paymentDetailsPerMonth[monthIndex]) {
-                paymentDetailsPerMonth[monthIndex] = {
-                    principal: 0,
-                    interest: 0
-                };
+                paymentDetailsPerMonth[monthIndex] = ZERO_MONTHLY_PAYMENT;
             }
             const sum = {
                 principal: monthPaymentDetails.principal + paymentDetailsPerMonth[monthIndex].principal,
