@@ -108,7 +108,7 @@ export function mergeMortgateInfoParts(calculatedMortgageInfoParts) {
         });
     });
 
-    const costOfEachDollar = totalPaymentToBank / loanAmount;
+    const costOfEachDollar = loanAmount === 0 ? 0 : totalPaymentToBank / loanAmount;
 
     return {
         loanAmount,
