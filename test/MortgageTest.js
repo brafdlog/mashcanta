@@ -65,6 +65,35 @@ describe('Mortgage tests', function() {
             expect(mortgage.getPart(part2Id).order).to.equal(1);
             expect(mortgage.getPart(part3Id).order).to.equal(2);
         });
+
+        it('should update the part correctly', function() {
+            const mortgage = new Mortgage();
+            
+            const part1Id = mortgage.addMortgagePart();
+            const part2Id = mortgage.addMortgagePart({
+                loanAmount: 700000,
+                numYears: 15,
+                yearlyInterest: 3,
+                amortizationType: KEREN_SHAVA
+            });
+
+            mortgage.updateMortgagePart(part2Id, { loanAmount: 7 });
+
+            // The first part was not updated and so should not change
+            const part1 = mortgage.getPart(part1Id);
+            expect(part1.loanAmount).to.be.equal(0);
+            expect(part1.numYears).to.be.equal(0);
+
+            // The second part should have changed only in what was updated
+            const part2 = mortgage.getPart(part2Id);
+            expect(part2.loanAmount).to.be.equal(7);
+            expect(part2.numYears).to.be.equal(15);
+
+            // The second part should have changed only in what was updated
+            mortgage.updateMortgagePart(part2Id, { order: 7 });
+            expect(part2.loanAmount).to.be.equal(7);
+            expect(part2.order).to.be.equal(7);
+        });
     });
 
     it('should have zero values by default', function() {

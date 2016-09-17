@@ -96,5 +96,10 @@ export class Mortgage {
         return newPart.id;
     }
 
+    @action updateMortgagePart(mortgagePartId, updatesObject = {}) {
+        const mortgagePart = this.getPart(mortgagePartId);
+        _.assignIn(mortgagePart, updatesObject);
+    }
+
 }
 
