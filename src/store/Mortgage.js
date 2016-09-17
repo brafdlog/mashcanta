@@ -59,8 +59,9 @@ export default class Mortgage {
         return _.find(this.mortgageParts, { 'id': partId });
     }
 
-    @action('Add mortgage part') addPart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
-        const newPart = new MortgagePart(this.orderForNewPart);
+    @action('Add mortgage part') addPart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER, order) {
+        const newPartOrder = order || this.orderForNewPart;
+        const newPart = new MortgagePart(newPartOrder);
         newPart.init(loanAmount, numYears, yearlyInterest, amortizationType);
         this.mortgagePartsInner.push(newPart);
         return newPart.id;
