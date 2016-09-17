@@ -58,9 +58,9 @@ describe('Mortgage tests', function() {
         it('should set the order of a new mortgage part to be the last part', function() {
             const { mortgage, part1, part2, part3 } = createMortgageWithThreeParts();
 
-            expect(part1.order).to.equal(0);
-            expect(part2.order).to.equal(1);
-            expect(part3.order).to.equal(2);
+            expect(part1.order).to.equal(1);
+            expect(part2.order).to.equal(2);
+            expect(part3.order).to.equal(3);
         });
 
         it('should update the part correctly', function() {
