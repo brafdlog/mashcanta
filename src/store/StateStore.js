@@ -21,7 +21,7 @@ class StateStore {
         }
         const observableMortgages = mortgages.map(mortgage => {
             const observableMortgage = new Mortgage();
-            observableMortgage.setMortgageId(mortgage.id);
+            observableMortgage.id = mortgage.id;
             mortgage.mortgageParts.forEach(part => {
                 observableMortgage.addPart({
                     loanAmount: part.loanAmount,
