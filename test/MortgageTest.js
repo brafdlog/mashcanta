@@ -14,6 +14,8 @@ describe('Mortgage tests', function() {
         it('should add mortgage part with zero values by default', function() {
             const mortgage = new Mortgage();
 
+            expect(mortgage.id).not.to.be.empty;
+
             const newPartId = mortgage.addPart();
             expect(newPartId).not.to.be.empty;
             expect(mortgage.mortgageParts.length).to.equal(1);

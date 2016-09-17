@@ -54,6 +54,8 @@ export class MortgagePart {
 
 export class Mortgage {
 
+    @observable id = generateId();
+
     // This is not necesarily sorted. Should be accessed only for udpates.
     // Reads should be from the sorted computed mortgageParts
     @observable mortgagePartsInner = [];
