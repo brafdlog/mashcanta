@@ -51,6 +51,10 @@ export default class Mortgage {
         return partWithMaxOrder ? partWithMaxOrder.order : 0;
     }
 
+    @computed get loanCost() {
+        return this.totalPaymentToBank - this.loanAmount;
+    }
+
     getPart(partId) {
         return _.find(this.mortgageParts, { 'id': partId });
     }
