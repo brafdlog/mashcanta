@@ -116,5 +116,23 @@ export class Mortgage {
         _.remove(this.mortgagePartsInner, { id: mortgagePartId });
     }
 
-}
+    @action movePartUp(partId) {
+        const partIndex = _.findIndex(this.mortgageParts, ['id', partId]);
+        // If not, this is the top part and moving it up should do nothing
+        if (partIndex > 0) {
+            const partAboveId = this.mortgageParts[partIndex - 1].id;
+            this.swapPartsOrder(partId, partAboveId);
+        }
+    }
 
+    swapPartsOrder(part1Id, part2Id) {
+        const part1 = this.getPart(part1Id);
+        const part2 = this.getPart(part2Id);
+
+        const originalPart1 = part1.order;
+
+        part1.order = part2.order;
+        part2.order = originalPart1;
+    }
+
+}
