@@ -1,45 +1,48 @@
 import React from 'react';
-import _ from 'lodash';
 import { FABButton, Icon } from 'react-mdl';
-import { generateId } from '../utils';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import PaymentsGraph from './graphs/PaymentsGraph';
-import * as Calculator from '../calculator';
-import { getFromStorage, saveToStorage } from '../storage';
-
-import './Root.scss';
 import { observer } from 'mobx-react';
+import { KEREN_SHAVA, SHPITZER } from '../consts';
+import './Root.scss';
 
-const EMPTY_STATE = {
-    mortgageInfo: {
-        mortgageParts: [
-
-        ]
-    }
-};
+const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
 
 @observer
 class Root extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            ...EMPTY_STATE,
-            loading: true
-        };
+    static propTypes = {
+        currentMortgage: shape({
+            id: string,
+            loanAmount: number,
+            monthlyPayment: number,
+            totalPaymentToBank: number,
+            costOfEachDollar: number,
+            paymentDetailsPerMonth: arrayOf(shape({
+                principal: number,
+                interest: number
+            })),
+            mortgageParts: arrayOf(shape({
+                id: string,
+                order: number,
+                loanAmount: number,
+                numYears: number,
+                yearlyInterest: number,
+                amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
+            }))
+        }),
+        isLoading: bool
     }
 
     render() {
-        const { mortgageParts } = this.state.mortgageInfo;
-        const calculatedMortgageInfoParts = this.state.mortgageInfo.mortgageParts.map(mortgagePart => Calculator.getMortgagePartInfo(mortgagePart));
+        const { currentMortgage, isLoading } = this.props;
+        const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost } = currentMortgage;
 
-        const loanDetails = Calculator.mergeMortgateInfoParts(calculatedMortgageInfoParts);
-        const loanAmount = loanDetails.loanAmount;
-        const loanCost = loanDetails.totalPaymentToBank - loanAmount;
-        const showGraph = loanAmount && loanDetails.totalPaymentToBank > 0;
-        if (this.state.loading) {
+        const showGraph = loanAmount && totalPaymentToBank > 0;
+
+        if (isLoading) {
             return (
                 <div className='loaderContainer'>
                     <div className='loader'></div>
@@ -58,7 +61,7 @@ class Root extends React.Component {
                         </FABButton>
                     </div>
                     <div className='col-md-2 MortgageDetailsDisplayContainer'>
-                        <MortgageDetailsDisplay mortgageInfo={loanDetails} />
+                        <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
                     </div>
                     <div className='col-md-3 col-md-offset-1'>
                         {showGraph ? <CostOfDollarGraph className='costGraph' loanAmount={loanAmount} loanCost={loanCost} /> : ''}
@@ -66,101 +69,47 @@ class Root extends React.Component {
                 </div>
                 <div className='row'>
                     <div className='col-md-12'>
-                        {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={loanDetails.paymentDetailsPerMonth} yearlyGraph={this.state.paymentGraphYearly} handleUpdateGranularity={this.updatePaymentGraphGranularity} /> : ''}
+                        {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth} yearlyGraph={this.state.paymentGraphYearly} handleUpdateGranularity={this.updatePaymentGraphGranularity} /> : ''}
                     </div>
                 </div>
             </div>
         );
     }
 
-    state = EMPTY_STATE;
+    state = {};
 
-    componentDidMount() {
-        /* eslint react/no-did-mount-set-state: "off" */
-        getFromStorage('mortgageInfo').then(storedMortgageInfo => {
-            const mortgageInfoState = storedMortgageInfo ? { mortgageInfo: storedMortgageInfo } : {};
-            this.setState({
-                ...mortgageInfoState,
-                loading: false
-            });
-        });
-    }
-
-    onMovePartUp = partId => {
-        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
-        const partIndex = _.findIndex(mortgageParts, ['id', partId]);
-        if (partIndex > 0) {
-            this.swapPartOrder(mortgageParts, partIndex, partIndex - 1);
-        }
-    }
-
-    onMovePartDown = partId => {
-        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
-        const partIndex = _.findIndex(mortgageParts, ['id', partId]);
-        const isLastPart = partIndex === mortgageParts.length - 1;
-        if (!isLastPart) {
-            this.swapPartOrder(mortgageParts, partIndex, partIndex + 1);
-        }
-    }
-
-    swapPartOrder(mortgageParts, firstPartIndex, secondPartIndex) {
-        const firstPart = { ...mortgageParts[firstPartIndex]};
-        mortgageParts[firstPartIndex] = firstPart;
-        const secondPart = { ...mortgageParts[secondPartIndex]};
-        mortgageParts[secondPartIndex] = secondPart;
-        const partOrder = firstPart.order;
-        firstPart.order = secondPart.order;
-        secondPart.order = partOrder;
-        this.setUpdatedMortgageParts(mortgageParts);
-    }
-
-    onDeletePart = partId => {
-        let mortgageParts = [...this.state.mortgageInfo.mortgageParts];
-        mortgageParts = mortgageParts.filter(part => part.id !== partId);
-        this.setUpdatedMortgageParts(mortgageParts);
+    onDeletePart = (partId) => {
+        const mortgage = this.props.currentMortgage;
+        mortgage.deletePart(partId);
     }
 
     onAddNewPart = () => {
-        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
-
-        const newMortgagePart = {
-            id: generateId(),
-            order: mortgageParts.length,
-            loanAmount: 0,
-            numYears: 0,
-            yearlyInterest: 0,
-            monthlyPayment: 0
-        };
-        mortgageParts.push(newMortgagePart);
-        this.setUpdatedMortgageParts(mortgageParts);
+        const mortgage = this.props.currentMortgage;
+        mortgage.addPart();
     }
 
     updatePaymentGraphGranularity = (newGranularity) => {
         this.setState({ paymentGraphYearly: newGranularity === 'yearly' });
     }
 
-    onUpdateMortgagePart = updatedMortgagePart => {
-        // Clear the monthly payment so it will be recalculated
-        updatedMortgagePart.monthlyPayment = null;
-        const calculatedInfo = Calculator.getMortgagePartInfo(updatedMortgagePart);
-        updatedMortgagePart.monthlyPayment = calculatedInfo.monthlyPayment || 0;
-
-        const mortgageParts = [...this.state.mortgageInfo.mortgageParts];
-        const index = _.findIndex(mortgageParts, ['id', updatedMortgagePart.id]);
-        mortgageParts[index] = updatedMortgagePart;
-        this.setUpdatedMortgageParts(mortgageParts);
+    onUpdateMortgagePart = (updatedMortgagePart) => {
+        const mortgage = this.props.currentMortgage;
+        mortgage.updatePart(updatedMortgagePart.id, updatedMortgagePart);
     }
 
-    setUpdatedMortgageParts = updatedMorgageParts => {
-        // Sort parts by order
-        updatedMorgageParts.sort((part1, part2) => part1.order - part2.order);
-        const updatedMortgageInfo = { ...this.state.mortgageInfo, mortgageParts: updatedMorgageParts };
-        this.setState({ mortgageInfo: updatedMortgageInfo });
-        saveToStorage('mortgageInfo', updatedMortgageInfo);
+    onMovePartUp = (partId) => {
+        const mortgage = this.props.currentMortgage;
+        mortgage.movePartUp(partId);
+    }
+
+    onMovePartDown = (partId) => {
+        const mortgage = this.props.currentMortgage;
+        mortgage.movePartDown(partId);
     }
 
     onClearClicked = () => {
-        this.setState(EMPTY_STATE);
+        const mortgage = this.props.currentMortgage;
+        mortgage.reset();
     }
 
 }
