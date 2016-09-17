@@ -14,7 +14,8 @@ describe('Mortgage tests', function() {
         it('should add mortgage part with zero values by default', function() {
             const mortgage = new Mortgage();
 
-            mortgage.addMortgagePart();
+            const newPartId = mortgage.addMortgagePart();
+            expect(newPartId).not.to.be.empty;
             expect(mortgage.mortgageParts.length).to.equal(1);
 
             const firstMortgagePart = mortgage.mortgageParts[0];
@@ -34,12 +35,14 @@ describe('Mortgage tests', function() {
         it('should add mortgage part with with the values past to the addMortgagePart function', function() {
             const mortgage = new Mortgage();
 
-            mortgage.addMortgagePart({
+            const newPartId = mortgage.addMortgagePart({
                 loanAmount: 700000,
                 numYears: 15,
                 yearlyInterest: 3,
                 amortizationType: KEREN_SHAVA
             });
+
+            expect(newPartId).not.to.be.empty;
 
             expect(mortgage.mortgageParts.length).to.equal(1);
 
@@ -54,14 +57,14 @@ describe('Mortgage tests', function() {
 
         it('should set the order of a new mortgage part to be the last part', function() {
             const mortgage = new Mortgage();
-            mortgage.addMortgagePart();
-            mortgage.addMortgagePart();
-            mortgage.addMortgagePart();
+            const part1Id = mortgage.addMortgagePart();
+            const part2Id = mortgage.addMortgagePart();
+            const part3Id = mortgage.addMortgagePart();
 
-            expect(mortgage.mortgageParts[0].order).to.equal(0);
-            expect(mortgage.mortgageParts[1].order).to.equal(1);
-            expect(mortgage.mortgageParts[2].order).to.equal(2);
-        })
+            expect(mortgage.getPart(part1Id).order).to.equal(0);
+            expect(mortgage.getPart(part2Id).order).to.equal(1);
+            expect(mortgage.getPart(part3Id).order).to.equal(2);
+        });
     });
 
     it('should have zero values by default', function() {

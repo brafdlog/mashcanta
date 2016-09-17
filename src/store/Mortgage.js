@@ -2,6 +2,7 @@ import { observable, computed, action } from 'mobx';
 import * as Calculator from '../calculator';
 import { SHPITZER } from '../consts';
 import { generateId } from '../utils';
+import _ from 'lodash';
 
 export class MortgagePart {
 
@@ -84,10 +85,15 @@ export class Mortgage {
         return this.mortgageParts.length;
     }
 
+    getPart(partId) {
+        return _.find(this.mortgageParts, { 'id': partId });
+    }
+
     @action addMortgagePart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
         const newPart = new MortgagePart(this.orderForNewPart);
         newPart.init(loanAmount, numYears, yearlyInterest, amortizationType);
         this.mortgageParts.push(newPart);
+        return newPart.id;
     }
 
 }
