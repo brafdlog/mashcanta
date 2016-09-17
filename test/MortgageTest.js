@@ -163,6 +163,23 @@ describe('Mortgage tests', function() {
             expect(part2.order).to.be.above(part1.order);
         });
 
+        it('should handle reset mortgage correctly', function() {
+            const { mortgage, part1, part2, part3 } = createMortgageWithThreeParts();
+
+            expect(mortgage.mortgageParts.length).to.equal(3);
+
+            mortgage.reset();
+
+            expect(mortgage.mortgageParts.length).to.equal(1);
+
+            const part = mortgage.mortgageParts[0];
+            expect(part.id).not.to.be.empty;
+            expect(part.loanAmount).to.equal(0);
+            expect(part.numYears).to.equal(0);
+            expect(part.yearlyInterest).to.equal(0);
+            expect(part.amortizationType).to.equal(SHPITZER);
+        });
+
     });
 
     it('should have zero values by default', function() {

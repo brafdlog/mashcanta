@@ -134,6 +134,11 @@ export class Mortgage {
         }
     }
 
+    @action reset() {
+        this.mortgagePartsInner.clear();
+        this.addPart();
+    }
+
     swapPartsOrder(part1Id, part2Id) {
         const part1 = this.getPart(part1Id);
         const part2 = this.getPart(part2Id);
