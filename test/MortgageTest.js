@@ -14,7 +14,7 @@ describe('Mortgage tests', function() {
         it('should add mortgage part with zero values by default', function() {
             const mortgage = new Mortgage();
 
-            const newPartId = mortgage.addMortgagePart();
+            const newPartId = mortgage.addPart();
             expect(newPartId).not.to.be.empty;
             expect(mortgage.mortgageParts.length).to.equal(1);
 
@@ -32,10 +32,10 @@ describe('Mortgage tests', function() {
             expect(mortgage.paymentDetailsPerMonth).to.deep.equal([]);
         });
 
-        it('should add mortgage part with with the values past to the addMortgagePart function', function() {
+        it('should add mortgage part with with the values past to the addPart function', function() {
             const mortgage = new Mortgage();
 
-            const newPartId = mortgage.addMortgagePart({
+            const newPartId = mortgage.addPart({
                 loanAmount: 700000,
                 numYears: 15,
                 yearlyInterest: 3,
@@ -57,9 +57,9 @@ describe('Mortgage tests', function() {
 
         it('should set the order of a new mortgage part to be the last part', function() {
             const mortgage = new Mortgage();
-            const part1Id = mortgage.addMortgagePart();
-            const part2Id = mortgage.addMortgagePart();
-            const part3Id = mortgage.addMortgagePart();
+            const part1Id = mortgage.addPart();
+            const part2Id = mortgage.addPart();
+            const part3Id = mortgage.addPart();
 
             expect(mortgage.getPart(part1Id).order).to.equal(0);
             expect(mortgage.getPart(part2Id).order).to.equal(1);
@@ -69,15 +69,15 @@ describe('Mortgage tests', function() {
         it('should update the part correctly', function() {
             const mortgage = new Mortgage();
             
-            const part1Id = mortgage.addMortgagePart();
-            const part2Id = mortgage.addMortgagePart({
+            const part1Id = mortgage.addPart();
+            const part2Id = mortgage.addPart({
                 loanAmount: 700000,
                 numYears: 15,
                 yearlyInterest: 3,
                 amortizationType: KEREN_SHAVA
             });
 
-            mortgage.updateMortgagePart(part2Id, { loanAmount: 7 });
+            mortgage.updatePart(part2Id, { loanAmount: 7 });
 
             // The first part was not updated and so should not change
             const part1 = mortgage.getPart(part1Id);
@@ -90,7 +90,7 @@ describe('Mortgage tests', function() {
             expect(part2.numYears).to.be.equal(15);
 
             // The second part should have changed only in what was updated
-            mortgage.updateMortgagePart(part2Id, { order: 7 });
+            mortgage.updatePart(part2Id, { order: 7 });
             expect(part2.loanAmount).to.be.equal(7);
             expect(part2.order).to.be.equal(7);
         });
@@ -110,7 +110,7 @@ describe('Mortgage tests', function() {
     it('should calculate mortgage values from the parts correctly', function() {
         const mortgage = new Mortgage();
 
-        mortgage.addMortgagePart({
+        mortgage.addPart({
             loanAmount: 700000,
             numYears: 15,
             yearlyInterest: 3,
@@ -122,7 +122,7 @@ describe('Mortgage tests', function() {
         expect(mortgage.costOfEachDollar).to.be.closeTo(1.226, ALLOWED_DIFFERENCE);
         expect(mortgage.paymentDetailsPerMonth.length).to.equal(15*12);
 
-        mortgage.addMortgagePart({
+        mortgage.addPart({
             loanAmount: 50000,
             numYears: 10,
             yearlyInterest: 6,

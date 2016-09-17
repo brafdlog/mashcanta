@@ -89,14 +89,14 @@ export class Mortgage {
         return _.find(this.mortgageParts, { 'id': partId });
     }
 
-    @action addMortgagePart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
+    @action addPart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
         const newPart = new MortgagePart(this.orderForNewPart);
         newPart.init(loanAmount, numYears, yearlyInterest, amortizationType);
         this.mortgageParts.push(newPart);
         return newPart.id;
     }
 
-    @action updateMortgagePart(mortgagePartId, updatesObject = {}) {
+    @action updatePart(mortgagePartId, updatesObject = {}) {
         const mortgagePart = this.getPart(mortgagePartId);
         _.assignIn(mortgagePart, updatesObject);
     }
