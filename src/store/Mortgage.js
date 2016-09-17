@@ -54,7 +54,13 @@ export class MortgagePart {
 
 export class Mortgage {
 
-    @observable mortgageParts = [];
+    // This is not necesarily sorted. Should be accessed only for udpates.
+    // Reads should be from the sorted computed mortgageParts
+    @observable mortgagePartsInner = [];
+
+    @computed get mortgageParts() {
+        return _.sortBy(this.mortgagePartsInner, 'order');
+    }
 
     @computed get totalCalculatedInfo() {
         const partsCalculatedInfoArray = this.mortgageParts.map(mortgagePart => mortgagePart.calculatedInfo);
@@ -97,7 +103,7 @@ export class Mortgage {
     @action addPart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
         const newPart = new MortgagePart(this.orderForNewPart);
         newPart.init(loanAmount, numYears, yearlyInterest, amortizationType);
-        this.mortgageParts.push(newPart);
+        this.mortgagePartsInner.push(newPart);
         return newPart.id;
     }
 
@@ -107,7 +113,7 @@ export class Mortgage {
     }
 
     @action deletePart(mortgagePartId) {
-        _.remove(this.mortgageParts, { id: mortgagePartId });
+        _.remove(this.mortgagePartsInner, { id: mortgagePartId });
     }
 
 }
