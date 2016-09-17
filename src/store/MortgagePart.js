@@ -24,6 +24,18 @@ export default class MortgagePart {
         this.amortizationType = amortizationType;
     }
 
+    // Returns the representation of the object that will be persisted
+    @computed get persistableObject() {
+        return {
+            id: this.id,
+            order: this.order,
+            loanAmount: this.loanAmount,
+            numYears: this.numYears,
+            yearlyInterest: this.yearlyInterest,
+            amortizationType: this.amortizationType
+        };
+    }
+
     @computed get calculatedInfo() {
         return Calculator.getMortgagePartInfo({
             loanAmount: this.loanAmount,

@@ -13,6 +13,14 @@ export default class Mortgage {
     // Reads should be from the sorted computed mortgageParts
     @observable mortgagePartsInner = [];
 
+    // Returns the representation of the object that will be persisted
+    @computed get persistableObject() {
+        return {
+            id: this.id,
+            mortgageParts: this.mortgagePartsInner.map(part => part.persistableObject)
+        };
+    }
+
     @computed get mortgageParts() {
         return _.sortBy(this.mortgagePartsInner, 'order');
     }
