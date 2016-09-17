@@ -6,7 +6,7 @@ import { observer } from 'mobx';
 import { stateStore } from '../src/store/StateStore';
 import Mortgage from '../src/store/Mortgage';
 
-describe('Mortgage state store', function() { 
+describe('State store', function() { 
     it('should initially have one empty mortgage', function() {
         const mortgages = stateStore.mortgages;
         expect(mortgages.length).to.equal(1);
@@ -37,5 +37,13 @@ describe('Mortgage state store', function() {
         expect(mortgages.length).to.equal(2);
         // Calling set mortgages should have overriden the original mortgages
         expect(mortgageIds).not.to.contain(initialMortgageId);
+    });
+
+    it('should set loading state correctly', function() {
+        expect(stateStore.isLoading).to.be.false;
+        stateStore.setLoading(true);
+        expect(stateStore.isLoading).to.be.true;
+        stateStore.setLoading(false);
+        expect(stateStore.isLoading).to.be.false;
     });
 });

@@ -4,9 +4,14 @@ useStrict(true);
 
 class StateStore {
     @observable mortgages = [new Mortgage()];
+    @observable isLoading = false;
 
     @action setMortgages(mortgages) {
         this.mortgages = mortgages;
+    }
+
+    @action('Set loading') setLoading(isLoading) {
+        this.isLoading = isLoading;
     }
 }
 
