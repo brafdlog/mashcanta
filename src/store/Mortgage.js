@@ -55,23 +55,23 @@ export default class Mortgage {
         return _.find(this.mortgageParts, { 'id': partId });
     }
 
-    @action addPart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
+    @action('Add mortgage part') addPart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
         const newPart = new MortgagePart(this.orderForNewPart);
         newPart.init(loanAmount, numYears, yearlyInterest, amortizationType);
         this.mortgagePartsInner.push(newPart);
         return newPart.id;
     }
 
-    @action updatePart(mortgagePartId, updatesObject = {}) {
+    @action('Update mortgage part') updatePart(mortgagePartId, updatesObject = {}) {
         const mortgagePart = this.getPart(mortgagePartId);
         _.assignIn(mortgagePart, updatesObject);
     }
 
-    @action deletePart(mortgagePartId) {
+    @action('Delete mortgage part') deletePart(mortgagePartId) {
         _.remove(this.mortgagePartsInner, { id: mortgagePartId });
     }
 
-    @action movePartUp(partId) {
+    @action('Move mortgage part up') movePartUp(partId) {
         const partIndex = _.findIndex(this.mortgageParts, ['id', partId]);
         // If not, this is the top part and moving it up should do nothing
         if (partIndex > 0) {
@@ -80,7 +80,7 @@ export default class Mortgage {
         }
     }
 
-    @action movePartDown(partId) {
+    @action('Move mortgage part down') movePartDown(partId) {
         const partIndex = _.findIndex(this.mortgageParts, ['id', partId]);
         const isLastPart = partIndex === this.mortgageParts.length - 1;
         if (!isLastPart) {
@@ -89,7 +89,7 @@ export default class Mortgage {
         }
     }
 
-    @action reset() {
+    @action('Reset mortgage') reset() {
         this.mortgagePartsInner.clear();
         this.addPart();
     }

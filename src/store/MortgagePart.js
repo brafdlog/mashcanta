@@ -17,7 +17,7 @@ export default class MortgagePart {
         this.order = order;
     }
 
-    @action init({ loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER } = {}) {
+    @action('Init mortgage part') init({ loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER } = {}) {
         this.loanAmount = loanAmount;
         this.numYears = numYears;
         this.yearlyInterest = yearlyInterest;
