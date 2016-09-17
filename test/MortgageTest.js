@@ -4,7 +4,7 @@ import * as calculator from '../src/calculator';
 import { KEREN_SHAVA, SHPITZER } from '../src/consts';
 import { observer } from 'mobx';
 import { mortgagesState } from '../src/store/MortgagesStateStore';
-import { Mortgage } from '../src/store/Mortgage';
+import Mortgage from '../src/store/Mortgage';
 
 const ALLOWED_DIFFERENCE = 1;
 
