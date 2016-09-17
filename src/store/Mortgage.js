@@ -82,7 +82,8 @@ export class Mortgage {
     }
 
     @computed get orderForNewPart() {
-        return this.mortgageParts.length;
+        const partWithMaxOrder = _.maxBy(this.mortgageParts, 'order');
+        return partWithMaxOrder ? partWithMaxOrder.order + 1 : 0;
     }
 
     getPart(partId) {

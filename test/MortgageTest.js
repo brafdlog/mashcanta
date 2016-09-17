@@ -113,6 +113,28 @@ describe('Mortgage tests', function() {
             expect(mortgage.getPart(part2Id)).to.be.empty;
             expect(mortgage.getPart(part3Id)).not.to.be.empty;
         });
+
+        it('should handle order properly even if parts were deleted', function() {
+            const mortgage = new Mortgage();
+            const part1Id = mortgage.addPart();
+            const part2Id = mortgage.addPart();
+            const part3Id = mortgage.addPart();
+
+            const part1 = mortgage.getPart(part1Id);
+            const part2 = mortgage.getPart(part2Id);
+            const part3 = mortgage.getPart(part3Id);
+
+            expect(part2.order).to.be.above(part1.order);
+            expect(part3.order).to.be.above(part2.order);
+
+            mortgage.deletePart(part2Id);
+
+            const part4Id = mortgage.addPart();
+            const part4 = mortgage.getPart(part4Id);
+
+            expect(part3.order).to.be.above(part1.order);
+            expect(part4.order).to.be.above(part3.order);
+        });
     });
 
     it('should have zero values by default', function() {
