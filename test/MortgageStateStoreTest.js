@@ -22,15 +22,45 @@ describe('State store', function() {
     });
 
     it('should set mortgages', function() {
+
+        const mortgagesToSet = [{
+            "mortgageParts": [
+                {
+                    "id": "chHZUGV",
+                    "loanAmount": 50000,
+                    "numYears": 2,
+                    "order": 1,
+                    "yearlyInterest": 6
+                },
+                {
+                    "amortizationType": "shpitzer",
+                    "id": "SHWhv2p",
+                    "loanAmount": 700000,
+                    "numYears": 1,
+                    "order": 2,
+                    "yearlyInterest": 3
+                }
+            ]
+        },
+        {
+            "mortgageParts": [
+                {
+                    "id": "ArbsdfV",
+                    "loanAmount": 260000,
+                    "numYears": 25,
+                    "order": 1,
+                    "yearlyInterest": 4
+                }
+            ]
+        }];
+
         let mortgages = stateStore.mortgages;
         expect(mortgages.length).to.equal(1);
 
         const initialMortgage = mortgages[0];
         const initialMortgageId = initialMortgage.id;
 
-        const newMortgages = [ new Mortgage(), new Mortgage()];
-
-        stateStore.setMortgages(newMortgages);
+        stateStore.setMortgages(mortgagesToSet);
 
         mortgages = stateStore.mortgages;
         const mortgageIds = mortgages.map(mortgage => mortgage.id);
@@ -38,6 +68,13 @@ describe('State store', function() {
         expect(mortgages.length).to.equal(2);
         // Calling set mortgages should have overriden the original mortgages
         expect(mortgageIds).not.to.contain(initialMortgageId);
+
+        const mortgage1 = mortgages[0];
+        const mortgage2 = mortgages[1];
+
+        // This is to verify that after setting the mortgages the calculated fields are calculated as expected
+        expect(mortgage1.loanAmount).to.equal(750000);
+        expect(mortgage2.loanAmount).to.equal(260000);
     });
 
     it('should set loading state correctly', function() {
