@@ -10,6 +10,60 @@ const ALLOWED_DIFFERENCE = 1;
 
 describe('Mortgage tests', function() {
 
+    describe('mortgage parts', function() {
+        it('should add mortgage part with zero values by default', function() {
+            const mortgage = new Mortgage();
+
+            mortgage.addMortgagePart();
+            expect(mortgage.mortgageParts.length).to.equal(1);
+
+            const firstMortgagePart = mortgage.mortgageParts[0];
+
+            expect(firstMortgagePart.id).not.to.be.empty;
+            expect(firstMortgagePart.loanAmount).to.equal(0);
+            expect(firstMortgagePart.numYears).to.equal(0);
+            expect(firstMortgagePart.yearlyInterest).to.equal(0);
+            expect(firstMortgagePart.amortizationType).to.equal(SHPITZER);
+
+            expect(mortgage.monthlyPayment).to.equal(0);
+            expect(mortgage.totalPaymentToBank).to.equal(0);
+            expect(mortgage.costOfEachDollar).to.equal(0);
+            expect(mortgage.paymentDetailsPerMonth).to.deep.equal([]);
+        });
+
+        it('should add mortgage part with with the values past to the addMortgagePart function', function() {
+            const mortgage = new Mortgage();
+
+            mortgage.addMortgagePart({
+                loanAmount: 700000,
+                numYears: 15,
+                yearlyInterest: 3,
+                amortizationType: KEREN_SHAVA
+            });
+
+            expect(mortgage.mortgageParts.length).to.equal(1);
+
+            const firstMortgagePart = mortgage.mortgageParts[0];
+
+            expect(firstMortgagePart.id).not.to.be.empty;
+            expect(firstMortgagePart.loanAmount).to.equal(700000);
+            expect(firstMortgagePart.numYears).to.equal(15);
+            expect(firstMortgagePart.yearlyInterest).to.equal(3);
+            expect(firstMortgagePart.amortizationType).to.equal(KEREN_SHAVA);
+        });
+
+        it('should set the order of a new mortgage part to be the last part', function() {
+            const mortgage = new Mortgage();
+            mortgage.addMortgagePart();
+            mortgage.addMortgagePart();
+            mortgage.addMortgagePart();
+
+            expect(mortgage.mortgageParts[0].order).to.equal(0);
+            expect(mortgage.mortgageParts[1].order).to.equal(1);
+            expect(mortgage.mortgageParts[2].order).to.equal(2);
+        })
+    });
+
     it('should have zero values by default', function() {
         const mortgage = new Mortgage();
         expect(mortgage.mortgageParts.length).to.equal(0);
@@ -20,45 +74,7 @@ describe('Mortgage tests', function() {
         expect(mortgage.paymentDetailsPerMonth).to.deep.equal([]);
     });
 
-    it('should add mortgage part with zero values by default', function() {
-        const mortgage = new Mortgage();
-
-        mortgage.addMortgagePart();
-        expect(mortgage.mortgageParts.length).to.equal(1);
-
-        const firstMortgagePart = mortgage.mortgageParts[0];
-
-        expect(firstMortgagePart.loanAmount).to.equal(0);
-        expect(firstMortgagePart.numYears).to.equal(0);
-        expect(firstMortgagePart.yearlyInterest).to.equal(0);
-        expect(firstMortgagePart.amortizationType).to.equal(SHPITZER);
-
-        expect(mortgage.monthlyPayment).to.equal(0);
-        expect(mortgage.totalPaymentToBank).to.equal(0);
-        expect(mortgage.costOfEachDollar).to.equal(0);
-        expect(mortgage.paymentDetailsPerMonth).to.deep.equal([]);
-    });
-
-    it('should add mortgage part with with the values past to the addMortgagePart function', function() {
-        const mortgage = new Mortgage();
-
-        mortgage.addMortgagePart({
-            loanAmount: 700000,
-            numYears: 15,
-            yearlyInterest: 3,
-            amortizationType: KEREN_SHAVA
-        });
-
-        expect(mortgage.mortgageParts.length).to.equal(1);
-
-        const firstMortgagePart = mortgage.mortgageParts[0];
-
-        expect(firstMortgagePart.loanAmount).to.equal(700000);
-        expect(firstMortgagePart.numYears).to.equal(15);
-        expect(firstMortgagePart.yearlyInterest).to.equal(3);
-        expect(firstMortgagePart.amortizationType).to.equal(KEREN_SHAVA);
-    });
-
+    
     it('should calculate mortgage values from the parts correctly', function() {
         const mortgage = new Mortgage();
 

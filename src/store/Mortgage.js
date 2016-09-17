@@ -1,13 +1,21 @@
 import { observable, computed, action } from 'mobx';
 import * as Calculator from '../calculator';
 import { SHPITZER } from '../consts';
+import { generateId } from '../utils';
 
 export class MortgagePart {
 
+    @observable id;
+    @observable order;
     @observable loanAmount;
     @observable numYears;
     @observable yearlyInterest;
     @observable amortizationType;
+
+    constructor(order) {
+        this.id = generateId();
+        this.order = order;
+    }
 
     @action init({ loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER } = {}) {
         this.loanAmount = loanAmount;
@@ -72,8 +80,12 @@ export class Mortgage {
         return this.totalCalculatedInfo.paymentDetailsPerMonth;
     }
 
+    @computed get orderForNewPart() {
+        return this.mortgageParts.length;
+    }
+
     @action addMortgagePart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER) {
-        const newPart = new MortgagePart();
+        const newPart = new MortgagePart(this.orderForNewPart);
         newPart.init(loanAmount, numYears, yearlyInterest, amortizationType);
         this.mortgageParts.push(newPart);
     }
