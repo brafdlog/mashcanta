@@ -143,6 +143,26 @@ describe('Mortgage tests', function() {
             expect(part2.order).to.be.above(part1.order);
         });
 
+        it('should handle move part down correctly', function() {
+            const { mortgage, part1, part2, part3 } = createMortgageWithThreeParts();
+
+            expect(part3.order).to.be.above(part2.order);
+            expect(part2.order).to.be.above(part1.order);
+
+            // moving down the bottom most part should do nothing and not cause an error
+            mortgage.movePartDown(part3.id);
+            expect(part3.order).to.be.above(part2.order);
+            expect(part2.order).to.be.above(part1.order);
+
+            mortgage.movePartDown(part2.id);
+            expect(part2.order).to.be.above(part3.order);
+            expect(part3.order).to.be.above(part1.order);
+
+            mortgage.movePartDown(part3.id);
+            expect(part3.order).to.be.above(part2.order);
+            expect(part2.order).to.be.above(part1.order);
+        });
+
     });
 
     it('should have zero values by default', function() {

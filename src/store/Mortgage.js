@@ -125,6 +125,15 @@ export class Mortgage {
         }
     }
 
+    @action movePartDown(partId) {
+        const partIndex = _.findIndex(this.mortgageParts, ['id', partId]);
+        const isLastPart = partIndex === this.mortgageParts.length - 1;
+        if (!isLastPart) {
+            const partBelowId = this.mortgageParts[partIndex + 1].id;
+            this.swapPartsOrder(partId, partBelowId);
+        }
+    }
+
     swapPartsOrder(part1Id, part2Id) {
         const part1 = this.getPart(part1Id);
         const part2 = this.getPart(part2Id);
