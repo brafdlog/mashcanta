@@ -170,12 +170,15 @@ describe('Mortgage tests', function() {
 
             expect(mortgage.mortgageParts.length).to.equal(3);
 
+            const originalPartsIds = mortgage.mortgageParts.map(part => part.id);
+
             mortgage.reset();
 
             expect(mortgage.mortgageParts.length).to.equal(1);
 
             const part = mortgage.mortgageParts[0];
             expect(part.id).not.to.be.empty;
+            expect(originalPartsIds).not.to.contain(part.id);
             expect(part.loanAmount).to.equal(0);
             expect(part.numYears).to.equal(0);
             expect(part.yearlyInterest).to.equal(0);
