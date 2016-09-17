@@ -13,7 +13,8 @@ class StateStore {
      */
     @action setMortgages(mortgages) {
         const observableMortgages = mortgages.map(mortgage => {
-            const observableMortgage = new Mortgage(mortgage.id);
+            const observableMortgage = new Mortgage();
+            observableMortgage.setMortgageId(mortgage.id);
             mortgage.mortgageParts.forEach(part => {
                 observableMortgage.addPart({
                     loanAmount: part.loanAmount,

@@ -7,11 +7,7 @@ import _ from 'lodash';
 
 export default class Mortgage {
 
-    @observable id;
-
-    constructor(id) {
-        this.id = id || generateId();
-    }
+    @observable id = generateId();
 
     // This is not necesarily sorted. Should be accessed only for udpates.
     // Reads should be from the sorted computed mortgageParts
@@ -57,6 +53,10 @@ export default class Mortgage {
 
     getPart(partId) {
         return _.find(this.mortgageParts, { 'id': partId });
+    }
+
+    @action setMortgageId(id) {
+        this.id = id;
     }
 
     @action('Add mortgage part') addPart(loanAmount = 0, numYears = 0, yearlyInterest = 0, amortizationType = SHPITZER, order) {
