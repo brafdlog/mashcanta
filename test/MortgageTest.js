@@ -56,14 +56,11 @@ describe('Mortgage tests', function() {
         });
 
         it('should set the order of a new mortgage part to be the last part', function() {
-            const mortgage = new Mortgage();
-            const part1Id = mortgage.addPart();
-            const part2Id = mortgage.addPart();
-            const part3Id = mortgage.addPart();
+            const { mortgage, part1, part2, part3 } = createMortgageWithThreeParts();
 
-            expect(mortgage.getPart(part1Id).order).to.equal(0);
-            expect(mortgage.getPart(part2Id).order).to.equal(1);
-            expect(mortgage.getPart(part3Id).order).to.equal(2);
+            expect(part1.order).to.equal(0);
+            expect(part2.order).to.equal(1);
+            expect(part3.order).to.equal(2);
         });
 
         it('should update the part correctly', function() {
@@ -96,38 +93,28 @@ describe('Mortgage tests', function() {
         });
 
         it('should delete part correctly', function() {
-            const mortgage = new Mortgage();
-            const part1Id = mortgage.addPart();
-            const part2Id = mortgage.addPart();
-            const part3Id = mortgage.addPart();
+            const { mortgage, part1, part2, part3 } = createMortgageWithThreeParts();
 
             expect(mortgage.mortgageParts.length).to.equal(3);
-            expect(mortgage.getPart(part1Id)).not.to.be.empty;
-            expect(mortgage.getPart(part2Id)).not.to.be.empty;
-            expect(mortgage.getPart(part3Id)).not.to.be.empty;
+            expect(part1).not.to.be.empty;
+            expect(part2).not.to.be.empty;
+            expect(part3).not.to.be.empty;
 
-            mortgage.deletePart(part2Id);
+            mortgage.deletePart(part2.id);
 
             expect(mortgage.mortgageParts.length).to.equal(2);
-            expect(mortgage.getPart(part1Id)).not.to.be.empty;
-            expect(mortgage.getPart(part2Id)).to.be.empty;
-            expect(mortgage.getPart(part3Id)).not.to.be.empty;
+            expect(mortgage.getPart(part1.id)).not.to.be.empty;
+            expect(mortgage.getPart(part2.id)).to.be.empty;
+            expect(mortgage.getPart(part3.id)).not.to.be.empty;
         });
 
         it('should handle order properly even if parts were deleted', function() {
-            const mortgage = new Mortgage();
-            const part1Id = mortgage.addPart();
-            const part2Id = mortgage.addPart();
-            const part3Id = mortgage.addPart();
-
-            const part1 = mortgage.getPart(part1Id);
-            const part2 = mortgage.getPart(part2Id);
-            const part3 = mortgage.getPart(part3Id);
+            const { mortgage, part1, part2, part3 } = createMortgageWithThreeParts();
 
             expect(part2.order).to.be.above(part1.order);
             expect(part3.order).to.be.above(part2.order);
 
-            mortgage.deletePart(part2Id);
+            mortgage.deletePart(part2.id);
 
             const part4Id = mortgage.addPart();
             const part4 = mortgage.getPart(part4Id);
@@ -175,5 +162,23 @@ describe('Mortgage tests', function() {
         expect(mortgage.costOfEachDollar).to.be.closeTo(1.233, ALLOWED_DIFFERENCE);
         expect(mortgage.paymentDetailsPerMonth.length).to.equal(15*12);
     });
+
+    function createMortgageWithThreeParts() {
+        const mortgage = new Mortgage();
+        const part1Id = mortgage.addPart();
+        const part2Id = mortgage.addPart();
+        const part3Id = mortgage.addPart();
+
+        const part1 = mortgage.getPart(part1Id);
+        const part2 = mortgage.getPart(part2Id);
+        const part3 = mortgage.getPart(part3Id);
+
+        return {
+            mortgage,
+            part1,
+            part2,
+            part3
+        }
+    }
 
 });
