@@ -2,9 +2,10 @@
 import { expect } from 'chai';
 import * as calculator from '../src/calculator';
 import { KEREN_SHAVA, SHPITZER } from '../src/consts';
-import { observer } from 'mobx';
+import { observer, useStrict } from 'mobx';
 import { stateStore } from '../src/store/StateStore';
 import Mortgage from '../src/store/Mortgage';
+useStrict(false);
 
 describe('State store', function() { 
     it('should initially have one empty mortgage', function() {

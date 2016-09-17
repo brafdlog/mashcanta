@@ -7,7 +7,11 @@ import _ from 'lodash';
 
 export default class Mortgage {
 
-    @observable id = generateId();
+    @observable id;
+
+    constructor(id) {
+        this.id = id || generateId();
+    }
 
     // This is not necesarily sorted. Should be accessed only for udpates.
     // Reads should be from the sorted computed mortgageParts
