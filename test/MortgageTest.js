@@ -94,6 +94,25 @@ describe('Mortgage tests', function() {
             expect(part2.loanAmount).to.be.equal(7);
             expect(part2.order).to.be.equal(7);
         });
+
+        it('should delete part correctly', function() {
+            const mortgage = new Mortgage();
+            const part1Id = mortgage.addPart();
+            const part2Id = mortgage.addPart();
+            const part3Id = mortgage.addPart();
+
+            expect(mortgage.mortgageParts.length).to.equal(3);
+            expect(mortgage.getPart(part1Id)).not.to.be.empty;
+            expect(mortgage.getPart(part2Id)).not.to.be.empty;
+            expect(mortgage.getPart(part3Id)).not.to.be.empty;
+
+            mortgage.deletePart(part2Id);
+
+            expect(mortgage.mortgageParts.length).to.equal(2);
+            expect(mortgage.getPart(part1Id)).not.to.be.empty;
+            expect(mortgage.getPart(part2Id)).to.be.empty;
+            expect(mortgage.getPart(part3Id)).not.to.be.empty;
+        });
     });
 
     it('should have zero values by default', function() {

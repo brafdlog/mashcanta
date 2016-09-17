@@ -101,5 +101,9 @@ export class Mortgage {
         _.assignIn(mortgagePart, updatesObject);
     }
 
+    @action deletePart(mortgagePartId) {
+        _.remove(this.mortgageParts, { id: mortgagePartId });
+    }
+
 }
 
