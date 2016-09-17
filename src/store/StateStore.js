@@ -2,7 +2,7 @@ import { observable, useStrict, action } from 'mobx';
 import Mortgage from './Mortgage';
 useStrict(true);
 
-class MortgagesState {
+class StateStore {
     @observable mortgages = [new Mortgage()];
 
     @action setMortgages(mortgages) {
@@ -10,4 +10,4 @@ class MortgagesState {
     }
 }
 
-export const mortgagesState = new MortgagesState();
+export const stateStore = new StateStore();

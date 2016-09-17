@@ -3,12 +3,12 @@ import { expect } from 'chai';
 import * as calculator from '../src/calculator';
 import { KEREN_SHAVA, SHPITZER } from '../src/consts';
 import { observer } from 'mobx';
-import { mortgagesState } from '../src/store/MortgagesStateStore';
+import { stateStore } from '../src/store/StateStore';
 import Mortgage from '../src/store/Mortgage';
 
 describe('Mortgage state store', function() { 
     it('should initially have one empty mortgage', function() {
-        const mortgages = mortgagesState.mortgages;
+        const mortgages = stateStore.mortgages;
         expect(mortgages.length).to.equal(1);
 
         const initialMortgage = mortgages[0];
@@ -21,7 +21,7 @@ describe('Mortgage state store', function() {
     });
 
     it('should set mortgages', function() {
-        let mortgages = mortgagesState.mortgages;
+        let mortgages = stateStore.mortgages;
         expect(mortgages.length).to.equal(1);
 
         const initialMortgage = mortgages[0];
@@ -29,9 +29,9 @@ describe('Mortgage state store', function() {
 
         const newMortgages = [ new Mortgage(), new Mortgage()];
 
-        mortgagesState.setMortgages(newMortgages);
+        stateStore.setMortgages(newMortgages);
 
-        mortgages = mortgagesState.mortgages;
+        mortgages = stateStore.mortgages;
         const mortgageIds = mortgages.map(mortgage => mortgage.id);
 
         expect(mortgages.length).to.equal(2);
