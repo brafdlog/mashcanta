@@ -19,4 +19,23 @@ describe('Mortgage state store', function() {
         expect(initialMortgage.costOfEachDollar).to.equal(0);
         expect(initialMortgage.paymentDetailsPerMonth).to.deep.equal([]);
     });
+
+    it('should set mortgages', function() {
+        let mortgages = mortgagesState.mortgages;
+        expect(mortgages.length).to.equal(1);
+
+        const initialMortgage = mortgages[0];
+        const initialMortgageId = initialMortgage.id;
+
+        const newMortgages = [ new Mortgage(), new Mortgage()];
+
+        mortgagesState.setMortgages(newMortgages);
+
+        mortgages = mortgagesState.mortgages;
+        const mortgageIds = mortgages.map(mortgage => mortgage.id);
+
+        expect(mortgages.length).to.equal(2);
+        // Calling set mortgages should have overriden the original mortgages
+        expect(mortgageIds).not.to.contain(initialMortgageId);
+    });
 });
