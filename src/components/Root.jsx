@@ -10,7 +10,7 @@ import * as Calculator from '../calculator';
 import { getFromStorage, saveToStorage } from '../storage';
 
 import './Root.scss';
-import pureRender from 'pure-render-decorator';
+import { observer } from 'mobx-react';
 
 const EMPTY_STATE = {
     mortgageInfo: {
@@ -20,7 +20,7 @@ const EMPTY_STATE = {
     }
 };
 
-@pureRender
+@observer
 class Root extends React.Component {
 
     constructor(props) {

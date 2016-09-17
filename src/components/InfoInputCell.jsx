@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import { formattedStringToNumber } from '../utils';
 import './InfoInputCell.scss';
-import pureRender from 'pure-render-decorator';
+import { observer } from 'mobx-react';
 
 const { func, string, number, oneOfType, bool } = PropTypes;
 
-@pureRender
+@observer
 class InfoInputCell extends React.Component {
 
     static propTypes = {

@@ -6,11 +6,11 @@ import InfoInputCell from './InfoInputCell';
 import { formatWholeDollarAmount, formatPrecent } from '../utils';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
 import str from '../localization';
-import pureRender from 'pure-render-decorator';
+import { observer } from 'mobx-react';
 
 const { func, shape, number, arrayOf, string, oneOf } = PropTypes;
 
-@pureRender
+@observer
 class MortgageInfoInputForm extends React.Component {
 
     static propTypes = {

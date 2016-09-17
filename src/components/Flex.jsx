@@ -1,11 +1,13 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 const { string, bool, oneOf, object } = React.PropTypes;
 
 /**
  * Renders the component markup
  * @return {JSX}
  */
-const Flex = ({ wrap, column, align, justify, auto, style, className, ...props }) => {
+
+const Flex = observer(({ wrap, column, align, justify, auto, style, className, ...props }) => {
     /** Build dynamic style */
     const sx = Object.assign({}, style, {
         display: 'flex',
@@ -18,7 +20,7 @@ const Flex = ({ wrap, column, align, justify, auto, style, className, ...props }
 
     /** Return markup */
     return <div className={className} style={sx} {...props} />;
-};
+});
 
 /**
  * Expected prop types
