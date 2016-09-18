@@ -12,13 +12,13 @@ class StateStore {
         return this.currentMortgageId ? _.find(this.mortgages, { id: this.currentMortgageId }) : this.mortgages[0];
     }
 
-    @action createNewMortgage = () => {
+    @action('Create new mortgage') createNewMortgage = () => {
         const newMortgage = new Mortgage();
         this.mortgages.push(newMortgage);
         return newMortgage.id;
     }
 
-    @action setCurrentMortgageId(mortgageId) {
+    @action('Set current mortgage') setCurrentMortgageId = mortgageId => {
         this.currentMortgageId = mortgageId;
     }
 
@@ -27,7 +27,7 @@ class StateStore {
      * So we first create from them observable objects and then set them
      * to the state store.
      */
-    @action setMortgages(mortgages) {
+    @action('Set mortgages') setMortgages = (mortgages) => {
         if (!mortgages || !mortgages[0]) {
             return;
         }
@@ -53,7 +53,7 @@ class StateStore {
         this.mortgages.replace(observableMortgages);
     }
 
-    @action('Set loading') setLoading(isLoading) {
+    @action('Set loading') setLoading = (isLoading) => {
         this.isLoading = isLoading;
     }
 }
