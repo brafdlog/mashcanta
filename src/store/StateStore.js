@@ -12,6 +12,12 @@ class StateStore {
         return this.currentMortgageId ? _.find(this.mortgages, { id: this.currentMortgageId }) : this.mortgages[0];
     }
 
+    @action addNewMortgage() {
+        const newMortgage = new Mortgage();
+        this.mortgages.push(newMortgage);
+        return newMortgage.id;
+    }
+
     @action setCurrentMortgageId(mortgageId) {
         this.currentMortgageId = mortgageId;
     }
