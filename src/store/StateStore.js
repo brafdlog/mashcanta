@@ -1,13 +1,19 @@
 import { observable, useStrict, action, computed } from 'mobx';
 import Mortgage from './Mortgage';
+import _ from 'lodash';
 useStrict(true);
 
 class StateStore {
     @observable mortgages = [new Mortgage()];
     @observable isLoading = false;
+    @observable currentMortgageId;
 
     @computed get currentMortgage() {
-        return this.mortgages[0];
+        return this.currentMortgageId ? _.find(this.mortgages, { id: this.currentMortgageId }) : this.mortgages[0];
+    }
+
+    @action setCurrentMortgageId(mortgageId) {
+        this.currentMortgageId = mortgageId;
     }
 
     /**

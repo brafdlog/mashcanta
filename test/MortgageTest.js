@@ -225,22 +225,22 @@ describe('Mortgage tests', function() {
         expect(mortgage.paymentDetailsPerMonth.length).to.equal(15*12);
     });
 
-    function createMortgageWithThreeParts() {
-        const mortgage = new Mortgage();
-        const part1Id = mortgage.addPart();
-        const part2Id = mortgage.addPart();
-        const part3Id = mortgage.addPart();
-
-        const part1 = mortgage.getPart(part1Id);
-        const part2 = mortgage.getPart(part2Id);
-        const part3 = mortgage.getPart(part3Id);
-
-        return {
-            mortgage,
-            part1,
-            part2,
-            part3
-        }
-    }
-
 });
+
+export function createMortgageWithThreeParts() {
+    const mortgage = new Mortgage();
+    const part1Id = mortgage.addPart();
+    const part2Id = mortgage.addPart();
+    const part3Id = mortgage.addPart();
+
+    const part1 = mortgage.getPart(part1Id);
+    const part2 = mortgage.getPart(part2Id);
+    const part3 = mortgage.getPart(part3Id);
+
+    return {
+        mortgage,
+        part1,
+        part2,
+        part3
+    }
+}

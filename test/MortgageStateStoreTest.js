@@ -84,4 +84,16 @@ describe('State store', function() {
         stateStore.setLoading(false);
         expect(stateStore.isLoading).to.be.false;
     });
+
+    it('should set and fetch current mortgage correctly', function() {
+        const mortgage1 = new Mortgage();
+        const mortgage2 = new Mortgage();
+        stateStore.setMortgages([mortgage1, mortgage2]);
+
+        expect(stateStore.currentMortgage.id).to.be.equal(mortgage1.id);
+        stateStore.setCurrentMortgageId(mortgage2.id);
+        expect(stateStore.currentMortgage.id).to.be.equal(mortgage2.id);
+        stateStore.setCurrentMortgageId(mortgage1.id);
+        expect(stateStore.currentMortgage.id).to.be.equal(mortgage1.id);
+    });
 });
