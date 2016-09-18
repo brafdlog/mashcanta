@@ -5,6 +5,7 @@ const isProd = env === 'production';
 const COMMON_CONFIG = {
     showAddMortgageRow: false,
     useFirebaseStorage: true,
+    useFirebaseAuth: true,
     firebaseConfig: {
        ***REMOVED***
         authDomain: 'mashcanta.firebaseapp.com',
@@ -20,6 +21,7 @@ const DEV_CONFIG = {
 
 const PROD_CONFIG = {
     useFirebaseStorage: false,
+    useFirebaseAuth: false,
    ***REMOVED***
 };
 

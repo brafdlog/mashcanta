@@ -1,13 +1,5 @@
 import { getConfig } from './config';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
-
-if (getConfig('useFirebaseStorage')) {
-    // Init firebase
-    const config = getConfig('firebaseConfig');
-    firebase.initializeApp(config);
-}
+import firebase from './firebaseInitializer';
 
 const localStorageImpl = {
     getFromStorage: (key) => {
