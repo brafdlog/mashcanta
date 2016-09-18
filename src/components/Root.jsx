@@ -6,6 +6,7 @@ import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
+import { getConfig } from '../config';
 import './Root.scss';
 
 const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
@@ -39,9 +40,9 @@ class Root extends React.Component {
     }
 
     render() {
-        const { currentMortgage, isLoading } = this.props.stateStore;
+        const { currentMortgage, isLoading, createNewMortgage, mortgages } = this.props.stateStore;
         const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost } = currentMortgage;
-
+        const showAddMortgageRow = getConfig('showAddMortgageRow');
         const showGraph = loanAmount && totalPaymentToBank > 0;
 
         if (isLoading) {
@@ -53,6 +54,16 @@ class Root extends React.Component {
         }
         return (
             <div className='container-fluid rootAppContainer'>
+                {showAddMortgageRow ?
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            <select className='chooseMortgageDropdown' value={currentMortgage.id} onChange={this.onChangeCurrentMortgage}>
+                                {mortgages.map(mortgage => <option key={mortgage.id} value={mortgage.id}>{mortgage.id}</option>)}
+                            </select>
+                            <a onClick={createNewMortgage}>Add mortgage</a>
+                        </div>
+                    </div> : null
+                }
                 <div className='row'>
                     <div className='col-md-5'>
                         <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
@@ -79,6 +90,10 @@ class Root extends React.Component {
     }
 
     state = {};
+
+    onChangeCurrentMortgage = ({ target }) => {
+        this.props.stateStore.setCurrentMortgageId(target.value);
+    }
 
     onDeletePart = (partId) => {
         const mortgage = this.getCurrentMortgage();

@@ -3,6 +3,7 @@
 const isProd = env === 'production';
 
 const COMMON_CONFIG = {
+    showAddMortgageRow: false,
     useFirebaseStorage: true,
     firebaseConfig: {
        ***REMOVED***
@@ -13,6 +14,7 @@ const COMMON_CONFIG = {
 };
 
 const DEV_CONFIG = {
+    showAddMortgageRow: true,
    ***REMOVED***
 };
 
