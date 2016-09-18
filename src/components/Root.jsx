@@ -4,11 +4,11 @@ import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import { ManageMortgagesRow } from './ManageMortgagesRow';
+import { LoginRow } from './LoginRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
 import { getConfig } from '../config';
-import str from '../localization';
 import { signIn, signOut, isAuthEnabled } from '../auth';
 import './Root.scss';
 
@@ -43,7 +43,7 @@ class Root extends React.Component {
     }
 
     render() {
-        const { currentMortgage, isLoading, createNewMortgage, mortgages } = this.props.stateStore;
+        const { currentMortgage, isLoading, createNewMortgage, mortgages, user } = this.props.stateStore;
         const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost } = currentMortgage;
         const showAddMortgageRow = getConfig('showAddMortgageRow');
         const showGraph = loanAmount && totalPaymentToBank > 0;
@@ -60,7 +60,9 @@ class Root extends React.Component {
                 {showAddMortgageRow ?
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
-                {this.generateLoginRow()}
+                {isAuthEnabled() ?
+                    <LoginRow user={user} signIn={signIn} signOut={signOut} /> : null
+                }
                 <div className='row'>
                     <div className='col-md-5'>
                         <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
@@ -87,17 +89,6 @@ class Root extends React.Component {
     }
 
     state = {};
-
-    generateLoginRow = () => {
-        if (!isAuthEnabled()) {
-            return null;
-        }
-        if (this.props.stateStore.user) {
-            return <button type='button' className='btn btn-default' onClick={signOut}>{str('logout')}</button>;
-        } else {
-            return <button type='button' className='btn btn-default' onClick={signIn}>{str('login')}</button>;
-        }
-    }
 
     onChangeCurrentMortgage = ({ target }) => {
         this.props.stateStore.setCurrentMortgageId(target.value);
