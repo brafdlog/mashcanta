@@ -16,7 +16,7 @@ export class App extends React.Component {
 
     render() {
         return (
-            <Root currentMortgage={stateStore.currentMortgage} isLoading={stateStore.isLoading} />
+            <Root stateStore={stateStore} />
 		);
     }
 

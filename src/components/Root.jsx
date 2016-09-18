@@ -4,7 +4,7 @@ import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import PaymentsGraph from './graphs/PaymentsGraph';
-import { observer } from 'mobx-react';
+import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
 import './Root.scss';
 
@@ -14,30 +14,32 @@ const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
 class Root extends React.Component {
 
     static propTypes = {
-        currentMortgage: shape({
-            id: string,
-            loanAmount: number,
-            monthlyPayment: number,
-            totalPaymentToBank: number,
-            costOfEachDollar: number,
-            paymentDetailsPerMonth: arrayOf(shape({
-                principal: number,
-                interest: number
-            })),
-            mortgageParts: arrayOf(shape({
+        stateStore: shape({
+            mortgages: MobxPropTypes.observableArrayOf(shape({
                 id: string,
-                order: number,
                 loanAmount: number,
-                numYears: number,
-                yearlyInterest: number,
-                amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
-            }))
-        }),
-        isLoading: bool
+                monthlyPayment: number,
+                totalPaymentToBank: number,
+                costOfEachDollar: number,
+                paymentDetailsPerMonth: arrayOf(shape({
+                    principal: number,
+                    interest: number
+                })),
+                mortgageParts: arrayOf(shape({
+                    id: string,
+                    order: number,
+                    loanAmount: number,
+                    numYears: number,
+                    yearlyInterest: number,
+                    amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
+                }))
+            })),
+            isLoading: bool
+        })
     }
 
     render() {
-        const { currentMortgage, isLoading } = this.props;
+        const { currentMortgage, isLoading } = this.props.stateStore;
         const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost } = currentMortgage;
 
         const showGraph = loanAmount && totalPaymentToBank > 0;
@@ -79,12 +81,12 @@ class Root extends React.Component {
     state = {};
 
     onDeletePart = (partId) => {
-        const mortgage = this.props.currentMortgage;
+        const mortgage = this.getCurrentMortgage();
         mortgage.deletePart(partId);
     }
 
     onAddNewPart = () => {
-        const mortgage = this.props.currentMortgage;
+        const mortgage = this.getCurrentMortgage();
         mortgage.addPart();
     }
 
@@ -93,23 +95,27 @@ class Root extends React.Component {
     }
 
     onUpdateMortgagePart = (updatedMortgagePart) => {
-        const mortgage = this.props.currentMortgage;
+        const mortgage = this.getCurrentMortgage();
         mortgage.updatePart(updatedMortgagePart.id, updatedMortgagePart);
     }
 
     onMovePartUp = (partId) => {
-        const mortgage = this.props.currentMortgage;
+        const mortgage = this.getCurrentMortgage();
         mortgage.movePartUp(partId);
     }
 
     onMovePartDown = (partId) => {
-        const mortgage = this.props.currentMortgage;
+        const mortgage = this.getCurrentMortgage();
         mortgage.movePartDown(partId);
     }
 
     onClearClicked = () => {
-        const mortgage = this.props.currentMortgage;
+        const mortgage = this.getCurrentMortgage();
         mortgage.reset();
+    }
+
+    getCurrentMortgage = () => {
+        return this.props.stateStore.currentMortgage;
     }
 
 }
