@@ -1,5 +1,6 @@
 import { observable, useStrict, action, computed } from 'mobx';
 import Mortgage from './Mortgage';
+import User from './User';
 import _ from 'lodash';
 useStrict(true);
 
@@ -7,9 +8,15 @@ class StateStore {
     @observable mortgages = [new Mortgage()];
     @observable isLoading = false;
     @observable currentMortgageId;
+    @observable user;
 
     @computed get currentMortgage() {
         return this.currentMortgageId ? _.find(this.mortgages, { id: this.currentMortgageId }) : this.mortgages[0];
+    }
+
+    @action('set logged in user') setLoggedInUser(user) {
+        this.user = new User();
+        this.user.init(user.id, user.firstName, user.lastName);
     }
 
     @action('Create new mortgage') createNewMortgage = () => {

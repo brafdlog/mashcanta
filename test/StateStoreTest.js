@@ -111,4 +111,20 @@ describe('State store', function() {
         expect(stateStore.mortgages.map(mortgage => mortgage.id)).to.contain(newMortgageId);
     });
 
+    it('should set user correctly', function() {
+        expect(stateStore.user).not.to.be.ok;
+
+        const user = {
+            id: 7,
+            firstName: 'Moshe',
+            lastName: 'Ufnik'
+        };
+
+        stateStore.setLoggedInUser(user);
+
+        expect(stateStore.user).to.deep.equal(user);
+        // This check is to verify that it was created as a mobx object correctly
+        expect(stateStore.user.fullName).to.equal('Moshe Ufnik');
+    });
+
 });
