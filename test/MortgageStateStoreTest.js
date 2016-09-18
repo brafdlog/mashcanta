@@ -104,7 +104,7 @@ describe('State store', function() {
 
         expect(stateStore.mortgages.length).to.be.equal(2);
         
-        const newMortgageId = stateStore.addNewMortgage();
+        const newMortgageId = stateStore.createNewMortgage();
 
         expect(stateStore.mortgages.length).to.be.equal(3);
 
