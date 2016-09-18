@@ -3,6 +3,7 @@ import { FABButton, Icon } from 'react-mdl';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
+import { ManageMortgagesRow } from './ManageMortgagesRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
@@ -57,14 +58,7 @@ class Root extends React.Component {
         return (
             <div className='container-fluid rootAppContainer'>
                 {showAddMortgageRow ?
-                    <div className='row'>
-                        <div className='col-md-4'>
-                            <select className='chooseMortgageDropdown' value={currentMortgage.id} onChange={this.onChangeCurrentMortgage}>
-                                {mortgages.map(mortgage => <option key={mortgage.id} value={mortgage.id}>{mortgage.id}</option>)}
-                            </select>
-                            <a onClick={createNewMortgage}>Add mortgage</a>
-                        </div>
-                    </div> : null
+                    <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
                 {this.generateLoginRow()}
                 <div className='row'>
