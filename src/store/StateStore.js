@@ -34,15 +34,20 @@ class StateStore {
         const observableMortgages = mortgages.map(mortgage => {
             const observableMortgage = new Mortgage();
             observableMortgage.id = mortgage.id;
-            mortgage.mortgageParts.forEach(part => {
-                observableMortgage.addPart({
-                    loanAmount: part.loanAmount,
-                    numYears: part.numYears,
-                    yearlyInterest: part.yearlyInterest,
-                    amortizationType: part.amortizationType,
-                    order: part.order
+            if (mortgage.mortgageParts) {
+                mortgage.mortgageParts.forEach(part => {
+                    observableMortgage.addPart({
+                        loanAmount: part.loanAmount,
+                        numYears: part.numYears,
+                        yearlyInterest: part.yearlyInterest,
+                        amortizationType: part.amortizationType,
+                        order: part.order
+                    });
                 });
-            });
+            } else {
+                observableMortgage.addPart();
+            }
+
             return observableMortgage;
         });
         this.mortgages.replace(observableMortgages);
