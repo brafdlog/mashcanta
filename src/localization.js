@@ -21,7 +21,9 @@ const ENGLISH_STRINGS = {
     loanCost: 'Loan cost',
     kerenShava: 'kerenShava',
     shpitzer: 'shpitzer',
-    paymentsGraph: 'Payment Graph'
+    paymentsGraph: 'Payment Graph',
+    login: 'Login',
+    logout: 'Log out'
 };
 
 const HEBREW_STRINGS = {
@@ -44,7 +46,9 @@ const HEBREW_STRINGS = {
     loanCost: 'עלות ההלואה',
     kerenShava: 'קרן שווה',
     shpitzer: 'שפיצר',
-    paymentsGraph: 'גרף תשלומים'
+    paymentsGraph: 'גרף תשלומים',
+    login: 'התחבר',
+    logout: 'התנתק'
 };
 
 const strings = {
