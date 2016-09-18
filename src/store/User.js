@@ -1,19 +1,15 @@
-import { observable, computed, action } from 'mobx';
+import { observable, action } from 'mobx';
 
 export default class User {
 
     @observable id;
-    @observable firstName;
-    @observable lastName;
+    @observable name;
+    @observable email;
 
-    @action('Init user') init = (id, firstName, lastName) => {
+    @action('Init user') init = (id, name, email) => {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    @computed get fullName() {
-        return `${this.firstName} ${this.lastName}`;
+        this.name = name;
+        this.email = email;
     }
 
 }

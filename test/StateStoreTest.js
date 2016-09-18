@@ -116,15 +116,13 @@ describe('State store', function() {
 
         const user = {
             id: 7,
-            firstName: 'Moshe',
-            lastName: 'Ufnik'
+            name: 'Moshe Ufnik',
+            email: 'moshe@ufnik.com'
         };
 
         stateStore.setLoggedInUser(user);
 
         expect(stateStore.user).to.deep.equal(user);
-        // This check is to verify that it was created as a mobx object correctly
-        expect(stateStore.user.fullName).to.equal('Moshe Ufnik');
     });
 
 });

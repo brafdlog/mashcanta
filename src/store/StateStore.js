@@ -15,8 +15,13 @@ class StateStore {
     }
 
     @action('set logged in user') setLoggedInUser(user) {
-        this.user = new User();
-        this.user.init(user.id, user.firstName, user.lastName);
+        if (user) {
+            this.user = new User();
+            this.user.init(user.id, user.name, user.email);
+        } else {
+            // user not logged in
+            this.user = null;
+        }
     }
 
     @action('Create new mortgage') createNewMortgage = () => {
