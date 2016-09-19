@@ -16,12 +16,12 @@ const localStorageImpl = {
 
 const firebaseStorageImpl = {
     getFromStorage: (key) => {
-        const ref = firebase.database().ref(`test/${key}`);
+        const ref = firebase.database().ref(`${getConfig('storageKeyPrefix')}/${key}`);
         const promise = ref.once('value');
         return promise.then(snapshot => snapshot.val());
     },
     saveToStorage: (key, dataToSave) => {
-        const ref = firebase.database().ref(`test/${key}`);
+        const ref = firebase.database().ref(`${getConfig('storageKeyPrefix')}/${key}`);
         return ref.set(dataToSave);
     }
 };

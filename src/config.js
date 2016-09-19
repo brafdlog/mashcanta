@@ -15,11 +15,13 @@ const COMMON_CONFIG = {
 };
 
 const DEV_CONFIG = {
+    storageKeyPrefix: 'test',
     showAddMortgageRow: true,
    ***REMOVED***
 };
 
 const PROD_CONFIG = {
+    storageKeyPrefix: 'prod',
     useFirebaseStorage: false,
     useFirebaseAuth: false,
    ***REMOVED***
