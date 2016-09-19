@@ -4,7 +4,7 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react';
 import Root from './components/Root.jsx';
 import { stateStore } from './store/StateStore';
-import { getFromStorage, saveToStorage } from './storage';
+import { getFromStorage, saveToStorage } from './services/native/storage';
 
 @observer
 export class App extends React.Component {

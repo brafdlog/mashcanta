@@ -1,6 +1,6 @@
 /* eslint id-length: "off", no-param-reassign: "off" */
-import { retainNDecimals } from './utils';
-import { SHPITZER } from './consts';
+import { retainNDecimals } from '../utils';
+import { SHPITZER } from '../consts';
 import _ from 'lodash';
 
 const ZERO_MONTHLY_PAYMENT = {

@@ -1,6 +1,6 @@
-import firebase from './firebaseInitializer';
-import { getConfig } from './config';
-import { stateStore } from './store/StateStore';
+import firebase from '../firebaseInitializer';
+import { getConfig } from '../../config';
+import { stateStore } from '../../store/StateStore';
 import _ from 'lodash';
 
 export const isAuthEnabled = () => getConfig('useFirebaseAuth');

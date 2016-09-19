@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { expect } from 'chai';
-import * as calculator from '../src/calculator';
+import * as calculator from '../src/services/calculator';
 import { KEREN_SHAVA, SHPITZER } from '../src/consts';
 import { observer, useStrict } from 'mobx';
 import { stateStore } from '../src/store/StateStore';

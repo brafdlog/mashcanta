@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { expect } from 'chai';
-import * as calculator from '../src/calculator';
+import * as calculator from '../src/services/calculator';
 import { KEREN_SHAVA } from '../src/consts';
 const ALLOWED_DIFFERENCE = 0.8;
 

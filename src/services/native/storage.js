@@ -1,5 +1,5 @@
-import { getConfig } from './config';
-import firebase from './firebaseInitializer';
+import { getConfig } from '../../config';
+import firebase from '../firebaseInitializer';
 
 const localStorageImpl = {
     getFromStorage: (key) => {

@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import * as Calculator from '../calculator';
+import * as Calculator from '../services/calculator';
 import { SHPITZER } from '../consts';
 import { generateId } from '../utils';
 
