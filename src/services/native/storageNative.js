@@ -28,5 +28,9 @@ const firebaseStorageImpl = {
 
 const storageImpl = getConfig('useFirebaseStorage') ? firebaseStorageImpl : localStorageImpl;
 
-export const getFromStorage = (key) => storageImpl.getFromStorage(key);
-export const saveToStorage = (key, dataToSave) => storageImpl.saveToStorage(key, dataToSave);
+export const getFromStorage = (key) => {
+    return storageImpl.getFromStorage(key);
+};
+export const saveToStorage = (key, dataToSave) => {
+    return storageImpl.saveToStorage(key, dataToSave);
+};

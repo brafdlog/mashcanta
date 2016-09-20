@@ -22,6 +22,8 @@ if (isAuthEnabled()) {
         } else {
             // No user is signed in
             stateStore.setLoggedInUser(null);
+            stateStore.setFetchedUserData(false);
+            stateStore.resetMortgageData();
         }
     });
 }

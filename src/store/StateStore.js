@@ -13,6 +13,7 @@ class StateStore {
     @observable isLoading = false;
     @observable currentMortgageId;
     @observable user;
+    @observable fetchedUserDataFromDb = false;
 
     @action('set logged in user') setLoggedInUser(user) {
         if (user) {
@@ -67,6 +68,15 @@ class StateStore {
 
     @action('Set loading') setLoading = (isLoading) => {
         this.isLoading = isLoading;
+    }
+
+    @action('Set fetched user data') setFetchedUserData(fetchedUserData) {
+        this.fetchedUserDataFromDb = fetchedUserData;
+    }
+
+    @action('Reset mortgage data') resetMortgageData() {
+        this.mortgages = [new Mortgage()];
+        this.currentMortgageId = null;
     }
 
     @computed get userStatus() {
