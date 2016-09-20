@@ -22,8 +22,8 @@ const DEV_CONFIG = {
 
 const PROD_CONFIG = {
     storageKeyPrefix: 'prod',
-    useFirebaseStorage: false,
-    useFirebaseAuth: false,
+    useFirebaseStorage: true,
+    useFirebaseAuth: true,
    ***REMOVED***
 };
 
