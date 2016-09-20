@@ -138,8 +138,25 @@ describe('State store', function() {
         stateStore.setLoggedInUser(user);
         expect(stateStore.userStatus).to.equal(USER_LOGGED_IN);
 
-        stateStore.setLoggedInUser();
+        stateStore.setLoggedOut();
         expect(stateStore.userStatus).to.equal(ANONYMOUS);
+    });
+
+    it('should set logout correctly', function() {
+
+        const user = {
+            id: 7,
+            name: 'Moshe Ufnik',
+            email: 'moshe@ufnik.com'
+        };
+
+        stateStore.setLoggedInUser(user);
+
+        stateStore.setLoggedOut();
+        expect(stateStore.userStatus).to.equal(ANONYMOUS);
+
+        expect(stateStore.user).to.be.null;
+        expect(stateStore.fetchedUserDataFromDb).to.be.false;
     });
 
 });

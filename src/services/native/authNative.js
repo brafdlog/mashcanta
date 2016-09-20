@@ -1,32 +1,11 @@
 import firebase from '../firebaseInitializer';
-import { getConfig } from '../../config';
-import { stateStore } from '../../store/StateStore';
-import _ from 'lodash';
-
-export const isAuthEnabled = () => getConfig('useFirebaseAuth');
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope('https://www.googleapis.com/auth/userinfo.email');
 
-if (isAuthEnabled()) {
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            const { uid, displayName } = user;
-            const email = _.get(user, 'providerData[0].email');
-            // User is signed in
-            stateStore.setLoggedInUser({
-                id: uid,
-                name: displayName,
-                email
-            });
-        } else {
-            // No user is signed in
-            stateStore.setLoggedInUser(null);
-            stateStore.setFetchedUserData(false);
-            stateStore.resetMortgageData();
-        }
-    });
-}
+export const registerOnAuthChangeHook = (authChangeHook) => {
+    firebase.auth().onAuthStateChanged(authChangeHook);
+};
 
 export const signIn = () => {
     const loginPromise = firebase.auth().signInWithPopup(provider).then(result => {

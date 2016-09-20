@@ -16,13 +16,16 @@ class StateStore {
     @observable fetchedUserDataFromDb = false;
 
     @action('set logged in user') setLoggedInUser(user) {
-        if (user) {
-            this.user = new User();
-            this.user.init(user.id, user.name, user.email);
-        } else {
-            // user not logged in
-            this.user = null;
-        }
+        this.user = new User();
+        this.user.init(user.id, user.name, user.email);
+    }
+
+    @action('set log out') setLoggedOut() {
+        this.user = null;
+        this.setFetchedUserData(false);
+        // Reset mortgage data
+        this.mortgages = [new Mortgage()];
+        this.currentMortgageId = null;
     }
 
     @action('Create new mortgage') createNewMortgage = () => {
@@ -72,11 +75,6 @@ class StateStore {
 
     @action('Set fetched user data') setFetchedUserData(fetchedUserData) {
         this.fetchedUserDataFromDb = fetchedUserData;
-    }
-
-    @action('Reset mortgage data') resetMortgageData() {
-        this.mortgages = [new Mortgage()];
-        this.currentMortgageId = null;
     }
 
     @computed get userStatus() {

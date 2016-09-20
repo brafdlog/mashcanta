@@ -9,7 +9,7 @@ import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
 import { getConfig } from '../config';
-import { signIn, signOut, isAuthEnabled } from '../services/native/authNative';
+import { signIn, signOut, isAuthEnabled } from '../services/authService';
 import './Root.scss';
 
 const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
