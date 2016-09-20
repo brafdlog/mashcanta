@@ -13,7 +13,7 @@ describe('State store', function() {
         expect(mortgages.length).to.equal(1);
 
         const initialMortgage = mortgages[0];
-        expect(initialMortgage.mortgageParts.length).to.equal(0);
+        expect(initialMortgage.mortgageParts.length).to.equal(1);
         expect(initialMortgage.loanAmount).to.equal(0);
         expect(initialMortgage.monthlyPayment).to.equal(0);
         expect(initialMortgage.totalPaymentToBank).to.equal(0);

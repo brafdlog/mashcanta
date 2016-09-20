@@ -9,7 +9,7 @@ export const ANONYMOUS = 'anonymous';
 export const USER_LOGGED_IN = 'logged in';
 
 class StateStore {
-    @observable mortgages = [new Mortgage()];
+    @observable mortgages = this.buildDefaultMortgages();
     @observable isLoading = false;
     @observable currentMortgageId;
     @observable user;
@@ -24,12 +24,12 @@ class StateStore {
         this.user = null;
         this.fetchedUserDataFromDb = false;
         // Reset mortgage data
-        this.mortgages = [new Mortgage()];
+        this.mortgages = this.buildDefaultMortgages();
         this.currentMortgageId = null;
     }
 
     @action('Create new mortgage') createNewMortgage = () => {
-        const newMortgage = new Mortgage();
+        const newMortgage = this.buildDefaultMortgages();
         this.mortgages.push(newMortgage);
         return newMortgage.id;
     }
@@ -86,6 +86,12 @@ class StateStore {
 
     @computed get currentMortgage() {
         return this.currentMortgageId ? _.find(this.mortgages, { id: this.currentMortgageId }) : this.mortgages[0];
+    }
+
+    buildDefaultMortgages() {
+        const mortgage = new Mortgage();
+        mortgage.addPart();
+        return [mortgage];
     }
 }
 
