@@ -15,6 +15,7 @@ export const signOut = () => {
 export const isAuthEnabled = () => getConfig('useFirebaseAuth');
 
 if (isAuthEnabled()) {
+    stateStore.setLoading(true);
     authNative.registerOnAuthChangeHook(user => {
         if (user) {
             const { uid, displayName } = user;
@@ -34,5 +35,6 @@ if (isAuthEnabled()) {
             // No user is signed in
             stateStore.setLoggedOut();
         }
+        stateStore.setLoading(false);
     });
 }
