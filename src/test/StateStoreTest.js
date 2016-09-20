@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import * as calculator from '../services/calculator';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
 import { observer, useStrict } from 'mobx';
-import { stateStore } from '../store/StateStore';
+import { stateStore, BEFORE_AUTH, ANONYMOUS, USER_LOGGED_IN } from '../store/StateStore';
 import Mortgage from '../store/Mortgage';
 useStrict(false);
 
@@ -123,6 +123,23 @@ describe('State store', function() {
         stateStore.setLoggedInUser(user);
 
         expect(stateStore.user).to.deep.equal(user);
+    });
+
+    it('should return correct user status', function() {
+        stateStore.user = undefined;
+        expect(stateStore.userStatus).to.equal(BEFORE_AUTH);
+
+        const user = {
+            id: 7,
+            name: 'Moshe Ufnik',
+            email: 'moshe@ufnik.com'
+        };
+
+        stateStore.setLoggedInUser(user);
+        expect(stateStore.userStatus).to.equal(USER_LOGGED_IN);
+
+        stateStore.setLoggedInUser();
+        expect(stateStore.userStatus).to.equal(ANONYMOUS);
     });
 
 });

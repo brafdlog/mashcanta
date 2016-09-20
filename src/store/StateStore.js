@@ -4,15 +4,15 @@ import User from './User';
 import _ from 'lodash';
 useStrict(true);
 
+export const BEFORE_AUTH = 'before auth';
+export const ANONYMOUS = 'anonymous';
+export const USER_LOGGED_IN = 'logged in';
+
 class StateStore {
     @observable mortgages = [new Mortgage()];
     @observable isLoading = false;
     @observable currentMortgageId;
     @observable user;
-
-    @computed get currentMortgage() {
-        return this.currentMortgageId ? _.find(this.mortgages, { id: this.currentMortgageId }) : this.mortgages[0];
-    }
 
     @action('set logged in user') setLoggedInUser(user) {
         if (user) {
@@ -67,6 +67,20 @@ class StateStore {
 
     @action('Set loading') setLoading = (isLoading) => {
         this.isLoading = isLoading;
+    }
+
+    @computed get userStatus() {
+        if (_.isUndefined(this.user)) {
+            return BEFORE_AUTH;
+        } else if (this.user === null) {
+            return ANONYMOUS;
+        } else {
+            return USER_LOGGED_IN;
+        }
+    }
+
+    @computed get currentMortgage() {
+        return this.currentMortgageId ? _.find(this.mortgages, { id: this.currentMortgageId }) : this.mortgages[0];
     }
 }
 
