@@ -1,6 +1,7 @@
 import * as authNative from './native/authNative';
 import { getConfig } from '../config';
 import { stateStore } from '../store/StateStore';
+import { saveUserDetailsIfDontExist } from './storageService';
 import _ from 'lodash';
 
 export const signIn = () => {
@@ -18,12 +19,16 @@ if (isAuthEnabled()) {
         if (user) {
             const { uid, displayName } = user;
             const email = _.get(user, 'providerData[0].email');
-            // User is signed in
-            stateStore.setLoggedInUser({
+
+            const userInfo = {
                 id: uid,
                 name: displayName,
                 email
-            });
+            };
+
+            // User is signed in
+            stateStore.setLoggedInUser(userInfo);
+            saveUserDetailsIfDontExist(userInfo);
         } else {
             // No user is signed in
             stateStore.setLoggedOut();
