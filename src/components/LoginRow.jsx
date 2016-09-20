@@ -5,7 +5,10 @@ const { func, shape, string } = React.PropTypes;
 export const LoginRow = (props) => {
     return (
         props.user ?
-            <button type='button' className='btn btn-default' onClick={props.signOut}>{str('logout')}</button> :
+            <div>
+                <button type='button' className='btn btn-default' onClick={props.signOut}>{str('logout')}</button>
+                <b3>{props.user.email}</b3>
+            </div> :
             <button type='button' className='btn btn-default' onClick={props.signIn}>{str('login')}</button>
     );
 };
