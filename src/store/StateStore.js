@@ -44,7 +44,8 @@ class StateStore {
      * to the state store.
      */
     @action('Set mortgages') setMortgages = (mortgages) => {
-        if (!mortgages || !mortgages[0]) {
+        this.fetchedUserDataFromDb = true;
+        if (!mortgages) {
             return;
         }
         const observableMortgages = mortgages.map(mortgage => {
@@ -67,7 +68,6 @@ class StateStore {
             return observableMortgage;
         });
         this.mortgages.replace(observableMortgages);
-        this.fetchedUserDataFromDb = true;
     }
 
     @action('Set loading') setLoading = (isLoading) => {
