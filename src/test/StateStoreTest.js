@@ -119,7 +119,8 @@ describe('State store', function() {
         const user = {
             id: 7,
             name: 'Moshe Ufnik',
-            email: 'moshe@ufnik.com'
+            email: 'moshe@ufnik.com',
+            imageUrl: 'http://moo.jpg'
         };
 
         stateStore.setLoggedInUser(user);

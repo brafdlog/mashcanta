@@ -57,11 +57,11 @@ class Root extends React.Component {
         }
         return (
             <div className='container-fluid rootAppContainer'>
-                {showAddMortgageRow ?
-                    <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
-                }
                 {isAuthEnabled() ?
                     <LoginRow user={user} signIn={signIn} signOut={signOut} /> : null
+                }
+                {showAddMortgageRow ?
+                    <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
                 <div className='row'>
                     <div className='col-md-5'>

@@ -17,7 +17,7 @@ class StateStore {
 
     @action('set logged in user') setLoggedInUser(user) {
         this.user = new User();
-        this.user.init(user.id, user.name, user.email);
+        this.user.init(user.id, user.name, user.email, user.imageUrl);
     }
 
     @action('set log out') setLoggedOut() {

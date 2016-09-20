@@ -23,7 +23,8 @@ if (isAuthEnabled()) {
             const userInfo = {
                 id: uid,
                 name: displayName,
-                email
+                email,
+                imageUrl: user.photoURL
             };
 
             // User is signed in
