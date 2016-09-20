@@ -25,7 +25,6 @@ export class App extends React.Component {
             stateStore.setMortgages(storedMortgageInfo);
             stateStore.setLoading(false);
 
-            // automatically close left panel when editos are open
             autorun('Save to storage on change', () => {
                 this.saveStateToStorage();
             });
