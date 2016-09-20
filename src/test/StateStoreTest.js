@@ -62,6 +62,8 @@ describe('State store', function() {
 
         stateStore.setMortgages(mortgagesToSet);
 
+        expect(stateStore.fetchedUserDataFromDb).to.be.true;
+
         mortgages = stateStore.mortgages;
         const mortgageIds = mortgages.map(mortgage => mortgage.id);
 

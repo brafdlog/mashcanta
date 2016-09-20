@@ -14,7 +14,6 @@ autorun('Get user data from db', () => {
         stateStore.setLoading(true);
         loadMortgagesFromDB(stateStore.user.id).then(storedMortgageInfo => {
             stateStore.setMortgages(storedMortgageInfo);
-            stateStore.setFetchedUserData(true);
             stateStore.setLoading(false);
         });
     }

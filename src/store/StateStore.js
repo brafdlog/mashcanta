@@ -22,7 +22,7 @@ class StateStore {
 
     @action('set log out') setLoggedOut() {
         this.user = null;
-        this.setFetchedUserData(false);
+        this.fetchedUserDataFromDb = false;
         // Reset mortgage data
         this.mortgages = [new Mortgage()];
         this.currentMortgageId = null;
@@ -67,14 +67,11 @@ class StateStore {
             return observableMortgage;
         });
         this.mortgages.replace(observableMortgages);
+        this.fetchedUserDataFromDb = true;
     }
 
     @action('Set loading') setLoading = (isLoading) => {
         this.isLoading = isLoading;
-    }
-
-    @action('Set fetched user data') setFetchedUserData(fetchedUserData) {
-        this.fetchedUserDataFromDb = fetchedUserData;
     }
 
     @computed get userStatus() {
