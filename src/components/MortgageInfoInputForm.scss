@@ -1,46 +1,7 @@
 .MortgageInfoInputFormContainer {
     
-    .listItem {
-        .InfoInputCellContainer {
-            margin: 5px 10px 5px 0;
-        }
-
-        .amountColumn .cellInput {
-            max-width: 70px
-        }
-        .numYearsColumn .cellInput {
-            max-width: 40px
-        }
-        .interestColumn .cellInput {
-            max-width: 40px
-        }
-        .monthlyPaymentColumn .cellInput {
-            max-width: 60px
-        }
-        .amortizationColumn .cellInput {
-            max-width: 100px;
-            margin-left: 10px;
-        }
-
-        .iconsContainer {
-            display: flex;
-            
-            // Don't want to hide delete icon on devices with no hover
-            @media (min-width:1025px) {
-                .deletePartIcon {
-                    display: none;
-                }
-            }
-        }
-        
-        &:hover {
-            .iconsContainer {
-                .deletePartIcon {
-                    display: block;
-                }
-            }
-        }
-
+    .btn {
+        margin-right: 10px;
     }
 
 }

@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import { IconButton } from 'react-mdl';
 import cx from 'classnames';
 import './MortgageInfoInputForm.scss';
-import InfoInputCell from './InfoInputCell';
-import { formatWholeDollarAmount, formatPrecent } from '../utils';
+import { formatWholeDollarAmount, formatPrecent, formattedStringToNumber } from '../utils';
 import { KEREN_SHAVA, SHPITZER } from '../consts';
 import str from '../localization';
 import { observer } from 'mobx-react';
+
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
 const { func, shape, number, arrayOf, string, oneOf } = PropTypes;
 
@@ -18,6 +18,7 @@ class MortgageInfoInputForm extends React.Component {
         handleDelete: func,
         handleMoveUp: func,
         handleMoveDown: func,
+        handleAddPart: func,
         className: string,
         mortgageParts: arrayOf(shape({
             id: string,
@@ -31,92 +32,84 @@ class MortgageInfoInputForm extends React.Component {
     }
 
     render() {
-        const { mortgageParts, className } = this.props;
+        const { mortgageParts, className, handleAddPart } = this.props;
+        const { selectedPartId } = this.state;
+
+        // The bootsrap table mutates the object it gets as data and this doesn't play nice
+        // with mobx. So I give it a copy of the observable data
+        const tableData = mortgageParts.map(part => {
+            return { ...part.persistableObject, monthlyPayment: part.monthlyPayment };
+        });
+
         return (
             <div className={cx('MortgageInfoInputFormContainer', className)}>
-                <table>
-                    <thead>
-                        <tr>
-                            <th className='columnHeading first'>{str('amortizationType')}</th>
-                            <th className='columnHeading'>{str('amount')}</th>
-                            <th className='columnHeading'>{str('years')}</th>
-                            <th className='columnHeading'>{str('interest')}</th>
-                            <th className='columnHeading'>{str('monthlyPayment')}</th>
-                            <th className='columnHeading'></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {mortgageParts.map((part, partIndex) => {
-                            return (
-                                <tr className='listItem' key={part.id}>
-                                    <td className='first'>
-                                        <select className='column amortizationColumn' value={part.amortizationType || SHPITZER} onChange={this.buildAmortizationChangeHandler(part)}>
-                                            <option value={SHPITZER}>{str('shpitzer')}</option>
-                                            <option value={KEREN_SHAVA}>{str('kerenShava')}</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <InfoInputCell className='column amountColumn' content={part.loanAmount} onContentChange={this.buildChangeHandler(part, 'loanAmount')} cellFormatter={formatWholeDollarAmount} />
-                                    </td>
-                                    <td>
-                                        <InfoInputCell className='column numYearsColumn' content={part.numYears} onContentChange={this.buildChangeHandler(part, 'numYears')} />
-                                    </td>
-                                    <td>
-                                        <InfoInputCell className='column interestColumn' content={part.yearlyInterest} onContentChange={this.buildChangeHandler(part, 'yearlyInterest')} cellFormatter={formatPrecent} />
-                                    </td>
-                                    <td>
-                                        <InfoInputCell className='column monthlyPaymentColumn' content={part.monthlyPayment} onContentChange={this.buildChangeHandler(part, 'monthlyPayment')} cellFormatter={formatWholeDollarAmount}
-                                            disabled marginLeft={25}
-                                        />
-                                    </td>
-                                    <td>
-                                        <div className='iconsContainer'>
-                                            {/*
-                                                <IconButton className='hidden-xs' name='keyboard_arrow_up' disabled={partIndex === 0} onClick={this.buildMoveHandler('up', part.id)} />
-                                                <IconButton className='hidden-xs' name='keyboard_arrow_down' disabled={partIndex === mortgageParts.length - 1} onClick={this.buildMoveHandler('down', part.id)} />
-                                            */}
-                                            <IconButton className='deletePartIcon' name='delete' onClick={this.buildDeleteHandler(part.id)} />
-                                        </div>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <BootstrapTable data={tableData} striped hover condensed cellEdit={this.cellEditSettings}
+                    selectRow={this.selectRowSettings}
+                >
+                    <TableHeaderColumn dataField='order' isKey dataAlign='center' hidden />
+                    <TableHeaderColumn dataField='amortizationType' dataAlign='center' width={'70'} editable={this.amortizationTypeEditSettings} dataFormat={this.amortizationCellFormatter}>{str('amortizationType')}</TableHeaderColumn>
+                    <TableHeaderColumn dataField='loanAmount' dataFormat={formatWholeDollarAmount} dataAlign='center' width={'80'}>{str('amount')}</TableHeaderColumn>
+                    <TableHeaderColumn dataField='numYears' dataAlign='center' width={'50'}>{str('years')}</TableHeaderColumn>
+                    <TableHeaderColumn dataField='yearlyInterest' dataAlign='center' dataFormat={formatPrecent} width={'50'}>{str('interest')}</TableHeaderColumn>
+                    <TableHeaderColumn dataField='monthlyPayment' dataAlign='center' dataFormat={formatWholeDollarAmount} width={'80'} editable={false}>{str('monthlyPayment')}</TableHeaderColumn>
+                </BootstrapTable>
+                <button type='button' className='btn btn-info' onClick={handleAddPart}>{str('add')}</button>
+                {selectedPartId ? <button type='button' className='btn btn-danger' onClick={this.onDelete}>{str('delete')}</button> : null}
             </div>
         );
     }
 
-    buildAmortizationChangeHandler = part => this.handleUpdateAmortization.bind(this, part.id);
+    state = {}
 
-    handleUpdateAmortization = (partId, event) => {
-        const amortizationValueToUpdate = event.target.options[event.target.selectedIndex].value;
-        return this.onChange(partId, 'amortizationType', amortizationValueToUpdate);
+    cellEditSettings = {
+        mode: 'click',
+        blurToSave: true,
+        afterSaveCell: this.handleCellEdit.bind(this)
     }
 
-    buildChangeHandler(part, propName) {
-        return this.onChange.bind(this, part.id, propName);
+    selectRowSettings = {
+        mode: 'radio',
+        clickToSelect: true,
+        onSelect: this.handleRowSelect.bind(this)
     }
 
-    buildDeleteHandler(partId) {
-        return this.onDelete.bind(this, partId);
-    }
-
-    buildMoveHandler(direction, partId) {
-        if (direction === 'up') {
-            return this.props.handleMoveUp.bind(this, partId);
+    amortizationTypeEditSettings = {
+        type: 'select',
+        options: {
+            values: [SHPITZER, KEREN_SHAVA]
         }
-        return this.props.handleMoveDown.bind(this, partId);
+    };
+
+    amortizationCellFormatter = amortizationType => {
+        return amortizationType === KEREN_SHAVA ? str('kerenShava') : str('shpitzer');
     }
 
-    onChange(partId, propChanged, newValue) {
+    handleRowSelect(row, isSelected, event) {
+        this.setState({
+            selectedPartId: row.id
+        });
+    }
+
+    handleCellEdit(row, changedProp, newValue) {
+        const partId = row.id;
+
+        // For numeric fields make sure to update number and not string
+        const valueToUpdate = changedProp === 'amortizationType' ? newValue : formattedStringToNumber(newValue);
+        this.onChange(partId, changedProp, valueToUpdate);
+    }
+
+    onChange(partId, changedProp, newValue) {
         const originalPart = this.props.mortgageParts.find(part => part.id === partId);
-        const updatedPart = { ...originalPart, [propChanged]: newValue };
+        const updatedPart = { ...originalPart, [changedProp]: newValue };
         this.props.handleChange(updatedPart);
     }
 
-    onDelete(partId) {
+    onDelete = () => {
+        const partId = this.state.selectedPartId;
         this.props.handleDelete(partId);
+        this.setState({
+            selectedPartId: null
+        });
     }
 
 }

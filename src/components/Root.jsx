@@ -1,5 +1,4 @@
 import React from 'react';
-import { FABButton, Icon } from 'react-mdl';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
@@ -67,10 +66,8 @@ class Root extends React.Component {
                     <div className='col-md-5'>
                         <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
                             handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
+                            handleAddPart={this.onAddNewPart}
                         />
-                        <FABButton className='addButton' mini ripple onClick={this.onAddNewPart}>
-                            <Icon name='add' />
-                        </FABButton>
                     </div>
                     <div className='col-md-2 MortgageDetailsDisplayContainer'>
                         <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
