@@ -3,6 +3,7 @@
 const isProd = env === 'production';
 
 const COMMON_CONFIG = {
+    signInWithRedirect: true,
     showAddMortgageRow: false,
     useFirebaseStorage: true,
     useFirebaseAuth: true,

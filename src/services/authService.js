@@ -5,7 +5,8 @@ import { saveUserDetailsIfDontExist } from './storageService';
 import _ from 'lodash';
 
 export const signIn = () => {
-    return authNative.signIn();
+    const redirect = getConfig('signInWithRedirect');
+    authNative.signIn(redirect);
 };
 
 export const signOut = () => {
