@@ -85,7 +85,9 @@ export function mergeMortgateInfoParts(calculatedMortgageInfoParts) {
     const calculatedPartsClone = _.cloneDeep(calculatedMortgageInfoParts);
 
     calculatedPartsClone.forEach(mortgagePart => {
-        loanAmount += mortgagePart.loanAmount;
+        if (mortgagePart.loanAmount && mortgagePart.numYears && mortgagePart.yearlyInterest) {
+            loanAmount += mortgagePart.loanAmount;
+        }
         monthlyPayment += mortgagePart.monthlyPayment;
         totalPaymentToBank += mortgagePart.totalPaymentToBank;
 

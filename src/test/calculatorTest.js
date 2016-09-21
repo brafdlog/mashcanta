@@ -142,6 +142,8 @@ describe('Mashcanta calculator', function() {
                 loanAmount: 1000,
                 monthlyPayment: 100,
                 totalPaymentToBank: 1500,
+                yearlyInterest: 5,
+                numYears: 7,
                 paymentDetailsPerMonth: [
                     {
                         principal: 100,
@@ -162,6 +164,8 @@ describe('Mashcanta calculator', function() {
                 loanAmount: 2000,
                 monthlyPayment: 300,
                 totalPaymentToBank: 4000,
+                yearlyInterest: 3,
+                numYears: 7,
                 paymentDetailsPerMonth: [
                     {
                         principal: 10,
