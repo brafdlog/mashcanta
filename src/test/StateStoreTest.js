@@ -78,15 +78,7 @@ describe('State store', function() {
         expect(mortgage1.loanAmount).to.equal(750000);
         expect(mortgage2.loanAmount).to.equal(260000);
     });
-
-    it('should set loading state correctly', function() {
-        expect(stateStore.isLoading).to.be.false;
-        stateStore.setLoading(true);
-        expect(stateStore.isLoading).to.be.true;
-        stateStore.setLoading(false);
-        expect(stateStore.isLoading).to.be.false;
-    });
-
+    
     it('should set and fetch current mortgage correctly', function() {
         const mortgage1 = new Mortgage();
         const mortgage2 = new Mortgage();

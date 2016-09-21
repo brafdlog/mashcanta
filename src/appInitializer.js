@@ -11,10 +11,8 @@ autorun('Save to storage on change', () => {
 });
 autorun('Get user data from db', () => {
     if (stateStore.userStatus === USER_LOGGED_IN) {
-        stateStore.setLoading(true);
         loadMortgagesFromDB(stateStore.user.id).then(storedMortgageInfo => {
             stateStore.setMortgages(storedMortgageInfo);
-            stateStore.setLoading(false);
         });
     }
 });

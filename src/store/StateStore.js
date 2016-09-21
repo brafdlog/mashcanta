@@ -10,7 +10,6 @@ export const USER_LOGGED_IN = 'logged in';
 
 class StateStore {
     @observable mortgages = this.buildDefaultMortgages();
-    @observable isLoading = false;
     @observable currentMortgageId;
     @observable user;
     @observable fetchedUserDataFromDb = false;
@@ -70,8 +69,8 @@ class StateStore {
         this.mortgages.replace(observableMortgages);
     }
 
-    @action('Set loading') setLoading = (isLoading) => {
-        this.isLoading = isLoading;
+    @computed get isLoading() {
+        return this.userStatus === BEFORE_AUTH || (this.userStatus === USER_LOGGED_IN && !this.fetchedUserDataFromDb);
     }
 
     @computed get userStatus() {
