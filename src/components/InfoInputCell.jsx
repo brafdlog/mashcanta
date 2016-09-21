@@ -75,7 +75,6 @@ class InfoInputCell extends React.Component {
 
     handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            this.handleBlur(event);
             /* global $ */
             $(this.inputElement).blur();
         }
