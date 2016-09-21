@@ -3,6 +3,17 @@
     margin-right: 20px;
     margin-top: 10px;
 
+    // Reduce padding and margin for elements on small screens
+    @media (max-width:500px) {
+        margin-right: 0px;
+        .mortgageInputFormColumn {
+            padding: 3px;
+            .react-bs-table {
+                margin: 0;
+            }
+        }
+    }
+
     .addButton {
         margin: inherit;
         margin-top: 10px;

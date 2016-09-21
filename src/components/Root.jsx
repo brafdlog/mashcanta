@@ -63,7 +63,7 @@ class Root extends React.Component {
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
                 <div className='row'>
-                    <div className='col-md-5'>
+                    <div className='col-md-5 mortgageInputFormColumn'>
                         <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
                             handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
                             handleAddPart={this.onAddNewPart}
