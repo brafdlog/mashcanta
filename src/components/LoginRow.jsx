@@ -10,7 +10,7 @@ export const LoginRow = (props) => {
                 {props.user ?
                     <div>
                         {props.user.imageUrl ? <img src={props.user.imageUrl} alt="User's picture" /> : null}
-                        <button type='button' className='btn btn-default' onClick={props.signOut}>{str('logout')}</button>
+                        <a className='logoutLink' onClick={props.signOut}>{str('logout')}</a>
                     </div> :
                     <button type='button' className='btn btn-primary' onClick={props.signIn}>{str('login')}</button>
                 }
