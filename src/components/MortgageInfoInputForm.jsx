@@ -51,7 +51,7 @@ class MortgageInfoInputForm extends React.Component {
                     <TableHeaderColumn dataField='loanAmount' dataFormat={formatWholeDollarAmount} dataAlign='center' width={'80'}>{str('amount')}</TableHeaderColumn>
                     <TableHeaderColumn dataField='numYears' dataAlign='center' width={'50'}>{str('years')}</TableHeaderColumn>
                     <TableHeaderColumn dataField='yearlyInterest' dataAlign='center' dataFormat={formatPrecent} width={'50'}>{str('interest')}</TableHeaderColumn>
-                    {window.isMobile ? null : <TableHeaderColumn dataField='monthlyPayment' dataAlign='center' dataFormat={formatWholeDollarAmount} width={'80'} editable={false}>{str('monthlyPayment')}</TableHeaderColumn>}
+                    <TableHeaderColumn dataField='monthlyPayment' hidden={window.isMobile} dataAlign='center' dataFormat={formatWholeDollarAmount} width={'80'} editable={false}>{str('monthlyPayment')}</TableHeaderColumn>
                 </BootstrapTable>
                 <button type='button' className='btn btn-info' onClick={handleAddPart}>{str('add')}</button>
                 {selectedPartId ? <button type='button' className='btn btn-danger' onClick={this.onDelete}>{str('delete')}</button> : null}
