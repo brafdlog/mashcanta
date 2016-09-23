@@ -4,9 +4,9 @@ import { stateStore } from '../store/StateStore';
 import { saveUserDetailsIfDontExist } from './storageService';
 import _ from 'lodash';
 
-export const signIn = () => {
+export const signIn = (authProviderName) => {
     const redirect = getConfig('signInWithRedirect');
-    authNative.signIn(redirect);
+    authNative.signIn(redirect, authProviderName);
 };
 
 export const signOut = () => {

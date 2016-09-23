@@ -6,7 +6,7 @@ import { ManageMortgagesRow } from './ManageMortgagesRow';
 import { LoginRow } from './LoginRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { KEREN_SHAVA, SHPITZER } from '../consts';
+import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
 import { getConfig } from '../config';
 import { signIn, signOut, isAuthEnabled } from '../services/authService';
 import './Root.scss';
@@ -57,7 +57,7 @@ class Root extends React.Component {
         return (
             <div className='container-fluid rootAppContainer'>
                 {isAuthEnabled() ?
-                    <LoginRow user={user} signIn={signIn} signOut={signOut} /> : null
+                    <LoginRow user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn} signOut={signOut} /> : null
                 }
                 {showAddMortgageRow ?
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
@@ -86,6 +86,14 @@ class Root extends React.Component {
     }
 
     state = {};
+
+    facebookLogin = () => {
+        signIn(FACEBOOK);
+    };
+
+    googleLogin = () => {
+        signIn(GOOGLE);
+    };
 
     onChangeCurrentMortgage = ({ target }) => {
         this.props.stateStore.setCurrentMortgageId(target.value);

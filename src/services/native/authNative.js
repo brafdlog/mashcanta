@@ -1,14 +1,18 @@
 import firebase from '../firebaseInitializer';
+import { GOOGLE, FACEBOOK } from '../../consts';
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+
 
 export const registerOnAuthChangeHook = (authChangeHook) => {
     firebase.auth().onAuthStateChanged(authChangeHook);
 };
 
-export const signIn = (redirect = false) => {
+export const signIn = (redirect = false, authProviderName = FACEBOOK) => {
     let loginPromise;
+    const provider = authProviderName === GOOGLE ? googleProvider : facebookProvider;
 
     if (redirect) {
         firebase.auth().signInWithRedirect(provider);

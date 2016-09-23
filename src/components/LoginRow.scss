@@ -1,9 +1,14 @@
 .loginRow {
-    img {
+    .userPicture {
         border-radius: 20px;
         width: 30px;
         height: 30px;
         margin-left: 10px;
+    }
+
+    .loginButton {
+        cursor: pointer;
+        width: 140px;
     }
 
     .logoutLink {
