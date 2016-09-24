@@ -106,13 +106,15 @@ class PaymentsGraph extends React.Component {
                     <label><input type='radio' value='monthly' checked={!this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
                     <label><input type='radio' value='yearly' checked={this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
                 </div>
-                {paymentDetailsPerPeriod.length - maxElements > 1 ?
-                    <input className='startIndexSlider' type='range' min={0} max={paymentDetailsPerPeriod.length - maxElements} step={1}
-                        value={this.state.startIndex} onChange={this.handleStartIndexChange}
-                    /> :
-                    null
-                }
                 <Toggle on={this.state.showInterestSeparately} onChange={this.handleChangeShowInterestSeparately} title={str('showInterestSeparately')} />
+                {paymentDetailsPerPeriod.length - maxElements > 1 ?
+                    <span className='startIndexSliderContainer'>
+                        <span className='title'>{str('changeGraphPeriod')}</span>
+                        <input className='startIndexSlider' type='range' min={0} max={paymentDetailsPerPeriod.length - maxElements} step={1}
+                            value={this.state.startIndex} onChange={this.handleStartIndexChange}
+                        />
+                    </span> : null
+                }
                 <Bar data={data} options={options} width={width} height={height} />
             </div>
         );

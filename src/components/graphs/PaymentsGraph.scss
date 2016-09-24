@@ -1,8 +1,15 @@
 .PaymentsGraphContainer {
-    .startIndexSlider {
-        direction: ltr;
-        width: 60px
+
+    .startIndexSliderContainer {
+        display: flex;
+
+        .startIndexSlider {
+            direction: ltr;
+            width: 60px;
+            margin-right: 10px;
+        }
     }
+    
     .granularitySelectionWrapper {
         label {
             margin-left: 10px;
