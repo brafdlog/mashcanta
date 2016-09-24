@@ -84,8 +84,8 @@ class Root extends React.Component {
                 <div className='row'>
                     <div className='col-md-12'>
                         {showGraph ?
-                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth} yearlyGraph={this.state.paymentGraphYearly}
-                                handleUpdateGranularity={this.updatePaymentGraphGranularity} maxElements={this.isSmallScreen ? 15 : 40}
+                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth}
+                                maxElements={this.isSmallScreen ? 15 : 40}
                             /> : ''}
                     </div>
                 </div>
@@ -115,10 +115,6 @@ class Root extends React.Component {
     onAddNewPart = () => {
         const mortgage = this.getCurrentMortgage();
         mortgage.addPart();
-    }
-
-    updatePaymentGraphGranularity = (newGranularity) => {
-        this.setState({ paymentGraphYearly: newGranularity === 'yearly' });
     }
 
     onUpdateMortgagePart = (updatedMortgagePart) => {

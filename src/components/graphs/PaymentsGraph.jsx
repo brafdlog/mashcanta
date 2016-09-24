@@ -9,7 +9,7 @@ import _ from 'lodash';
 import './PaymentsGraph.scss';
 import { observer } from 'mobx-react';
 
-const { string, number, arrayOf, shape, bool, func } = PropTypes;
+const { string, number, arrayOf, shape } = PropTypes;
 
 @observer
 class PaymentsGraph extends React.Component {
@@ -22,21 +22,19 @@ class PaymentsGraph extends React.Component {
         })).isRequired,
         maxElements: number,
         width: number,
-        height: number,
-        yearlyGraph: bool,
-        handleUpdateGranularity: func
+        height: number
     }
 
     static defaultProps = {
         maxElements: 40,
         width: 800,
-        height: 300,
-        yearlyGraph: true
+        height: 300
     }
 
     render() {
-        const { className, paymentDetailsPerMonth, width, height, yearlyGraph, maxElements } = this.props;
-
+        const { className, paymentDetailsPerMonth, width, height, maxElements } = this.props;
+        const { yearlyGraph } = this.state;
+        const monthlyGraph = !yearlyGraph;
         const paymentDetailsPerYear = this.batchToYears(paymentDetailsPerMonth);
 
         const paymentDetailsPerPeriod = yearlyGraph ? paymentDetailsPerYear : paymentDetailsPerMonth;
@@ -137,8 +135,8 @@ class PaymentsGraph extends React.Component {
             <div className={cx('PaymentsGraphContainer', className)}>
                 <h3 className='graphTitle'>{str('paymentsGraph')}</h3>
                 <div className='granularitySelectionWrapper'>
-                    <label><input type='radio' value='monthly' checked={!this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
-                    <label><input type='radio' value='yearly' checked={this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
+                    <label><input type='radio' value='monthly' checked={monthlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
+                    <label><input type='radio' value='yearly' checked={yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
                 </div>
                 <Toggle on={this.state.showInterestSeparately} onChange={this.handleChangeShowInterestSeparately} title={str('showInterestSeparately')} />
                 {paymentDetailsPerPeriod.length - maxElements > 1 ?
@@ -158,7 +156,8 @@ class PaymentsGraph extends React.Component {
 
     state = {
         showInterestSeparately: true,
-        startIndex: 0
+        startIndex: 0,
+        yearlyGraph: false
     }
 
     handleStartIndexChange = ({ target }) => {
@@ -182,7 +181,9 @@ class PaymentsGraph extends React.Component {
         // The labels don't get updated correctly if there is no redraw so after changing granularity
         // we need to make sure to redraw
         this.redraw = true;
-        this.props.handleUpdateGranularity(target.value);
+        this.setState({
+            yearlyGraph: target.value === 'yearly'
+        });
     }
 
     batchToYears(paymentDetailsPerMonth) {
