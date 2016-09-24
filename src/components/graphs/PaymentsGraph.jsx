@@ -95,6 +95,15 @@ class PaymentsGraph extends React.Component {
         };
 
         const options = {
+            tooltips: {
+                enabled: true,
+                mode: 'label',
+                callbacks: {
+                    label: (tooltipItems, data2) => {
+                        return formatWholeDollarAmount(tooltipItems.yLabel);
+                    }
+                }
+            },
             scales: {
                 yAxes: [{
                     stacked: true,
