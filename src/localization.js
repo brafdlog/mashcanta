@@ -25,7 +25,7 @@ const ENGLISH_STRINGS = {
     paymentsGraph: 'Payment Graph',
     login: 'Login',
     logout: 'Log out',
-    showInterest: 'Show interest'
+    showInterestSeparately: 'Show interest separately'
 };
 
 const HEBREW_STRINGS = {
@@ -52,7 +52,7 @@ const HEBREW_STRINGS = {
     paymentsGraph: 'גרף תשלומים',
     login: 'התחבר',
     logout: 'התנתק',
-    showInterest: 'הצג ריבית'
+    showInterestSeparately: 'הצג ריבית בנפרד'
 };
 
 const strings = {

@@ -58,7 +58,7 @@ class PaymentsGraph extends React.Component {
             ]
         };
 
-        if (this.state.showInterest) {
+        if (this.state.showInterestSeparately) {
             data.datasets.push({
                 label: str('interest'),
                 backgroundColor: '#FF6384',
@@ -87,19 +87,19 @@ class PaymentsGraph extends React.Component {
                     <label><input type='radio' value='monthly' checked={!this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
                     <label><input type='radio' value='yearly' checked={this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
                 </div>
-                <Toggle on={this.state.showInterest} onChange={this.handleChangeShowInterest} title={str('showInterest')} />
+                <Toggle on={this.state.showInterestSeparately} onChange={this.handleChangeShowInterestSeparately} title={str('showInterestSeparately')} />
                 <Bar data={data} options={options} width={width} height={height} />
             </div>
         );
     }
 
     state = {
-        showInterest: false
+        showInterestSeparately: false
     }
 
-    handleChangeShowInterest = showInterest => {
+    handleChangeShowInterestSeparately = showInterestSeparately => {
         this.setState({
-            showInterest
+            showInterestSeparately
         }, () => { this.forceUpdate() });
     }
 
