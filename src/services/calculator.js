@@ -1,6 +1,6 @@
 /* eslint id-length: "off", no-param-reassign: "off" */
 import { retainNDecimals } from '../utils';
-import { SHPITZER } from '../consts';
+import { SHPITZER, KEREN_SHAVA, BULLET } from '../consts';
 import _ from 'lodash';
 
 const ZERO_MONTHLY_PAYMENT = {
@@ -28,8 +28,14 @@ export function getMortgagePartInfo({ loanAmount = 0, numYears = 0, yearlyIntere
         .map(monthPay => monthPay.principal + monthPay.interest)
         .reduce((sum, monthPayment) => sum + monthPayment);
 
-        // for shpitzer this will be same monthly payment always and for keren shava this will the be the first month's payment
+        // for shpitzer and bullet this will be same monthly payment always and for keren shava this will the be the first month's payment
         monthlyPayment = paymentDetailsPerMonth[0].interest + paymentDetailsPerMonth[0].principal;
+
+        // In bullet, during the monthly payments only the interest is payed, and in the end the whole
+        // loan amount is payed at once
+        if (amortizationType === BULLET) {
+            totalPaymentToBank += loanAmount;
+        }
     }
 
     const costOfEachDollar = (totalPaymentToBank / loanAmount) || 0;
@@ -159,11 +165,22 @@ function calculatePaymentDetailsPerMonth(loanAmount, numYears, yearlyInterest, a
     for (let i = 0; i < numMonths; i++) {
         const monthlyInterestPayment = currentLoanAmount * monthlyInterest;
         let monthlyPrincipalPayment;
-        if (amortizationType === SHPITZER) {
+        switch(amortizationType) {
+        case SHPITZER: {
             const monthlyPayment = getMonthlyPaymentByLoanAmount({ loanAmount, numYears, yearlyInterest });
             monthlyPrincipalPayment = monthlyPayment - monthlyInterestPayment;
-        } else {
+            break;
+        }
+        case KEREN_SHAVA: {
             monthlyPrincipalPayment = loanAmount / numMonths;
+            break;
+        }
+        case BULLET: {
+            monthlyPrincipalPayment = 0;
+            break;
+        }
+        default:
+            throw new Error(`error: no handler for amortizationType ${amortizationType}`);
         }
 
         const principal = retainNDecimals(monthlyPrincipalPayment, 2);

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import './MortgageInfoInputForm.scss';
 import { formatWholeDollarAmount, formatPrecent, formattedStringToNumber } from '../utils';
-import { KEREN_SHAVA, SHPITZER } from '../consts';
+import { KEREN_SHAVA, SHPITZER, BULLET } from '../consts';
 import str from '../localization';
 import { observer } from 'mobx-react';
 
@@ -27,7 +27,7 @@ class MortgageInfoInputForm extends React.Component {
             numYears: number,
             yearlyInterest: number,
             monthlyPayment: number,
-            amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
+            amortizationType: oneOf([KEREN_SHAVA, SHPITZER, BULLET])
         }))
     }
 
@@ -80,11 +80,14 @@ class MortgageInfoInputForm extends React.Component {
     amortizationTypeEditSettings = {
         type: 'select',
         options: {
-            values: [SHPITZER, KEREN_SHAVA]
+            values: [SHPITZER, KEREN_SHAVA, BULLET]
         }
     };
 
     amortizationCellFormatter = amortizationType => {
+        if (amortizationType === BULLET) {
+            return str('bullet');
+        }
         return amortizationType === KEREN_SHAVA ? str('kerenShava') : str('shpitzer');
     }
 
