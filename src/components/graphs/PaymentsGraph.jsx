@@ -4,6 +4,7 @@ import cx from 'classnames';
 import str from '../../localization';
 import { removeAllDecimals } from '../../utils';
 import { Bar } from 'react-chartjs-2';
+import Toggle from '../Toggle';
 import _ from 'lodash';
 import './PaymentsGraph.scss';
 import { observer } from 'mobx-react';
@@ -53,18 +54,21 @@ class PaymentsGraph extends React.Component {
                     // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                     // hoverBorderColor: 'rgba(255,99,132,1)',
                     data: paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails.principal))
-                },
-                {
-                    label: str('interest'),
-                    backgroundColor: '#FF6384',
-                    // borderColor: 'rgba(255,99,132,1)',
-                    // borderWidth: 1,
-                    // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    // hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails.interest))
                 }
             ]
         };
+
+        if (this.state.showInterest) {
+            data.datasets.push({
+                label: str('interest'),
+                backgroundColor: '#FF6384',
+                // borderColor: 'rgba(255,99,132,1)',
+                // borderWidth: 1,
+                // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                // hoverBorderColor: 'rgba(255,99,132,1)',
+                data: paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails.interest))
+            });
+        }
 
         const options = {
             scales: {
@@ -83,9 +87,20 @@ class PaymentsGraph extends React.Component {
                     <label><input type='radio' value='monthly' checked={!this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
                     <label><input type='radio' value='yearly' checked={this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
                 </div>
+                <Toggle on={this.state.showInterest} onChange={this.handleChangeShowInterest} title={str('showInterest')} />
                 <Bar data={data} options={options} width={width} height={height} />
             </div>
         );
+    }
+
+    state = {
+        showInterest: false
+    }
+
+    handleChangeShowInterest = showInterest => {
+        this.setState({
+            showInterest
+        }, () => { this.forceUpdate() });
     }
 
     handleChangeGranularity = ({ target }) => {

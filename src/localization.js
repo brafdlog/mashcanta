@@ -24,7 +24,8 @@ const ENGLISH_STRINGS = {
     shpitzer: 'shpitzer',
     paymentsGraph: 'Payment Graph',
     login: 'Login',
-    logout: 'Log out'
+    logout: 'Log out',
+    showInterest: 'Show interest'
 };
 
 const HEBREW_STRINGS = {
@@ -50,7 +51,8 @@ const HEBREW_STRINGS = {
     shpitzer: 'שפיצר',
     paymentsGraph: 'גרף תשלומים',
     login: 'התחבר',
-    logout: 'התנתק'
+    logout: 'התנתק',
+    showInterest: 'הצג ריבית'
 };
 
 const strings = {
