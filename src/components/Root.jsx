@@ -41,6 +41,11 @@ class Root extends React.Component {
         })
     }
 
+    constructor(props) {
+        super(props);
+        this.isSmallScreen = window.isSmallScreen;
+    }
+
     render() {
         const { currentMortgage, isLoading, createNewMortgage, mortgages, user } = this.props.stateStore;
         const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost } = currentMortgage;
@@ -78,7 +83,10 @@ class Root extends React.Component {
                 </div>
                 <div className='row'>
                     <div className='col-md-12'>
-                        {showGraph ? <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth} yearlyGraph={this.state.paymentGraphYearly} handleUpdateGranularity={this.updatePaymentGraphGranularity} /> : ''}
+                        {showGraph ?
+                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth} yearlyGraph={this.state.paymentGraphYearly}
+                                handleUpdateGranularity={this.updatePaymentGraphGranularity} maxElements={this.isSmallScreen ? 15 : 40}
+                            /> : ''}
                     </div>
                 </div>
             </div>
