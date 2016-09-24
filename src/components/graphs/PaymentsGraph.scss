@@ -1,18 +1,28 @@
 .PaymentsGraphContainer {
-
-    .startIndexSliderContainer {
-        display: flex;
-
-        .startIndexSlider {
-            direction: ltr;
-            width: 60px;
-            margin-right: 10px;
-        }
-    }
+    margin-bottom: 20px;
     
     .granularitySelectionWrapper {
         label {
             margin-left: 10px;
         }
-    }    
+    }
+
+    .chooseYearWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .chooseYearWrapperLabel {
+            margin-left: 10px;
+        }
+
+        .addYearIcon {
+            margin-left: 10px;
+            font-size: 23px;
+        }
+        .goBackYearIcon {
+            margin-right: 10px;
+            font-size: 23px;
+        }
+    } 
 }

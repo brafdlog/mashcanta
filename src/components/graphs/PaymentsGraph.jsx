@@ -36,10 +36,10 @@ class PaymentsGraph extends React.Component {
         const { yearlyGraph } = this.state;
         const monthlyGraph = !yearlyGraph;
         const paymentDetailsPerYear = this.batchToYears(paymentDetailsPerMonth);
-
+        const maxElementsToDisplay = monthlyGraph ? 12 : maxElements;
         const paymentDetailsPerPeriod = yearlyGraph ? paymentDetailsPerYear : paymentDetailsPerMonth;
         const startIndex = this.state.startIndex;
-        const endIndex = Math.min(startIndex + maxElements, paymentDetailsPerPeriod.length);
+        const endIndex = Math.min(startIndex + maxElementsToDisplay, paymentDetailsPerPeriod.length);
         const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(startIndex, endIndex);
         const numXValues = paymentDetailsPerPeriodSliced.length;
 
@@ -88,7 +88,7 @@ class PaymentsGraph extends React.Component {
         }
 
         const data = {
-            labels: _.range(startIndex + 1, startIndex + numXValues + 1),
+            labels: _.range(1, numXValues + 1),
             datasets
         };
 
@@ -139,14 +139,17 @@ class PaymentsGraph extends React.Component {
                     <label><input type='radio' value='yearly' checked={yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
                 </div>
                 <Toggle on={this.state.showInterestSeparately} onChange={this.handleChangeShowInterestSeparately} title={str('showInterestSeparately')} />
-                {paymentDetailsPerPeriod.length - maxElements > 1 ?
-                    <span className='startIndexSliderContainer'>
-                        <span className='title'>{str('changeGraphPeriod')}</span>
-                        <input className='startIndexSlider' type='range' min={0} max={paymentDetailsPerPeriod.length - maxElements} step={1}
-                            value={this.state.startIndex} onChange={this.handleStartIndexChange}
-                        />
-                    </span> : null
+                {monthlyGraph ?
+                    <div className='chooseYearWrapper'>
+                        <span className='chooseYearWrapperLabel'>{str('year')}</span>
+                        <span className='glyphicon glyphicon-triangle-right addYearIcon' aria-hidden='true' onClick={this.addYearToStartIndex}></span>
+                        <select className='chooseYearDropdown' value={this.state.startIndex} onChange={this.handleStartIndexChange}>
+                            {_.range(0, paymentDetailsPerYear.length).map(yearNum => <option key={yearNum} value={yearNum * 12}>{yearNum + 1}</option>)}
+                        </select>
+                        <span className='glyphicon glyphicon-triangle-left goBackYearIcon' aria-hidden='true' onClick={this.reduceYearFromStartIndex}></span>
+                    </div> : null
                 }
+
                 <Bar data={data} options={options} width={width} height={height} redraw={redraw} />
             </div>
         );
@@ -167,6 +170,26 @@ class PaymentsGraph extends React.Component {
         });
     }
 
+    addYearToStartIndex = () => {
+        const newStartIndex = this.state.startIndex + 12;
+        if (newStartIndex >= this.props.paymentDetailsPerMonth.length) {
+            return;
+        }
+        this.setState({
+            startIndex: newStartIndex
+        });
+    }
+
+    reduceYearFromStartIndex = () => {
+        const newStartIndex = this.state.startIndex - 12;
+        if (newStartIndex < 0) {
+            return;
+        }
+        this.setState({
+            startIndex: newStartIndex
+        });
+    }
+
     buildDataForDataset = (paymentDetailsPerPeriodSliced, fieldName) => {
         return paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails[fieldName]));
     }
@@ -182,7 +205,8 @@ class PaymentsGraph extends React.Component {
         // we need to make sure to redraw
         this.redraw = true;
         this.setState({
-            yearlyGraph: target.value === 'yearly'
+            yearlyGraph: target.value === 'yearly',
+            startIndex: 0
         });
     }
 
