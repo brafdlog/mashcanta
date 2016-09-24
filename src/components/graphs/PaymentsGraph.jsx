@@ -28,19 +28,21 @@ class PaymentsGraph extends React.Component {
     }
 
     static defaultProps = {
-        maxElements: 80,
+        maxElements: 40,
         width: 800,
         height: 300,
         yearlyGraph: true
     }
 
     render() {
-        const { className, paymentDetailsPerMonth, width, height, yearlyGraph } = this.props;
+        const { className, paymentDetailsPerMonth, width, height, yearlyGraph, maxElements } = this.props;
 
         const paymentDetailsPerYear = this.batchToYears(paymentDetailsPerMonth);
 
         const paymentDetailsPerPeriod = yearlyGraph ? paymentDetailsPerYear : paymentDetailsPerMonth;
-        const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(0, this.props.maxElements);
+        const startIndex = this.state.startIndex;
+        const endIndex = Math.min(startIndex + maxElements, paymentDetailsPerPeriod.length);
+        const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(startIndex, endIndex);
         const numXValues = paymentDetailsPerPeriodSliced.length;
 
         let datasets;
@@ -81,7 +83,7 @@ class PaymentsGraph extends React.Component {
         }
 
         const data = {
-            labels: _.range(1, numXValues + 1),
+            labels: _.range(startIndex + 1, startIndex + numXValues + 1),
             datasets
         };
 
@@ -93,7 +95,9 @@ class PaymentsGraph extends React.Component {
                 xAxes: [{
                     stacked: true
                 }]
-            }
+            },
+            // Animation is disabled because when using the start index slider, the animation is too slow
+            animation: false
         };
         return (
             <div className={cx('PaymentsGraphContainer', className)}>
@@ -102,6 +106,12 @@ class PaymentsGraph extends React.Component {
                     <label><input type='radio' value='monthly' checked={!this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
                     <label><input type='radio' value='yearly' checked={this.props.yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
                 </div>
+                {paymentDetailsPerPeriod.length - maxElements > 1 ?
+                    <input className='startIndexSlider' type='range' min={0} max={paymentDetailsPerPeriod.length - maxElements} step={1}
+                        value={this.state.startIndex} onChange={this.handleStartIndexChange}
+                    /> :
+                    null
+                }
                 <Toggle on={this.state.showInterestSeparately} onChange={this.handleChangeShowInterestSeparately} title={str('showInterestSeparately')} />
                 <Bar data={data} options={options} width={width} height={height} />
             </div>
@@ -109,7 +119,15 @@ class PaymentsGraph extends React.Component {
     }
 
     state = {
-        showInterestSeparately: false
+        showInterestSeparately: false,
+        startIndex: 0
+    }
+
+    handleStartIndexChange = ({ target }) => {
+        const newStartIndex = target.value;
+        this.setState({
+            startIndex: Number(newStartIndex)
+        });
     }
 
     buildDataForDataset = (paymentDetailsPerPeriodSliced, fieldName) => {
