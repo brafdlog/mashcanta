@@ -121,7 +121,7 @@ class PaymentsGraph extends React.Component {
     }
 
     state = {
-        showInterestSeparately: false,
+        showInterestSeparately: true,
         startIndex: 0
     }
 
