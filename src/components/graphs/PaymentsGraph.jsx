@@ -43,9 +43,10 @@ class PaymentsGraph extends React.Component {
         const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(0, this.props.maxElements);
         const numXValues = paymentDetailsPerPeriodSliced.length;
 
-        const data = {
-            labels: _.range(1, numXValues + 1),
-            datasets: [
+        let datasets;
+
+        if (this.state.showInterestSeparately) {
+            datasets = [
                 {
                     label: str('principal'),
                     backgroundColor: '#36A2EB',
@@ -53,22 +54,36 @@ class PaymentsGraph extends React.Component {
                     // borderWidth: 1,
                     // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                     // hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails.principal))
+                    data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'principal')
+                },
+                {
+                    label: str('interest'),
+                    backgroundColor: '#FF6384',
+                    // borderColor: 'rgba(255,99,132,1)',
+                    // borderWidth: 1,
+                    // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                    // hoverBorderColor: 'rgba(255,99,132,1)',
+                    data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'interest')
                 }
-            ]
-        };
-
-        if (this.state.showInterestSeparately) {
-            data.datasets.push({
-                label: str('interest'),
-                backgroundColor: '#FF6384',
-                // borderColor: 'rgba(255,99,132,1)',
-                // borderWidth: 1,
-                // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                // hoverBorderColor: 'rgba(255,99,132,1)',
-                data: paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails.interest))
-            });
+            ];
+        } else {
+            datasets = [
+                {
+                    label: yearlyGraph ? str('yearlyPayment') : str('monthlyPayment'),
+                    backgroundColor: '#36A2EB',
+                    // borderColor: 'rgba(255,99,132,1)',
+                    // borderWidth: 1,
+                    // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                    // hoverBorderColor: 'rgba(255,99,132,1)',
+                    data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'total')
+                }
+            ];
         }
+
+        const data = {
+            labels: _.range(1, numXValues + 1),
+            datasets
+        };
 
         const options = {
             scales: {
@@ -97,6 +112,10 @@ class PaymentsGraph extends React.Component {
         showInterestSeparately: false
     }
 
+    buildDataForDataset = (paymentDetailsPerPeriodSliced, fieldName) => {
+        return paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails[fieldName]));
+    }
+
     handleChangeShowInterestSeparately = showInterestSeparately => {
         this.setState({
             showInterestSeparately
@@ -121,11 +140,13 @@ class PaymentsGraph extends React.Component {
                 currentYear++;
                 currentYearPaymentDetails = {
                     interest: 0,
-                    principal: 0
+                    principal: 0,
+                    total: 0
                 };
             }
             currentYearPaymentDetails.interest += paymentDetails.interest;
             currentYearPaymentDetails.principal += paymentDetails.principal;
+            currentYearPaymentDetails.total += paymentDetails.total;
         });
 
         paymentDetailsPerYear[currentYear] = currentYearPaymentDetails;

@@ -13,6 +13,7 @@ const ENGLISH_STRINGS = {
     amount: 'Amount',
     amortizationType: 'AmortizationType',
     monthlyPayment: 'Monthly payment',
+    yearlyPayment: 'Yealy payment',
     firstPayment: 'First payment',
     totalPayment: 'Total Payment',
     costOfDollar: 'Cost Of Dollar',
@@ -25,7 +26,8 @@ const ENGLISH_STRINGS = {
     paymentsGraph: 'Payment Graph',
     login: 'Login',
     logout: 'Log out',
-    showInterestSeparately: 'Show interest separately'
+    showInterestSeparately: 'Show interest separately',
+    total: 'Total'
 };
 
 const HEBREW_STRINGS = {
@@ -40,6 +42,7 @@ const HEBREW_STRINGS = {
     amount: 'סכום',
     amortizationType: 'שיטת החזר',
     monthlyPayment: 'תשלום חודשי',
+    yearlyPayment: 'תשלום שנתי',
     firstPayment: 'תשלום ראשון',
     totalPayment: 'תשלום סה״כ',
     costOfDollar: 'עלות כל שקל',
@@ -52,7 +55,8 @@ const HEBREW_STRINGS = {
     paymentsGraph: 'גרף תשלומים',
     login: 'התחבר',
     logout: 'התנתק',
-    showInterestSeparately: 'הצג ריבית בנפרד'
+    showInterestSeparately: 'הצג ריבית בנפרד',
+    total: 'סה״כ'
 };
 
 const strings = {

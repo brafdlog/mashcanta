@@ -5,7 +5,8 @@ import _ from 'lodash';
 
 const ZERO_MONTHLY_PAYMENT = {
     principal: 0,
-    interest: 0
+    interest: 0,
+    total: 0
 };
 
 /**
@@ -104,7 +105,8 @@ export function mergeMortgateInfoParts(calculatedMortgageInfoParts) {
             }
             const sum = {
                 principal: monthPaymentDetails.principal + paymentDetailsPerMonth[monthIndex].principal,
-                interest: monthPaymentDetails.interest + paymentDetailsPerMonth[monthIndex].interest
+                interest: monthPaymentDetails.interest + paymentDetailsPerMonth[monthIndex].interest,
+                total: monthPaymentDetails.total + paymentDetailsPerMonth[monthIndex].total
             };
             return sum;
         });
@@ -164,9 +166,13 @@ function calculatePaymentDetailsPerMonth(loanAmount, numYears, yearlyInterest, a
             monthlyPrincipalPayment = loanAmount / numMonths;
         }
 
+        const principal = retainNDecimals(monthlyPrincipalPayment, 2);
+        const interest = retainNDecimals(monthlyInterestPayment, 2);
+
         paymentDetailsPerMonth[i] = {
-            principal: retainNDecimals(monthlyPrincipalPayment, 2),
-            interest: retainNDecimals(monthlyInterestPayment, 2)
+            principal,
+            interest,
+            total: retainNDecimals(principal + interest, 2)
         };
         currentLoanAmount -= monthlyPrincipalPayment;
     }

@@ -25,19 +25,23 @@ describe('Mashcanta calculator', function() {
 
                 expect(paymentDetailsPerMonth[0]).to.deep.equal({
                     principal: 2962.51,
-                    interest: 2041.67  
+                    interest: 2041.67,
+                    total: 5004.18
                 });
                 expect(paymentDetailsPerMonth[4]).to.deep.equal({
                     principal: 2997.23,
-                    interest: 2006.95
+                    interest: 2006.95,
+                    total: 5004.18
                 });
                 expect(paymentDetailsPerMonth[13]).to.deep.equal({
                     principal: 3076.83,
-                    interest: 1927.35
+                    interest: 1927.35,
+                    total: 5004.18
                 });
                 expect(paymentDetailsPerMonth[39]).to.deep.equal({
                     principal: 3318.86,
-                    interest: 1685.32
+                    interest: 1685.32,
+                    total: 5004.18
                 });
 
             });
@@ -56,19 +60,23 @@ describe('Mashcanta calculator', function() {
 
                 expect(paymentDetailsPerMonth[4]).to.deep.equal({
                     principal: 2028.73,
-                    interest: 6599.48
+                    interest: 6599.48,
+                    total: 8628.21
                 });
                 expect(paymentDetailsPerMonth[17]).to.deep.equal({
                     principal: 2181.01,
-                    interest: 6447.2
+                    interest: 6447.2,
+                    total: 8628.21
                 });
                 expect(paymentDetailsPerMonth[25]).to.deep.equal({
                     principal: 2280.36,
-                    interest: 6347.85
+                    interest: 6347.85,
+                    total: 8628.21
                 });
                 expect(paymentDetailsPerMonth[79]).to.deep.equal({
                     principal: 3080.2,
-                    interest: 5548.01
+                    interest: 5548.01,
+                    total: 8628.21
                 });
             });
         });
@@ -87,19 +95,23 @@ describe('Mashcanta calculator', function() {
 
                 expect(paymentDetailsPerMonth[0]).to.deep.equal({
                     principal: 3888.89,
-                    interest: 2041.67  
+                    interest: 2041.67,
+                    total: 5930.56
                 });
                 expect(paymentDetailsPerMonth[4]).to.deep.equal({
                     principal: 3888.89,
-                    interest: 1996.30
+                    interest: 1996.30,
+                    total: 5885.19
                 });
                 expect(paymentDetailsPerMonth[13]).to.deep.equal({
                     principal: 3888.89,
-                    interest: 1894.21
+                    interest: 1894.21,
+                    total: 5783.1
                 });
                 expect(paymentDetailsPerMonth[39]).to.deep.equal({
                     principal: 3888.89,
-                    interest: 1599.31
+                    interest: 1599.31,
+                    total: 5488.2
                 });
 
             });
@@ -118,19 +130,23 @@ describe('Mashcanta calculator', function() {
 
                 expect(paymentDetailsPerMonth[4]).to.deep.equal({
                     principal: 4507.58,
-                    interest: 6543.50
+                    interest: 6543.50,
+                    total: 11051.08
                 });
                 expect(paymentDetailsPerMonth[17]).to.deep.equal({
                     principal: 4507.58,
-                    interest: 6216.32
+                    interest: 6216.32,
+                    total: 10723.9
                 });
                 expect(paymentDetailsPerMonth[25]).to.deep.equal({
                     principal: 4507.58,
-                    interest: 6014.98
+                    interest: 6014.98,
+                    total: 10522.56
                 });
                 expect(paymentDetailsPerMonth[79]).to.deep.equal({
                     principal: 4507.58,
-                    interest: 4655.95
+                    interest: 4655.95,
+                    total: 9163.53
                 });
             });
         });
@@ -147,15 +163,18 @@ describe('Mashcanta calculator', function() {
                 paymentDetailsPerMonth: [
                     {
                         principal: 100,
-                        interest: 200
+                        interest: 200,
+                        total: 300
                     },
                     {
                         principal: 150,
-                        interest: 150
+                        interest: 150,
+                        total: 300
                     },
                     {
                         principal: 12,
-                        interest: 11
+                        interest: 11,
+                        total: 23
                     }
                 ]
             }
@@ -169,11 +188,13 @@ describe('Mashcanta calculator', function() {
                 paymentDetailsPerMonth: [
                     {
                         principal: 10,
-                        interest: 17
+                        interest: 17,
+                        total: 27
                     },
                     {
                         principal: 12,
-                        interest: 11
+                        interest: 11,
+                        total: 23
                     }
                 ]
             }
@@ -187,15 +208,18 @@ describe('Mashcanta calculator', function() {
             expect(mergedMortgageInfo.paymentDetailsPerMonth).to.deep.equal([
                 {
                     principal: 110,
-                    interest: 217
+                    interest: 217,
+                    total: 327
                 },
                 {
                     principal: 162,
-                    interest: 161
+                    interest: 161,
+                    total: 323
                 },
                 {
                     principal: 12,
-                    interest: 11
+                    interest: 11,
+                    total: 23
                 }
             ]);
 
