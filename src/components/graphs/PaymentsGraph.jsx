@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import str from '../../localization';
-import { removeAllDecimals } from '../../utils';
+import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
 import { Bar } from 'react-chartjs-2';
 import Toggle from '../Toggle';
 import _ from 'lodash';
@@ -90,7 +90,16 @@ class PaymentsGraph extends React.Component {
         const options = {
             scales: {
                 yAxes: [{
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        callback: (label, index, labels) => {
+                            return formatWholeDollarAmount(label);
+                        }
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: str('payment')
+                    }
                 }],
                 xAxes: [{
                     stacked: true
