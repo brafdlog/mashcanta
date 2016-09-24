@@ -45,6 +45,13 @@ class PaymentsGraph extends React.Component {
         const paymentDetailsPerPeriodSliced = paymentDetailsPerPeriod.slice(startIndex, endIndex);
         const numXValues = paymentDetailsPerPeriodSliced.length;
 
+        const redraw = this.redraw;
+        if (redraw) {
+            this.redraw = false;
+        }
+
+        const paymentPeriodLabel = yearlyGraph ? str('yearlyPayment') : str('monthlyPayment');
+
         let datasets;
 
         if (this.state.showInterestSeparately) {
@@ -71,7 +78,7 @@ class PaymentsGraph extends React.Component {
         } else {
             datasets = [
                 {
-                    label: yearlyGraph ? str('yearlyPayment') : str('monthlyPayment'),
+                    label: paymentPeriodLabel,
                     backgroundColor: '#36A2EB',
                     // borderColor: 'rgba(255,99,132,1)',
                     // borderWidth: 1,
@@ -98,11 +105,20 @@ class PaymentsGraph extends React.Component {
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: str('payment')
+                        labelString: paymentPeriodLabel
                     }
                 }],
                 xAxes: [{
-                    stacked: true
+                    stacked: true,
+                    ticks: {
+                        callback: (label, index, labels) => {
+                            return label;
+                        }
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: yearlyGraph ? str('years') : str('months')
+                    }
                 }]
             },
             // Animation is disabled because when using the start index slider, the animation is too slow
@@ -124,10 +140,12 @@ class PaymentsGraph extends React.Component {
                         />
                     </span> : null
                 }
-                <Bar data={data} options={options} width={width} height={height} />
+                <Bar data={data} options={options} width={width} height={height} redraw={redraw} />
             </div>
         );
     }
+
+    redraw = false
 
     state = {
         showInterestSeparately: true,
@@ -152,6 +170,9 @@ class PaymentsGraph extends React.Component {
     }
 
     handleChangeGranularity = ({ target }) => {
+        // The labels don't get updated correctly if there is no redraw so after changing granularity
+        // we need to make sure to redraw
+        this.redraw = true;
         this.props.handleUpdateGranularity(target.value);
     }
 

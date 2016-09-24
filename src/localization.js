@@ -30,7 +30,8 @@ const ENGLISH_STRINGS = {
     showInterestSeparately: 'Show interest separately',
     total: 'Total',
     changeGraphPeriod: 'Change period on graph',
-    payment: 'Payment'
+    payment: 'Payment',
+    months: 'Months'
 };
 
 const HEBREW_STRINGS = {
@@ -62,7 +63,8 @@ const HEBREW_STRINGS = {
     showInterestSeparately: 'הצג ריבית בנפרד',
     total: 'סה״כ',
     changeGraphPeriod: 'שנה את התקופה המוצגת בגרף',
-    payment: 'תשלום'
+    payment: 'תשלום',
+    months: 'חודשים'
 };
 
 const strings = {
