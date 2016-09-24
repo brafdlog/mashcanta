@@ -1,6 +1,20 @@
 {
-    "rules": {
-        ".read": true,
-        ".write": true
+  "rules": {
+    "prod": {
+      "user": {
+        "$uid": {
+          ".write": "$uid === auth.uid",
+          ".read": "$uid === auth.uid"
+        }
+      }
+    },
+    "test": {
+      "user": {
+        "$uid": {
+          ".write": "$uid === auth.uid",
+          ".read": "$uid === auth.uid"
+        }
+      }
     }
+  }
 }
