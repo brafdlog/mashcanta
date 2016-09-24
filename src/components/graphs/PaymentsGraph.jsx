@@ -97,8 +97,8 @@ class PaymentsGraph extends React.Component {
                 enabled: true,
                 mode: 'label',
                 callbacks: {
-                    label: (tooltipItems, data2) => {
-                        return formatWholeDollarAmount(tooltipItems.yLabel);
+                    label: (tooltipItem, data2) => {
+                        return formatWholeDollarAmount(tooltipItem.yLabel);
                     }
                 }
             },
