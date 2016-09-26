@@ -3,8 +3,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import str from '../../localization';
 import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
-import { Bar } from 'react-chartjs-2';
-import Toggle from '../Toggle';
+import { Line } from 'react-chartjs-2';
 import _ from 'lodash';
 import './PaymentsGraph.scss';
 import { observer } from 'mobx-react';
@@ -18,7 +17,8 @@ class PaymentsGraph extends React.Component {
         className: string,
         paymentDetailsPerMonth: arrayOf(shape({
             principal: number,
-            interest: number
+            interest: number,
+            total: number
         })).isRequired,
         maxElements: number,
         width: number,
@@ -50,46 +50,28 @@ class PaymentsGraph extends React.Component {
 
         const paymentPeriodLabel = yearlyGraph ? str('yearlyPayment') : str('monthlyPayment');
 
-        let datasets;
-
-        if (this.state.showInterestSeparately) {
-            datasets = [
+        const data = {
+            labels: _.range(1, numXValues + 1),
+            datasets: [
                 {
-                    label: str('principal'),
-                    backgroundColor: '#36A2EB',
+                    label: str('total'),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     // borderColor: 'rgba(255,99,132,1)',
                     // borderWidth: 1,
                     // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                     // hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'principal')
+                    data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'total')
                 },
                 {
                     label: str('interest'),
-                    backgroundColor: '#FF6384',
+                    backgroundColor: 'rgba(255,99,132,1)',
                     // borderColor: 'rgba(255,99,132,1)',
                     // borderWidth: 1,
                     // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                     // hoverBorderColor: 'rgba(255,99,132,1)',
                     data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'interest')
                 }
-            ];
-        } else {
-            datasets = [
-                {
-                    label: paymentPeriodLabel,
-                    backgroundColor: '#36A2EB',
-                    // borderColor: 'rgba(255,99,132,1)',
-                    // borderWidth: 1,
-                    // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    // hoverBorderColor: 'rgba(255,99,132,1)',
-                    data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'total')
-                }
-            ];
-        }
-
-        const data = {
-            labels: _.range(1, numXValues + 1),
-            datasets
+            ]
         };
 
         const options = {
@@ -104,7 +86,6 @@ class PaymentsGraph extends React.Component {
             },
             scales: {
                 yAxes: [{
-                    stacked: true,
                     ticks: {
                         callback: (label, index, labels) => {
                             return formatWholeDollarAmount(label);
@@ -116,7 +97,6 @@ class PaymentsGraph extends React.Component {
                     }
                 }],
                 xAxes: [{
-                    stacked: true,
                     ticks: {
                         callback: (label, index, labels) => {
                             return label;
@@ -127,9 +107,7 @@ class PaymentsGraph extends React.Component {
                         labelString: yearlyGraph ? str('years') : str('months')
                     }
                 }]
-            },
-            // Animation is disabled because when using the start index slider, the animation is too slow
-            animation: false
+            }
         };
         return (
             <div className={cx('PaymentsGraphContainer', className)}>
@@ -138,7 +116,6 @@ class PaymentsGraph extends React.Component {
                     <label><input type='radio' value='monthly' checked={monthlyGraph} onChange={this.handleChangeGranularity} /> {str('monthly')} </label>
                     <label><input type='radio' value='yearly' checked={yearlyGraph} onChange={this.handleChangeGranularity} /> {str('yearly')} </label>
                 </div>
-                <Toggle on={this.state.showInterestSeparately} onChange={this.handleChangeShowInterestSeparately} title={str('showInterestSeparately')} />
                 {monthlyGraph ?
                     <div className='chooseYearWrapper'>
                         <span className='chooseYearWrapperLabel'>{str('year')}</span>
@@ -149,8 +126,7 @@ class PaymentsGraph extends React.Component {
                         <span className='glyphicon glyphicon-triangle-left goBackYearIcon' aria-hidden='true' onClick={this.reduceYearFromStartIndex}></span>
                     </div> : null
                 }
-
-                <Bar data={data} options={options} width={width} height={height} redraw={redraw} />
+                <Line data={data} options={options} width={width} height={height} redraw={redraw} />
             </div>
         );
     }
@@ -158,7 +134,6 @@ class PaymentsGraph extends React.Component {
     redraw = false
 
     state = {
-        showInterestSeparately: true,
         startIndex: 0,
         yearlyGraph: false
     }
@@ -192,12 +167,6 @@ class PaymentsGraph extends React.Component {
 
     buildDataForDataset = (paymentDetailsPerPeriodSliced, fieldName) => {
         return paymentDetailsPerPeriodSliced.map(periodPaymentDetails => removeAllDecimals(periodPaymentDetails[fieldName]));
-    }
-
-    handleChangeShowInterestSeparately = showInterestSeparately => {
-        this.setState({
-            showInterestSeparately
-        }, () => { this.forceUpdate() });
     }
 
     handleChangeGranularity = ({ target }) => {
