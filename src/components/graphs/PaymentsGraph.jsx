@@ -135,7 +135,7 @@ class PaymentsGraph extends React.Component {
 
     state = {
         startIndex: 0,
-        yearlyGraph: false
+        yearlyGraph: true
     }
 
     handleStartIndexChange = ({ target }) => {
