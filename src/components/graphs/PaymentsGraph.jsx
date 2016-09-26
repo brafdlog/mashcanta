@@ -56,19 +56,11 @@ class PaymentsGraph extends React.Component {
                 {
                     label: str('total'),
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    // borderColor: 'rgba(255,99,132,1)',
-                    // borderWidth: 1,
-                    // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    // hoverBorderColor: 'rgba(255,99,132,1)',
                     data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'total')
                 },
                 {
                     label: str('interest'),
                     backgroundColor: 'rgba(255,99,132,1)',
-                    // borderColor: 'rgba(255,99,132,1)',
-                    // borderWidth: 1,
-                    // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                    // hoverBorderColor: 'rgba(255,99,132,1)',
                     data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'interest')
                 }
             ]
