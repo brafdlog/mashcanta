@@ -9,7 +9,8 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
 import { getConfig } from '../config';
 import { signIn, signOut, isAuthEnabled } from '../services/authService';
-import './Root.scss';
+import styles from './Root.scss';
+import cx from 'classnames';
 
 const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
 
@@ -54,13 +55,13 @@ class Root extends React.Component {
 
         if (isLoading) {
             return (
-                <div className='loaderContainer'>
-                    <div className='loader'></div>
+                <div className={styles.loaderContainer}>
+                    <div className={styles.loader}></div>
                 </div>
             );
         }
         return (
-            <div className='container-fluid rootAppContainer'>
+            <div className={cx('container-fluid', styles.rootAppContainer)}>
                 {isAuthEnabled() ?
                     <LoginRow user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn} signOut={signOut} /> : null
                 }
@@ -68,17 +69,17 @@ class Root extends React.Component {
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
                 <div className='row'>
-                    <div className='col-md-5 mortgageInputFormColumn'>
+                    <div className={cx('col-md-5', styles.mortgageInputFormColumn)}>
                         <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
                             handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
                             handleAddPart={this.onAddNewPart}
                         />
                     </div>
-                    <div className='col-md-2 MortgageDetailsDisplayContainer'>
+                    <div className={cx('col-md-2', styles.MortgageDetailsDisplayContainer)}>
                         <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
                     </div>
                     <div className='col-md-3 col-md-offset-1'>
-                        {showGraph ? <CostOfDollarGraph className='costGraph' loanAmount={loanAmount} loanCost={loanCost} /> : ''}
+                        {showGraph ? <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                     </div>
                 </div>
                 <div className='row'>
