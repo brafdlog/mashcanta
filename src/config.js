@@ -17,7 +17,6 @@ const COMMON_CONFIG = {
 
 const DEV_CONFIG = {
     storageKeyPrefix: 'test',
-    showAddMortgageRow: true,
    ***REMOVED***
 };
 
