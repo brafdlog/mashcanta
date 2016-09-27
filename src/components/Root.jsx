@@ -55,7 +55,7 @@ class Root extends React.Component {
 
     render() {
         const { currentMortgage, isLoading, createNewMortgage, mortgages, user } = this.props.stateStore;
-        const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost, paymentDetailsPerYearMonthlyAverage } = currentMortgage;
+        const { mortgageParts, loanAmount, totalPaymentToBank, loanCost, paymentDetailsPerYearMonthlyAverage } = currentMortgage;
         const showAddMortgageRow = getConfig('showAddMortgageRow');
         const showGraph = loanAmount && totalPaymentToBank > 0;
         if (isLoading) {
@@ -90,7 +90,7 @@ class Root extends React.Component {
                 <div className='row'>
                     <div className='col-md-12'>
                         {showGraph ?
-                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
+                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
                                 maxElements={this.isSmallScreen ? 15 : 40}
                             /> : ''}
                     </div>
