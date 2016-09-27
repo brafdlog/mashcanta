@@ -1,9 +1,10 @@
 /* eslint-disable */
 import { expect } from 'chai';
 import * as calculator from '../services/calculator';
-import { KEREN_SHAVA, SHPITZER } from '../consts';
+import { KEREN_SHAVA, SHPITZER, BULLET } from '../consts';
 import { observer } from 'mobx';
 import Mortgage from '../store/Mortgage';
+import _ from 'lodash';
 
 const ALLOWED_DIFFERENCE = 1;
 
@@ -186,6 +187,97 @@ describe('Mortgage tests', function() {
 
     });
 
+    describe('per year monthly average', function() {
+        it('should calculate per year monthly average correctly for simple BULLET mortgage', function() {
+            const mortgage = new Mortgage();
+
+            const newPartId = mortgage.addPart({
+                loanAmount: 100000,
+                numYears: 5,
+                yearlyInterest: 3,
+                amortizationType: BULLET
+            });
+
+            const perYearMonthyAverage = mortgage.paymentDetailsPerYearMonthlyAverage;
+            expect(perYearMonthyAverage).to.deep.equal(_.fill(Array(5), {
+                interest: 250,
+                principal: 0,
+                total: 250
+            }));
+        });
+
+        it('should calculate per year monthly average correctly for BULLET mortgage', function() {
+            const mortgage = new Mortgage();
+
+            mortgage.addPart({
+                loanAmount: 100000,
+                numYears: 5,
+                yearlyInterest: 3,
+                amortizationType: BULLET
+            });
+
+            mortgage.addPart({
+                loanAmount: 200000,
+                numYears: 7,
+                yearlyInterest: 7,
+                amortizationType: BULLET
+            });
+            const perYearMonthyAverage = mortgage.paymentDetailsPerYearMonthlyAverage;
+            const expectedResult = _.fill(Array(5), {
+                interest: 1417,
+                principal: 0,
+                total: 1417
+            });
+            expectedResult.push({
+                interest: 1167,
+                principal: 0,
+                total: 1167
+            });
+            expectedResult.push({
+                interest: 1167,
+                principal: 0,
+                total: 1167
+            });
+            expect(perYearMonthyAverage).to.deep.equal(expectedResult);
+        });
+
+        it('should calculate per year monthly average correctly for simple SHPITZER mortgage', function() {
+            const mortgage = new Mortgage();
+
+            const newPartId = mortgage.addPart({
+                loanAmount: 100000,
+                numYears: 5,
+                yearlyInterest: 3,
+                amortizationType: SHPITZER
+            });
+
+            const perYearMonthyAverage = mortgage.paymentDetailsPerYearMonthlyAverage;
+            expect(perYearMonthyAverage).to.deep.equal([{
+                interest: 229,
+                principal: 1568,
+                total: 1797
+            },{
+                interest: 181,
+                principal: 1616,
+                total: 1797
+            },{
+                interest: 132,
+                principal: 1665,
+                total: 1797
+            },{
+                interest: 81,
+                principal: 1716,
+                total: 1797
+            },{
+                interest: 29,
+                principal: 1768,
+                total: 1797
+            },
+            ]);
+        });
+    })
+
+    
     it('should have zero values by default', function() {
         const mortgage = new Mortgage();
         expect(mortgage.mortgageParts.length).to.equal(0);

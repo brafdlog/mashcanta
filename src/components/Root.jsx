@@ -27,7 +27,13 @@ class Root extends React.Component {
                 costOfEachDollar: number,
                 paymentDetailsPerMonth: arrayOf(shape({
                     principal: number,
-                    interest: number
+                    interest: number,
+                    total: number
+                })),
+                paymentDetailsPerYearMonthlyAverage: arrayOf(shape({
+                    principal: number,
+                    interest: number,
+                    total: number
                 })),
                 mortgageParts: arrayOf(shape({
                     id: string,
@@ -49,10 +55,9 @@ class Root extends React.Component {
 
     render() {
         const { currentMortgage, isLoading, createNewMortgage, mortgages, user } = this.props.stateStore;
-        const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost } = currentMortgage;
+        const { mortgageParts, loanAmount, totalPaymentToBank, paymentDetailsPerMonth, loanCost, paymentDetailsPerYearMonthlyAverage } = currentMortgage;
         const showAddMortgageRow = getConfig('showAddMortgageRow');
         const showGraph = loanAmount && totalPaymentToBank > 0;
-
         if (isLoading) {
             return (
                 <div className={styles.loaderContainer}>
@@ -85,7 +90,7 @@ class Root extends React.Component {
                 <div className='row'>
                     <div className='col-md-12'>
                         {showGraph ?
-                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth}
+                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerMonth={paymentDetailsPerMonth} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
                                 maxElements={this.isSmallScreen ? 15 : 40}
                             /> : ''}
                     </div>

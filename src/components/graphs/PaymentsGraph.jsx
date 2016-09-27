@@ -20,6 +20,11 @@ class PaymentsGraph extends React.Component {
             interest: number,
             total: number
         })).isRequired,
+        paymentDetailsPerYear: arrayOf(shape({
+            principal: number,
+            interest: number,
+            total: number
+        })).isRequired,
         maxElements: number,
         width: number,
         height: number
@@ -32,10 +37,9 @@ class PaymentsGraph extends React.Component {
     }
 
     render() {
-        const { className, paymentDetailsPerMonth, width, height, maxElements } = this.props;
+        const { className, paymentDetailsPerMonth, width, height, maxElements, paymentDetailsPerYear } = this.props;
         const { yearlyGraph } = this.state;
         const monthlyGraph = !yearlyGraph;
-        const paymentDetailsPerYear = this.batchToYears(paymentDetailsPerMonth);
         const maxElementsToDisplay = monthlyGraph ? 12 : maxElements;
         const paymentDetailsPerPeriod = yearlyGraph ? paymentDetailsPerYear : paymentDetailsPerMonth;
         const startIndex = this.state.startIndex;
@@ -48,7 +52,7 @@ class PaymentsGraph extends React.Component {
             this.redraw = false;
         }
 
-        const paymentPeriodLabel = yearlyGraph ? str('yearlyPayment') : str('monthlyPayment');
+        const paymentPeriodLabel = yearlyGraph ? str('averageMonthlyPayment') : str('monthlyPayment');
 
         const data = {
             labels: _.range(1, numXValues + 1),
@@ -169,34 +173,6 @@ class PaymentsGraph extends React.Component {
             yearlyGraph: target.value === 'yearly',
             startIndex: 0
         });
-    }
-
-    batchToYears(paymentDetailsPerMonth) {
-        let currentYearPaymentDetails;
-        let currentYear = -1;
-        const paymentDetailsPerYear = [];
-
-        paymentDetailsPerMonth.forEach((paymentDetails, monthIndex) => {
-            if (monthIndex % 12 === 0) {
-                if (monthIndex > 0) {
-                    paymentDetailsPerYear[currentYear] = currentYearPaymentDetails;
-                }
-
-                currentYear++;
-                currentYearPaymentDetails = {
-                    interest: 0,
-                    principal: 0,
-                    total: 0
-                };
-            }
-            currentYearPaymentDetails.interest += paymentDetails.interest;
-            currentYearPaymentDetails.principal += paymentDetails.principal;
-            currentYearPaymentDetails.total += paymentDetails.total;
-        });
-
-        paymentDetailsPerYear[currentYear] = currentYearPaymentDetails;
-
-        return paymentDetailsPerYear;
     }
 
 }

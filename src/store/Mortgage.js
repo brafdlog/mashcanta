@@ -1,7 +1,7 @@
 import { observable, computed, action } from 'mobx';
 import * as Calculator from '../services/calculator';
 import { SHPITZER } from '../consts';
-import { generateId } from '../utils';
+import { generateId, retainNDecimals } from '../utils';
 import MortgagePart from './MortgagePart';
 import _ from 'lodash';
 
@@ -44,6 +44,42 @@ export default class Mortgage {
 
     @computed get costOfEachDollar() {
         return this.totalCalculatedInfo.costOfEachDollar;
+    }
+
+    @computed get paymentDetailsPerYearMonthlyAverage() {
+        let currentYearPaymentDetailsSum;
+        let currentYear = -1;
+        const paymentDetailsPerYearSum = [];
+
+        this.paymentDetailsPerMonth.forEach((paymentDetails, monthIndex) => {
+            if (monthIndex % 12 === 0) {
+                if (monthIndex > 0) {
+                    paymentDetailsPerYearSum[currentYear] = currentYearPaymentDetailsSum;
+                }
+
+                currentYear++;
+                currentYearPaymentDetailsSum = {
+                    interest: 0,
+                    principal: 0,
+                    total: 0
+                };
+            }
+            currentYearPaymentDetailsSum.interest += paymentDetails.interest;
+            currentYearPaymentDetailsSum.principal += paymentDetails.principal;
+            currentYearPaymentDetailsSum.total += paymentDetails.total;
+        });
+
+        paymentDetailsPerYearSum[currentYear] = currentYearPaymentDetailsSum;
+
+        const paymentDetailsPerYearAverage = paymentDetailsPerYearSum.map(({ interest, principal, total }) => {
+            return {
+                interest: retainNDecimals(interest / 12),
+                principal: retainNDecimals(principal / 12),
+                total: retainNDecimals(total / 12)
+            };
+        });
+
+        return paymentDetailsPerYearAverage;
     }
 
     @computed get paymentDetailsPerMonth() {
