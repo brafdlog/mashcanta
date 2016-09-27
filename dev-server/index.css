@@ -1,0 +1,15 @@
+body {
+    background-color: #e0e0e0;
+}
+
+.topBar {
+    background-color: #282846;
+    height: 40px;
+}
+
+.headingSection {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
