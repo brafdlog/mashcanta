@@ -43,15 +43,15 @@ class MortgageInfoInputForm extends React.Component {
 
         return (
             <div className={cx(styles.MortgageInfoInputFormContainer, className)}>
-                <BootstrapTable data={tableData} striped hover condensed cellEdit={this.cellEditSettings}
+                <BootstrapTable trClassName={styles.tableRow} data={tableData} hover cellEdit={this.cellEditSettings}
                     selectRow={this.selectRowSettings}
                 >
-                    <TableHeaderColumn dataField='order' isKey dataAlign='center' hidden />
-                    <TableHeaderColumn dataField='amortizationType' dataAlign='center' width={'70'} editable={this.amortizationTypeEditSettings} dataFormat={this.amortizationCellFormatter}>{str('amortizationType')}</TableHeaderColumn>
-                    <TableHeaderColumn dataField='loanAmount' dataFormat={formatWholeDollarAmount} dataAlign='center' width={'80'}>{str('amount')}</TableHeaderColumn>
-                    <TableHeaderColumn dataField='numYears' dataAlign='center' width={'50'}>{str('years')}</TableHeaderColumn>
-                    <TableHeaderColumn dataField='yearlyInterest' dataAlign='center' dataFormat={formatPrecent} width={'50'}>{str('interest')}</TableHeaderColumn>
-                    <TableHeaderColumn dataField='monthlyPayment' hidden={window.isSmallScreen} dataAlign='center'
+                    <TableHeaderColumn columnClassName={styles.columnTd} className={styles.headerTd} dataField='order' isKey dataAlign='center' hidden />
+                    <TableHeaderColumn columnClassName={styles.columnTd} className={styles.headerTd} dataField='amortizationType' dataAlign='center' width={'70'} editable={this.amortizationTypeEditSettings} dataFormat={this.amortizationCellFormatter}>{str('amortizationType')}</TableHeaderColumn>
+                    <TableHeaderColumn columnClassName={styles.columnTd} className={styles.headerTd} dataField='loanAmount' dataFormat={formatWholeDollarAmount} dataAlign='center' width={'80'}>{str('amount')}</TableHeaderColumn>
+                    <TableHeaderColumn columnClassName={styles.columnTd} className={styles.headerTd} dataField='numYears' dataAlign='center' width={'50'}>{str('years')}</TableHeaderColumn>
+                    <TableHeaderColumn columnClassName={styles.columnTd} className={styles.headerTd} dataField='yearlyInterest' dataAlign='center' dataFormat={formatPrecent} width={'50'}>{str('interest')}</TableHeaderColumn>
+                    <TableHeaderColumn columnClassName={styles.columnTd} className={styles.headerTd} dataField='monthlyPayment' hidden={window.isSmallScreen} dataAlign='center'
                         dataFormat={formatWholeDollarAmount} width={'80'} editable={false}
                     >
                         {str('monthlyPayment')}
