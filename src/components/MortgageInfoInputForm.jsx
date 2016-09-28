@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
-import './MortgageInfoInputForm.scss';
+import styles from './MortgageInfoInputForm.scss';
 import { formatWholeDollarAmount, formatPrecent, formattedStringToNumber } from '../utils';
 import { KEREN_SHAVA, SHPITZER, BULLET } from '../consts';
 import str from '../localization';
@@ -42,7 +42,7 @@ class MortgageInfoInputForm extends React.Component {
         });
 
         return (
-            <div className={cx('MortgageInfoInputFormContainer', className)}>
+            <div className={cx(styles.MortgageInfoInputFormContainer, className)}>
                 <BootstrapTable data={tableData} striped hover condensed cellEdit={this.cellEditSettings}
                     selectRow={this.selectRowSettings}
                 >
@@ -57,8 +57,8 @@ class MortgageInfoInputForm extends React.Component {
                         {str('monthlyPayment')}
                     </TableHeaderColumn>
                 </BootstrapTable>
-                <button type='button' className='btn btn-info' onClick={handleAddPart}>{str('add')}</button>
-                {selectedPartId ? <button type='button' className='btn btn-danger' onClick={this.onDelete}>{str('delete')}</button> : null}
+                <button type='button' className={cx('btn', 'btn-info', styles.button)} onClick={handleAddPart}>{str('add')}</button>
+                {selectedPartId ? <button type='button' className={cx('btn', 'btn-danger', styles.button)} onClick={this.onDelete}>{str('delete')}</button> : null}
             </div>
         );
     }
