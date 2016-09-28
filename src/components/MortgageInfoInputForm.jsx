@@ -72,7 +72,6 @@ class MortgageInfoInputForm extends React.Component {
     }
 
     selectRowSettings = {
-        mode: 'radio',
         clickToSelect: true,
         onSelect: this.handleRowSelect.bind(this)
     }
