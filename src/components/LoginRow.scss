@@ -1,4 +1,5 @@
 .loginRow {
+    color: white;
     .userPicture {
         border-radius: 20px;
         width: 30px;
@@ -12,6 +13,7 @@
     }
 
     .logoutLink {
+        color: inherit;
         cursor: pointer;
     }
 }

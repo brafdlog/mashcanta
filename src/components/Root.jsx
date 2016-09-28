@@ -68,7 +68,9 @@ class Root extends React.Component {
         return (
             <div className={cx('container-fluid', styles.rootAppContainer)}>
                 {isAuthEnabled() ?
-                    <LoginRow className={styles.loginRow} user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn} signOut={signOut} /> : null
+                    <LoginRow className={styles.loginRow} user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn}
+                        signOut={signOut}
+                    /> : null
                 }
                 {showAddMortgageRow ?
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
