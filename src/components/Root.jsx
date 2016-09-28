@@ -76,25 +76,27 @@ class Root extends React.Component {
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
                 <div className='row'>
-                    <div className={cx('col-md-5', styles.mortgageInputFormColumn)}>
+                    <div className={cx('col-md-12', styles.mortgageInputFormColumn)}>
                         <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
                             handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
                             handleAddPart={this.onAddNewPart}
                         />
                     </div>
-                    <div className={cx('col-md-2', styles.MortgageDetailsDisplayContainer)}>
+                </div>
+                <div className='row'>
+                    <div className={cx('col-md-12', styles.MortgageDetailsDisplayContainer)}>
                         <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
-                    </div>
-                    <div className='col-md-3 col-md-offset-1'>
-                        {showGraph ? <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-md-12'>
+                    <div className='col-md-9'>
                         {showGraph ?
                             <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
                                 maxElements={this.isSmallScreen ? 15 : 40}
                             /> : ''}
+                    </div>
+                    <div className='col-md-3'>
+                        {showGraph ? <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                     </div>
                 </div>
             </div>
