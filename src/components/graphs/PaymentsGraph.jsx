@@ -72,6 +72,10 @@ class PaymentsGraph extends React.Component {
                     }
                 }
             },
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
             scales: {
                 yAxes: [{
                     ticks: {

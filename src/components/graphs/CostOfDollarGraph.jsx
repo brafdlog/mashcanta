@@ -45,6 +45,10 @@ class CostOfDollarGraph extends React.Component {
         const options = {
             responsive: true,
             maintainAspectRatio: false,
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
             tooltips: {
                 callbacks: {
                     label: (tooltipItem, data) => {
