@@ -88,14 +88,14 @@ class Root extends React.Component {
                         <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
                     </div>
                 </div>
-                <div className='row'>
-                    <div className='col-md-9'>
+                <div className={cx('row', styles.graphsRow)}>
+                    <div className={cx(styles.graphColumn, 'col-md-9')}>
                         {showGraph ?
                             <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
                                 maxElements={this.isSmallScreen ? 15 : 40}
                             /> : ''}
                     </div>
-                    <div className='col-md-3'>
+                    <div className={cx(styles.graphColumn, 'col-md-3')}>
                         {showGraph ? <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} /> : ''}
                     </div>
                 </div>
