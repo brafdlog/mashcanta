@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import Flex from './Flex.jsx';
 import { observer } from 'mobx-react';
-import './InfoLine.scss';
+import styles from './InfoLine.scss';
 
 const { string, number, oneOfType } = PropTypes;
 
 const InfoLine = observer(props => {
     return (
-        <Flex className='InfoLine'>
+        <Flex className={styles.InfoLine}>
             <div className='infoLineTitle'><b>{props.title}</b>:</div>
             <div>{props.value}</div>
         </Flex>

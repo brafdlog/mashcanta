@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
-import './CostOfDollarGraph.scss';
+import styles from './CostOfDollarGraph.scss';
 import str from '../../localization';
 import { removeAllDecimals } from '../../utils';
 import { Doughnut } from 'react-chartjs-2';
@@ -56,8 +56,8 @@ class CostOfDollarGraph extends React.Component {
             // }
         };
         return (
-            <div className={cx('CostOfDollarGraphContainer', className)}>
-                <h3 className='graphTitle'>{str('loanCost')}</h3>
+            <div className={cx(styles.CostOfDollarGraphContainer, className)}>
+                <h3 className={styles.graphTitle}>{str('loanCost')}</h3>
                 <Doughnut data={pieChartData} options={options} />
             </div>
         );

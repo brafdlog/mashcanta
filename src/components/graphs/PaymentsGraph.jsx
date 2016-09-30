@@ -5,7 +5,7 @@ import str from '../../localization';
 import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
 import { Line } from 'react-chartjs-2';
 import _ from 'lodash';
-import './PaymentsGraph.scss';
+import styles from './PaymentsGraph.scss';
 import { observer } from 'mobx-react';
 
 const { string, number, arrayOf, shape } = PropTypes;
@@ -97,8 +97,8 @@ class PaymentsGraph extends React.Component {
             }
         };
         return (
-            <div className={cx('PaymentsGraphContainer', className)}>
-                <h3 className='graphTitle'>{str('paymentsGraph')}</h3>
+            <div className={cx(styles.PaymentsGraphContainer, className)}>
+                <h3 className={styles.graphTitle}>{str('paymentsGraph')}</h3>
                 <Line data={data} options={options} width={width} height={height} redraw={redraw} />
             </div>
         );
