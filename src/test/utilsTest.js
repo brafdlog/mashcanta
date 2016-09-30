@@ -2,7 +2,8 @@
 import { expect } from 'chai';
 import { observer } from 'mobx';
 import { generateId, removeAllDecimals, retainNDecimals, addCommasToNumber, 
-    formatWholeDollarAmount, formatPrecent, replaceAll, formattedStringToNumber } from '../utils';
+    formatWholeDollarAmount, formatPrecent, replaceAll, formattedStringToNumber,
+    convertRgbToRgba } from '../utils';
 
 const ALLOWED_DIFFERENCE = 1;
 
@@ -71,6 +72,16 @@ describe('utils test', function() {
         expect(formattedStringToNumber('₪1,000')).to.equal(1000);
         expect(formattedStringToNumber('₪25,413')).to.equal(25413);
         expect(formattedStringToNumber('₪412,321')).to.equal(412321);
+    });
+
+    it('should convert rgb to rgba correctly', function() {
+        const rgb1 = 'rgb(130,140,237)';
+        const rgb2 = 'rgb(43,200,173)';
+        
+        expect(convertRgbToRgba(rgb1, 0.3)).to.equal('rgba(130,140,237,0.3)');
+        expect(convertRgbToRgba(rgb1, 1)).to.equal('rgba(130,140,237,1)');
+        expect(convertRgbToRgba(rgb2, 0.5)).to.equal('rgba(43,200,173,0.5)');
+        expect(convertRgbToRgba(rgb2, 0)).to.equal('rgba(43,200,173,0)');
     });
 
 });
