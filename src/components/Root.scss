@@ -19,6 +19,11 @@
     }
     ///////////////////////////////////////////////////
 
+    .mortgageInputFormColumn {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
     // Reduce padding and margin for elements on small screens
     @media (max-width:500px) {
         margin-right: 0px;
