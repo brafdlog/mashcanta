@@ -1,5 +1,10 @@
 body {
+    direction: rtl;
     background-color: #f1f1f1; /* $siteBackgroundColor */
+    color: #363744; /* $fontColor */
+    font-family: ASISTANT; /* $fontFamily */
+    font-weight: 400; /* $regularFontWeight */
+    font-size: 14px; /* $regularFontSize */
 }
 
 .topBar {

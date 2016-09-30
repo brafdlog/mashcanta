@@ -1,14 +1,9 @@
 @import '../vars';
 
 .rootAppContainer {
-    direction: rtl;
-    margin-right: 20px;
     margin-top: 10px;
-    
-    color: $fontColor;
-    font-family: $fontFamily;
-    font-weight: $regularFontWeight;
-    font-size: $regularFontSize;
+    margin-right: 15px;
+    margin-left: 15px;
 
     ///// Bootstrap columns equal height - see http://stackoverflow.com/a/19695851/1391050 //////////////////
     :global(.row).equalHeightColumns {
