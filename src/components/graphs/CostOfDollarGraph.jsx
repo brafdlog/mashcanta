@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './CostOfDollarGraph.scss';
 import str from '../../localization';
-import { removeAllDecimals } from '../../utils';
+import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
 import { CSS } from '../../consts';
 import { Doughnut } from 'react-chartjs-2';
 import { observer } from 'mobx-react';
@@ -44,17 +44,15 @@ class CostOfDollarGraph extends React.Component {
 
         const options = {
             responsive: true,
-            maintainAspectRatio: false
-            // TODO here need to format the tooltip using formatWholeDollarAmount.
-            // The tooltip configuration works but it causes the animation to go crazy
-            // tooltips: {
-            //     callbacks: {
-            //         label: (tooltipItem, data) => {
-            //             const mooo = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-            //             return formatWholeDollarAmount(mooo);
-            //         }
-            //     }
-            // }
+            maintainAspectRatio: false,
+            tooltips: {
+                callbacks: {
+                    label: (tooltipItem, data) => {
+                        const amount = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return formatWholeDollarAmount(amount);
+                    }
+                }
+            }
         };
         return (
             <div className={cx(styles.CostOfDollarGraphContainer, className)}>
