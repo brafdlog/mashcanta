@@ -1,6 +1,10 @@
 @import '../vars';
 
 .InfoLine {
+    &.highlighted {
+        background-color: $darkBackgroundColor;
+    }
+
     height: 50px;
     background-color: $teal;
     color: $lightFontColor;
