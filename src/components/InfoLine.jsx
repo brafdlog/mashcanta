@@ -7,9 +7,9 @@ const { string, number, oneOfType } = PropTypes;
 
 const InfoLine = observer(props => {
     return (
-        <Flex className={styles.InfoLine}>
-            <div className='infoLineTitle'><b>{props.title}</b>:</div>
-            <div>{props.value}</div>
+        <Flex className={styles.InfoLine} align='center' justify='center'>
+            {props.title}
+            <span className={styles.value}>{props.value}</span>
         </Flex>
     );
 });
