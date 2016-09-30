@@ -40,25 +40,18 @@
         top: 5px;
     }
 
-    .addButton {
-        margin: inherit;
-        margin-top: 10px;
-        margin-right: 5px;
-        background-color: #d23f31;
-        color: white
-    }
-
-    .MortgageInfoInputFormContainer {
-
-    }
-
     .MortgageDetailsDisplayContainer {
-        margin-top: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
-    .costGraph {
-        margin-left: 30px;
+    .graphsRow {
+        .graphColumn {
+            background: $lightBackgroundColor;
+        }
     }
+
+    
 }
 
 .loaderContainer {
