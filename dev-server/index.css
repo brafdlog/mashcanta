@@ -1,9 +1,9 @@
 body {
-    background-color: #e0e0e0;
+    background-color: #f1f1f1; /* $siteBackgroundColor */
 }
 
 .topBar {
-    background-color: #282846;
+    background-color: #363744; /* $darkBackgroundColor */
     height: 40px;
 }
 
