@@ -1,5 +1,7 @@
+@import '../vars';
+
 .loginRow {
-    color: white;
+    color: $lightFontColor;
     .userPicture {
         border-radius: 20px;
         width: 30px;
