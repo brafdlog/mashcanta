@@ -17,4 +17,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+.headingSection .headingSectionTitle {
+    font-weight: 800;
+    font-size: 37px;
+}
+.headingSection .headingSectionParagraph {
+
 }
