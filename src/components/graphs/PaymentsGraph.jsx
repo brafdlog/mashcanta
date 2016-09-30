@@ -2,7 +2,8 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import str from '../../localization';
-import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
+import { CSS } from '../../consts';
+import { removeAllDecimals, formatWholeDollarAmount, convertRgbToRgba } from '../../utils';
 import { Line } from 'react-chartjs-2';
 import _ from 'lodash';
 import styles from './PaymentsGraph.scss';
@@ -50,12 +51,12 @@ class PaymentsGraph extends React.Component {
             datasets: [
                 {
                     label: str('total'),
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    backgroundColor: convertRgbToRgba(CSS.tealRGB, 0.6),
                     data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'total')
                 },
                 {
                     label: str('interest'),
-                    backgroundColor: 'rgba(255,99,132,1)',
+                    backgroundColor: convertRgbToRgba(CSS.purpleRGB, 0.8),
                     data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'interest')
                 }
             ]

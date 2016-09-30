@@ -3,6 +3,7 @@ import cx from 'classnames';
 import styles from './CostOfDollarGraph.scss';
 import str from '../../localization';
 import { removeAllDecimals } from '../../utils';
+import { CSS } from '../../consts';
 import { Doughnut } from 'react-chartjs-2';
 import { observer } from 'mobx-react';
 
@@ -31,12 +32,12 @@ class CostOfDollarGraph extends React.Component {
             datasets: [{
                 data: [loanCostFormatted, loanAmountFormatted],
                 backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB'
+                    CSS.purple,
+                    CSS.teal
                 ],
                 hoverBackgroundColor: [
                     '#FF6384',
-                    '#36A2EB'
+                    CSS.teal
                 ]
             }]
         };
