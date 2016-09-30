@@ -88,7 +88,7 @@ class Root extends React.Component {
                         <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
                     </div>
                 </div>
-                <div className={cx('row', styles.graphsRow)}>
+                <div className={cx('row', styles.graphsRow, styles.equalHeightColumns)}>
                     <div className={cx(styles.graphColumn, 'col-md-9')}>
                         {showGraph ?
                             <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}

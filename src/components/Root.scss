@@ -3,6 +3,20 @@
     margin-right: 20px;
     margin-top: 10px;
 
+    ///// Bootstrap columns equal height - see http://stackoverflow.com/a/19695851/1391050 //////////////////
+    :global(.row).equalHeightColumns {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    :global(.row).equalHeightColumns > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+    ///////////////////////////////////////////////////
+
     // Reduce padding and margin for elements on small screens
     @media (max-width:500px) {
         margin-right: 0px;
