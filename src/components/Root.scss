@@ -46,12 +46,21 @@
     }
 
     .graphsRow {
+        margin-bottom: 20px;
+
         .graphColumn {
             background: $lightBackgroundColor;
+
+            // Can't add margin to the column becuase it will break into a new line - this is the workaround
+            &:not(:first-child) {
+                border-right: 5px solid $siteBackgroundColor;
+            }
+            // Can't add margin to the column becuase it will break into a new line - this is the workaround
+            &:not(:last-child) {
+                border-left: 5px solid $siteBackgroundColor;
+            }
         }
     }
-
-    
 }
 
 .loaderContainer {
