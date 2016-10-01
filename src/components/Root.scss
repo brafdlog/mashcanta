@@ -13,7 +13,8 @@
 
     // Reduce padding and margin for elements on small screens
     @media (max-width:500px) {
-        margin-right: 0px;
+        margin-right: 3px;
+        margin-left: 3px;
         .mortgageInputFormColumn {
             padding: 3px;
             .react-bs-table {
@@ -38,13 +39,16 @@
         .graphColumn {
             background: $lightBackgroundColor;
 
-            // Can't add margin to the column becuase it will break into a new line - this is the workaround
-            &:not(:first-child) {
-                border-right: 5px solid $siteBackgroundColor;
-            }
-            // Can't add margin to the column becuase it will break into a new line - this is the workaround
-            &:not(:last-child) {
-                border-left: 5px solid $siteBackgroundColor;
+            // Use this workaround only when both columns appear next to each other
+            @media (min-width:992px) {
+                // Can't add margin to the column becuase it will break into a new line - this is the workaround
+                &:not(:first-child) {
+                    border-right: 5px solid $siteBackgroundColor;
+                }
+                // Can't add margin to the column becuase it will break into a new line - this is the workaround
+                &:not(:last-child) {
+                    border-left: 5px solid $siteBackgroundColor;
+                }
             }
         }
     }

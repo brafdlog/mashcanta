@@ -61,13 +61,13 @@ class MortgageInfoInputRow extends React.Component {
         if (isHeaderRow) {
             return (
                 <div className={cx(styles.MortgageInfoInputRow, className, styles.headerRow)}>
-                    <span className={styles.partIndex}></span>
+                    <span className={cx(styles.partIndex, 'hidden-xs')}></span>
                     {showMaslul ? <p className={cx(styles.inputField)} > {str('maslul')} </p> : null}
                     <p className={cx(styles.inputField)} > {str('amortizationType')} </p>
                     <p className={cx(styles.inputField)} > {str('amount')} </p>
-                    <p className={cx(styles.inputField)} > {str('years')} </p>
-                    <p className={cx(styles.inputField)} > {str('interest')} </p>
-                    <p className={cx(styles.inputField)} > {str('monthlyPayment')} </p>
+                    <p className={cx(styles.inputField, styles.smallField)} > {str('years')} </p>
+                    <p className={cx(styles.inputField, styles.smallField)} > {str('interest')} </p>
+                    <p className={cx(styles.inputField, 'hidden-xs')} > {str('monthlyPayment')} </p>
                     <span className={styles.removeIcon} />
                 </div>
             );
@@ -81,15 +81,15 @@ class MortgageInfoInputRow extends React.Component {
             };
             return (
                 <div className={cx(styles.MortgageInfoInputRow, className)}>
-                    <span className={styles.partIndex}>{partIndexTxt}</span>
+                    <span className={cx(styles.partIndex, 'hidden-xs')}>{partIndexTxt}</span>
                     {showMaslul ? <Select className={cx(styles.inputField, styles.selectBox)} options={HATZMADA_TYPE_OPTIONS} value={amortizationType} searchable={false} clearable={false} /> : null}
                     <Select className={cx(styles.inputField, styles.selectBox)} options={AMORTIZATION_TYPE_OPTIONS} value={amortizationType} searchable={false} clearable={false}
                         onChange={this.handleChangeAmortizationType}
                     />
                     <input type='text' className={cx(styles.inputField)} value={formatWholeDollarAmount(this.state.loanAmount)} {...inputEventHandlerProps} data-attribute-name='loanAmount' />
-                    <input type='text' className={cx(styles.inputField)} value={this.state.numYears} {...inputEventHandlerProps} data-attribute-name='numYears' />
-                    <input type='text' className={cx(styles.inputField)} value={formatPrecent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
-                    <input type='text' className={cx(styles.inputField, styles.monthlyPayment)} value={formatWholeDollarAmount(mortgagePart.monthlyPayment)} readOnly />
+                    <input type='text' className={cx(styles.inputField, styles.smallField)} value={this.state.numYears} {...inputEventHandlerProps} data-attribute-name='numYears' />
+                    <input type='text' className={cx(styles.inputField, styles.smallField)} value={formatPrecent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
+                    <input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} value={formatWholeDollarAmount(mortgagePart.monthlyPayment)} readOnly />
                     <img className={styles.removeIcon} src='icons/delete.svg' alt={str('delete')} onClick={this.handleDeletePart} />
                 </div>
             );

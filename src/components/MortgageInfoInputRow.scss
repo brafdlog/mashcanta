@@ -18,7 +18,7 @@
 
     .inputField {
         flex: 1;
-        min-width: 90px;
+        min-width: 75px;
         max-width: 200px;
         text-align: center;
         margin-left: 10px;
@@ -26,9 +26,13 @@
         border-style: ridge;
         border-color: $disabledFieldColor;
 
+        &.smallField {
+            min-width: 35px;
+        }
+
         &.selectBox {
             text-align: inherit;
-            min-width: 100px;
+            min-width: 80px;
             border: none;
         }
 
