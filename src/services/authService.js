@@ -10,6 +10,7 @@ export const signIn = (authProviderName) => {
 };
 
 export const signOut = () => {
+    stateStore.setLoggedOut();
     return authNative.signOut();
 };
 
