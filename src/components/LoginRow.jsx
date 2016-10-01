@@ -2,6 +2,7 @@ import React from 'react';
 import str from '../localization';
 import styles from'./LoginRow.scss';
 import cx from 'classnames';
+import { STORAGE_PATH_PREFIX } from '../consts';
 const { func, shape, string } = React.PropTypes;
 
 export const LoginRow = (props) => {
@@ -13,8 +14,8 @@ export const LoginRow = (props) => {
                     <a className={styles.logoutLink} onClick={props.signOut}>{str('logout')}</a>
                 </div> :
                 <div>
-                    <img className={styles.loginButton} src='/facebook_login.png' alt='Facebook login' onClick={props.facebookLogin} />
-                    <img className={styles.loginButton} src='/google_login.png' alt='Google login' onClick={props.googleLogin} />
+                    <img className={styles.loginButton} src={`${STORAGE_PATH_PREFIX}images/facebook_login.png`} alt='Facebook login' onClick={props.facebookLogin} />
+                    <img className={styles.loginButton} src={`${STORAGE_PATH_PREFIX}images/google_login.png`} alt='Google login' onClick={props.googleLogin} />
                 </div>
             }
         </div>
