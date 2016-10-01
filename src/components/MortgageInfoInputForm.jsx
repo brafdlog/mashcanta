@@ -37,7 +37,7 @@ class MortgageInfoInputForm extends React.Component {
             <div className={cx(styles.MortgageInfoInputFormContainer, className)}>
                 <MortgageInfoInputRow key='headerRow' isHeaderRow />
                 {mortgageParts.map((mortgagePart, partIndex) => <MortgageInfoInputRow key={mortgagePart.id} mortgagePart={mortgagePart} onChange={this.onChange} onDelete={this.props.handleDelete} partIndex={partIndex} />)}
-                <button type='button' className={cx('btn', 'btn-info', styles.button)} onClick={handleAddPart}>{str('add')}</button>
+                <img className={cx(styles.button)} src='icons/delete.svg' alt={str('add')} onClick={handleAddPart} />
             </div>
         );
     }
