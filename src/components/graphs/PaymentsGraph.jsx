@@ -21,19 +21,15 @@ class PaymentsGraph extends React.Component {
             interest: number,
             total: number
         })).isRequired,
-        maxElements: number,
-        width: number,
-        height: number
+        maxElements: number
     }
 
     static defaultProps = {
-        maxElements: 40,
-        width: 800,
-        height: 300
+        maxElements: 40
     }
 
     render() {
-        const { className, width, height, maxElements, paymentDetailsPerYear } = this.props;
+        const { className, maxElements, paymentDetailsPerYear } = this.props;
         const startIndex = this.state.startIndex;
         const endIndex = Math.min(startIndex + maxElements, paymentDetailsPerYear.length);
         const paymentDetailsPerPeriodSliced = paymentDetailsPerYear.slice(startIndex, endIndex);
@@ -63,6 +59,7 @@ class PaymentsGraph extends React.Component {
         };
 
         const options = {
+            responsive: true,
             tooltips: {
                 enabled: true,
                 mode: 'label',
@@ -104,7 +101,7 @@ class PaymentsGraph extends React.Component {
         return (
             <div className={cx(styles.PaymentsGraphContainer, className)}>
                 <h3 className={styles.graphTitle}>{str('paymentsGraph')}</h3>
-                <Line data={data} options={options} width={width} height={height} redraw={redraw} />
+                <Line data={data} options={options} redraw={redraw} />
             </div>
         );
     }
