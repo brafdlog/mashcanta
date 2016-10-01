@@ -18,6 +18,15 @@
         flex-direction: column;
     }
     ///////////////////////////////////////////////////
+    
+    /* Disable chrome's default blue outline on focus */
+    :focus {
+        outline: 0;
+    }
+
+    :global(.hidden) {
+        display: none;
+    }
 
     .mortgageInputFormColumn {
         padding-right: 0;
