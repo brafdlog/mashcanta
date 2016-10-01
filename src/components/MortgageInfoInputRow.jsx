@@ -77,7 +77,8 @@ class MortgageInfoInputRow extends React.Component {
             const inputEventHandlerProps = {
                 onBlur: this.handleInputBlur,
                 onChange: this.handleInputChange,
-                onKeyPress: this.handleKeyPress
+                onKeyPress: this.handleKeyPress,
+                onFocus: this.handleFocus
             };
             return (
                 <div className={cx(styles.MortgageInfoInputRow, className)}>
@@ -94,6 +95,11 @@ class MortgageInfoInputRow extends React.Component {
                 </div>
             );
         }
+    }
+
+    handleFocus({ target }) {
+        // Select all text in the input
+        target.setSelectionRange(0, target.value.length);
     }
 
     handleKeyPress = (event) => {
