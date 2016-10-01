@@ -1,0 +1,37 @@
+@import '../vars';
+
+.MortgageInfoInputRow {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 10px;
+
+    .partIndex {
+        align-self: center;
+        width: 30px;
+        font-size: 13px;
+    }
+
+    .inputField {
+        flex: 1;
+        max-width: 200px;
+        text-align: center;
+        margin-left: 10px;
+        border-width: 1px;
+        border-style: ridge;
+        border-color: $disabledFieldColor;
+
+        &.selectBox {
+            text-align: inherit;
+            min-width: 100px;
+            border: none;
+        }
+
+        &.monthlyPayment {
+            background-color: $disabledFieldColor;
+        }
+    }
+    
+    .removeIcon {
+        align-self: center;
+    }
+}
