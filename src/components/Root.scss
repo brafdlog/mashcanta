@@ -1,47 +1,10 @@
 @import '../vars';
-
-$selectBoxShadow: 1px 1px 1px 0px #bec2cc;
+@import '../globalStyles';
 
 .rootAppContainer {
     margin-top: 10px;
     margin-right: 15px;
     margin-left: 15px;
-
-    ///// Bootstrap columns equal height - see http://stackoverflow.com/a/19695851/1391050 //////////////////
-    :global(.row).equalHeightColumns {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    :global(.row).equalHeightColumns > [class*='col-'] {
-        display: flex;
-        flex-direction: column;
-    }
-    ///////////////////////////////////////////////////
-    
-    /* Disable chrome's default blue outline on focus */
-    :focus {
-        outline: 0;
-    }
-
-    ////////// React-select dropdown styling /////////////////
-    :global(.Select-control) {
-        box-shadow: $selectBoxShadow;
-        // Make dropdown border not round
-        border-radius: 0;
-    }
-    :global(.Select-arrow) {
-        // Make the arrow black instead of grey
-        border-color: $fontColor transparent transparent;
-    }
-    :global(.Select-menu-outer) {
-        // Give the dropdown menu the same box shadow as the select box
-        box-shadow: $selectBoxShadow;
-    }
-    ////////// End React-select dropdown styling /////////////////
-
-    :global(.hidden) {
-        display: none;
-    }
 
     .mortgageInputFormColumn {
         padding-right: 0;
