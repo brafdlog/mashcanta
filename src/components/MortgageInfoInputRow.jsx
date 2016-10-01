@@ -59,7 +59,7 @@ class MortgageInfoInputRow extends React.Component {
                 <input type='text' className={cx(styles.inputField)} value={this.state.numYears} />
                 <input type='text' className={cx(styles.inputField)} value={formatPrecent(this.state.yearlyInterest)} />
                 <input type='text' className={cx(styles.inputField, styles.monthlyPayment)} value={formatWholeDollarAmount(this.state.monthlyPayment)} readOnly />
-                <span className={cx('glyphicon', 'glyphicon-remove', styles.removeIcon)} aria-hidden='true'></span>
+                <img className={styles.removeIcon} src='icons/delete.svg' alt={str('delete')} />
             </div>
         );
     }
