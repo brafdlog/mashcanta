@@ -1,5 +1,14 @@
+@import '../vars';
+
 .InfoLine {
-    .infoLineTitle {
-        width: 100px;
+    &.highlighted {
+        background-color: $darkBackgroundColor;
+    }
+
+    height: 50px;
+    background-color: $teal;
+    color: $lightFontColor;
+    .value {
+        margin-right: 5px;
     }
 }

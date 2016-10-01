@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import Flex from './Flex';
 import { formatWholeDollarAmount, retainNDecimals } from '../utils';
 import InfoLine from './InfoLine';
-import './MortgageDetailsDisplay.scss';
+import styles from './MortgageDetailsDisplay.scss';
 import str from '../localization';
 import { observer } from 'mobx-react';
+import cx from 'classnames';
 
 const { number, shape } = PropTypes;
 
@@ -24,12 +24,12 @@ class MortgageDetailsDisplay extends React.Component {
         const mortgageInfo = this.formatNumbersNicely(this.props.mortgageInfo);
         const { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
         return (
-            <Flex className='MortgageDetailsDisplay' column>
-                <InfoLine title={str('loanAmount')} value={loanAmount} />
-                <InfoLine title={str('monthlyPayment')} value={monthlyPayment} />
-                <InfoLine title={str('totalPayment')} value={totalPaymentToBank} />
-                <InfoLine title={str('costOfDollar')} value={costOfEachDollar} />
-            </Flex>
+            <div className={cx(styles.MortgageDetailsDisplay, 'row')}>
+                <InfoLine className={styles.infoLineColumn} title={str('loanAmount')} value={loanAmount} highlighted />
+                <InfoLine className={styles.infoLineColumn} title={str('monthlyPayment')} value={monthlyPayment} />
+                <InfoLine className={styles.infoLineColumn} title={str('totalPayment')} value={totalPaymentToBank} />
+                <InfoLine className={styles.infoLineColumn} title={str('costOfDollar')} value={costOfEachDollar} />
+            </div>
         );
     }
 

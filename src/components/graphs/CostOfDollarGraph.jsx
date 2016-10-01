@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
-import './CostOfDollarGraph.scss';
+import styles from './CostOfDollarGraph.scss';
 import str from '../../localization';
-import { removeAllDecimals } from '../../utils';
+import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
+import { CSS } from '../../consts';
 import { Doughnut } from 'react-chartjs-2';
 import { observer } from 'mobx-react';
 
@@ -31,33 +32,35 @@ class CostOfDollarGraph extends React.Component {
             datasets: [{
                 data: [loanCostFormatted, loanAmountFormatted],
                 backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB'
+                    CSS.purple,
+                    CSS.teal
                 ],
                 hoverBackgroundColor: [
                     '#FF6384',
-                    '#36A2EB'
+                    CSS.teal
                 ]
             }]
         };
 
         const options = {
             responsive: true,
-            maintainAspectRatio: false
-            // TODO here need to format the tooltip using formatWholeDollarAmount.
-            // The tooltip configuration works but it causes the animation to go crazy
-            // tooltips: {
-            //     callbacks: {
-            //         label: (tooltipItem, data) => {
-            //             const mooo = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-            //             return formatWholeDollarAmount(mooo);
-            //         }
-            //     }
-            // }
+            maintainAspectRatio: false,
+            legend: {
+                display: true,
+                position: 'bottom'
+            },
+            tooltips: {
+                callbacks: {
+                    label: (tooltipItem, data) => {
+                        const amount = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return formatWholeDollarAmount(amount);
+                    }
+                }
+            }
         };
         return (
-            <div className={cx('CostOfDollarGraphContainer', className)}>
-                <h3 className='graphTitle'>{str('loanCost')}</h3>
+            <div className={cx(styles.CostOfDollarGraphContainer, className)}>
+                <h3 className={styles.graphTitle}>{str('loanCost')}</h3>
                 <Doughnut data={pieChartData} options={options} />
             </div>
         );

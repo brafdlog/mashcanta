@@ -1,6 +1,7 @@
 module.exports = function getLoaders(isProduction) {
 	var sourceMapLoaderParam = isProduction ? '' : '&sourceMap';
-	var cssLoaderParms = '?modules&localIdentName=[name]__[local]___[hash:base64:5]' + sourceMapLoaderParam
+	var postCssLoaderParam = 'importLoaders=1!postcss-loader';
+	var cssLoaderParms = '?modules&localIdentName=[name]__[local]___[hash:base64:5]' + sourceMapLoaderParam + '&' + postCssLoaderParam;
 	var jsxLoaders = isProduction ? ['babel'] : ['react-hot', 'babel'];
 	return [
 		{
@@ -10,11 +11,7 @@ module.exports = function getLoaders(isProduction) {
 		},
 		{
 			test: /\.css$/,
-			loader: 'style-loader!css-loader' + cssLoaderParms,
-			query: {
-				modules: true,
-				localIdentName: '[name]__[local]___[hash:base64:5]'
-			}
+			loader: 'style-loader!css-loader' + cssLoaderParms
 		},
 		{
 		   test: /\.scss$/,

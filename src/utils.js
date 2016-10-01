@@ -53,3 +53,9 @@ export const formattedStringToNumber = fomattedStr => {
     const withoutFormattingChars = replaceAll(fomattedStr, `[,%${str('currencySymbol')}]`, '');
     return Number(withoutFormattingChars);
 };
+
+export const convertRgbToRgba = (rgb, alpha) => {
+    let rgba = rgb.replace('rgb', 'rgba');
+    rgba = rgba.replace(')', `,${alpha})`);
+    return rgba;
+};

@@ -2,10 +2,11 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import str from '../../localization';
-import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
+import { CSS } from '../../consts';
+import { removeAllDecimals, formatWholeDollarAmount, convertRgbToRgba } from '../../utils';
 import { Line } from 'react-chartjs-2';
 import _ from 'lodash';
-import './PaymentsGraph.scss';
+import styles from './PaymentsGraph.scss';
 import { observer } from 'mobx-react';
 
 const { string, number, arrayOf, shape } = PropTypes;
@@ -20,19 +21,15 @@ class PaymentsGraph extends React.Component {
             interest: number,
             total: number
         })).isRequired,
-        maxElements: number,
-        width: number,
-        height: number
+        maxElements: number
     }
 
     static defaultProps = {
-        maxElements: 40,
-        width: 800,
-        height: 300
+        maxElements: 40
     }
 
     render() {
-        const { className, width, height, maxElements, paymentDetailsPerYear } = this.props;
+        const { className, maxElements, paymentDetailsPerYear } = this.props;
         const startIndex = this.state.startIndex;
         const endIndex = Math.min(startIndex + maxElements, paymentDetailsPerYear.length);
         const paymentDetailsPerPeriodSliced = paymentDetailsPerYear.slice(startIndex, endIndex);
@@ -50,18 +47,19 @@ class PaymentsGraph extends React.Component {
             datasets: [
                 {
                     label: str('total'),
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    backgroundColor: convertRgbToRgba(CSS.tealRGB, 0.6),
                     data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'total')
                 },
                 {
                     label: str('interest'),
-                    backgroundColor: 'rgba(255,99,132,1)',
+                    backgroundColor: convertRgbToRgba(CSS.purpleRGB, 0.8),
                     data: this.buildDataForDataset(paymentDetailsPerPeriodSliced, 'interest')
                 }
             ]
         };
 
         const options = {
+            responsive: true,
             tooltips: {
                 enabled: true,
                 mode: 'label',
@@ -70,6 +68,10 @@ class PaymentsGraph extends React.Component {
                         return formatWholeDollarAmount(tooltipItem.yLabel);
                     }
                 }
+            },
+            legend: {
+                display: true,
+                position: 'bottom'
             },
             scales: {
                 yAxes: [{
@@ -97,9 +99,9 @@ class PaymentsGraph extends React.Component {
             }
         };
         return (
-            <div className={cx('PaymentsGraphContainer', className)}>
-                <h3 className='graphTitle'>{str('paymentsGraph')}</h3>
-                <Line data={data} options={options} width={width} height={height} redraw={redraw} />
+            <div className={cx(styles.PaymentsGraphContainer, className)}>
+                <h3 className={styles.graphTitle}>{str('paymentsGraph')}</h3>
+                <Line data={data} options={options} redraw={redraw} />
             </div>
         );
     }

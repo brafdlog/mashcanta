@@ -14,13 +14,29 @@
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap-table/2.5.3/react-bootstrap-table.min.css">
+
+    <!-- Importing react-select's css here because there is currently an issue with importing it
+         see: https://github.com/JedWatson/react-select/issues/602
+    -->
+    <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css">
+    
+    <link rel="stylesheet" href="index.css">
 
 </head>
 <body>
-    <div>
-        <div id="myApp"></div>
+    <div class="topBar">
+        
     </div>
+    <div class="content">
+        <div class="headingSection">
+            <h1 class="headingSectionTitle"> מחשבון משכנתא</h1>
+            <p class="headingSectionParagraph">מחשבון משכנתא חדשני המאפשר לתכנן בקלות את תמהיל המשכנתא שלכם</p>
+        </div>
+        <div>
+            <div id="myApp"></div>
+        </div>    
+    </div>
+    
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         if(screen.width < 500) {

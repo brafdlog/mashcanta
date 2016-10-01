@@ -1,7 +1,16 @@
-.MortgageInfoInputFormContainer {
-    
-    .btn {
-        margin-right: 10px;
-    }
+@import '../vars';
 
+.MortgageInfoInputFormContainer {
+    background: $lightBackgroundColor;
+    padding: 0 10px;
+
+    .button {
+        display: block;
+        text-align: center;
+        padding: 10px 0;
+        margin-right: 30px;
+        cursor: pointer;
+        transform: rotate(135deg);
+        width: 20px;
+    }
 }

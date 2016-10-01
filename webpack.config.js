@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var getLoaders = require('./webpack.loaders');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
 	entry: {
@@ -38,5 +39,6 @@ module.exports = {
 		  'env': JSON.stringify('dev')
 		}),
 		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
-	]
+	],
+	postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
 };
