@@ -6,6 +6,7 @@ import { formattedStringToNumber } from '../utils';
 import { KEREN_SHAVA, SHPITZER, BULLET, STORAGE_PATH_PREFIX } from '../consts';
 import str from '../localization';
 import { observer } from 'mobx-react';
+import _ from 'lodash';
 
 const { func, shape, number, arrayOf, string, oneOf } = PropTypes;
 
@@ -48,7 +49,7 @@ class MortgageInfoInputForm extends React.Component {
         // For numeric fields make sure to update number and not string
         const valueToUpdate = changedProp === 'amortizationType' ? newValue : formattedStringToNumber(newValue);
 
-        const originalPart = this.props.mortgageParts.find(part => part.id === partId);
+        const originalPart = _.find(this.props.mortgageParts, { id: partId });
         const updatedPart = { ...originalPart, [changedProp]: valueToUpdate };
         this.props.handleChange(updatedPart);
     }
