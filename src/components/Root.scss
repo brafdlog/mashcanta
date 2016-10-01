@@ -7,9 +7,6 @@
 
     ///// Bootstrap columns equal height - see http://stackoverflow.com/a/19695851/1391050 //////////////////
     :global(.row).equalHeightColumns {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
         flex-wrap: wrap;
     }
