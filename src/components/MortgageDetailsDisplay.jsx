@@ -25,18 +25,10 @@ class MortgageDetailsDisplay extends React.Component {
         const { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
         return (
             <div className={cx(styles.MortgageDetailsDisplay, 'row')}>
-                <div className={cx('col-md-3', styles.infoLineColumn)}>
-                    <InfoLine title={str('loanAmount')} value={loanAmount} highlighted />
-                </div>
-                <div className={cx('col-md-3', styles.infoLineColumn)}>
-                    <InfoLine title={str('monthlyPayment')} value={monthlyPayment} />
-                </div>
-                <div className={cx('col-md-3', styles.infoLineColumn)}>
-                    <InfoLine title={str('totalPayment')} value={totalPaymentToBank} />
-                </div>
-                <div className={cx('col-md-3', styles.infoLineColumn)}>
-                    <InfoLine title={str('costOfDollar')} value={costOfEachDollar} />
-                </div>
+                <InfoLine className={styles.infoLineColumn} title={str('loanAmount')} value={loanAmount} highlighted />
+                <InfoLine className={styles.infoLineColumn} title={str('monthlyPayment')} value={monthlyPayment} />
+                <InfoLine className={styles.infoLineColumn} title={str('totalPayment')} value={totalPaymentToBank} />
+                <InfoLine className={styles.infoLineColumn} title={str('costOfDollar')} value={costOfEachDollar} />
             </div>
         );
     }

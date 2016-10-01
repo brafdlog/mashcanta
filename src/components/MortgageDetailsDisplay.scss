@@ -1,14 +1,19 @@
 .MortgageDetailsDisplay {
+    display: flex;
+    flex-wrap: wrap;
     .infoLineColumn {
-        padding-left: 4px;
-        padding-right: 4px;
+        margin-top: 4px;
+        flex: 1;
+        min-width: 200px;
+        margin-left: 4px;
+        margin-right: 4px;
 
         &:first-child {
-            padding-right: 0;
+            margin-right: 0;
         }
 
         &:last-child {
-            padding-left: 0;
+            margin-left: 0;
         }
     }
 }
