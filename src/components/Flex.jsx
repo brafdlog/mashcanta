@@ -9,14 +9,14 @@ const { string, bool, oneOf, object } = React.PropTypes;
 
 const Flex = observer(({ wrap, column, align, justify, auto, style, className, ...props }) => {
     /** Build dynamic style */
-    const sx = Object.assign({}, style, {
+    const sx = { ...style,
         display: 'flex',
         flexWrap: wrap ? 'wrap' : null,
         flexDirection: column ? 'column' : null,
         flex: auto ? '1 1 auto' : null,
         alignItems: align || null,
         justifyContent: justify || null
-    });
+    };
 
     /** Return markup */
     return <div className={className} style={sx} {...props} />;
