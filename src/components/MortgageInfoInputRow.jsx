@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './MortgageInfoInputRow.scss';
 import { formatWholeDollarAmount, formatPrecent, formattedStringToNumber } from '../utils';
-import { KEREN_SHAVA, SHPITZER, BULLET } from '../consts';
+import { KEREN_SHAVA, SHPITZER, BULLET, STORAGE_PATH_PREFIX } from '../consts';
 import str from '../localization';
 import { observer } from 'mobx-react';
 import Select from 'react-select';
@@ -90,7 +90,7 @@ class MortgageInfoInputRow extends React.Component {
                     <input type='text' className={cx(styles.inputField, styles.smallField)} value={this.state.numYears} {...inputEventHandlerProps} data-attribute-name='numYears' />
                     <input type='text' className={cx(styles.inputField, styles.smallField)} value={formatPrecent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
                     <input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} value={formatWholeDollarAmount(mortgagePart.monthlyPayment)} readOnly />
-                    <img className={styles.removeIcon} src='icons/delete.svg' alt={str('delete')} onClick={this.handleDeletePart} />
+                    <img className={styles.removeIcon} src={`${STORAGE_PATH_PREFIX}icons/delete.svg`} alt={str('delete')} onClick={this.handleDeletePart} />
                 </div>
             );
         }

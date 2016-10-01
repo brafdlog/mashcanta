@@ -7,6 +7,7 @@ const COMMON_CONFIG = {
     showAddMortgageRow: false,
     useFirebaseStorage: true,
     useFirebaseAuth: true,
+    storagePathPrefix: 'https://s3-eu-west-1.amazonaws.com/mashcanta/',
     firebaseConfig: {
        ***REMOVED***
         authDomain: 'mashcanta.firebaseapp.com',
