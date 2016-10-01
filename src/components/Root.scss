@@ -1,5 +1,7 @@
 @import '../vars';
 
+$selectBoxShadow: 1px 1px 1px 0px #bec2cc;
+
 .rootAppContainer {
     margin-top: 10px;
     margin-right: 15px;
@@ -20,6 +22,22 @@
     :focus {
         outline: 0;
     }
+
+    ////////// React-select dropdown styling /////////////////
+    :global(.Select-control) {
+        box-shadow: $selectBoxShadow;
+        // Make dropdown border not round
+        border-radius: 0;
+    }
+    :global(.Select-arrow) {
+        // Make the arrow black instead of grey
+        border-color: $fontColor transparent transparent;
+    }
+    :global(.Select-menu-outer) {
+        // Give the dropdown menu the same box shadow as the select box
+        box-shadow: $selectBoxShadow;
+    }
+    ////////// End React-select dropdown styling /////////////////
 
     :global(.hidden) {
         display: none;
