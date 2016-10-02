@@ -10,7 +10,8 @@
     "dev": "webpack-dev-server --port 8181 --progress --profile --colors --hot",
     "test": "NODE_ENV=test mocha ./src/test/**/*.js --compilers js:babel-register",
     "test:watch": "NODE_ENV=test mocha ./src/test/**/*.js --compilers js:babel-register --watch",
-    "test:coverage": "nyc npm test"
+    "test:coverage": "nyc npm test",
+    "generateSvgSprite": "svg-sprite-generate -d icons -o svgSprite.svg"
   },
   "repository": {
     "type": "git",
