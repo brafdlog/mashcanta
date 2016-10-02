@@ -2,14 +2,25 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import str from '../../localization';
-import { CSS } from '../../consts';
+import Modal from '../Modal';
+import { CSS, STORAGE_PATH_PREFIX } from '../../consts';
 import { removeAllDecimals, formatWholeDollarAmount, convertRgbToRgba } from '../../utils';
 import { Line } from 'react-chartjs-2';
 import _ from 'lodash';
 import styles from './PaymentsGraph.scss';
 import { observer } from 'mobx-react';
 
-const { string, number, arrayOf, shape } = PropTypes;
+const { string, number, arrayOf, shape, bool } = PropTypes;
+
+const DATASET_FOR_EMPTY_GRAPH = [
+    {
+        label: '',
+        // transparent
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        borderColor: 'rgba(0, 0, 0, 0)',
+        data: [1000, 2000, 3000, 4000, 5000]
+    }
+];
 
 @observer
 class PaymentsGraph extends React.Component {
@@ -21,7 +32,8 @@ class PaymentsGraph extends React.Component {
             interest: number,
             total: number
         })).isRequired,
-        maxElements: number
+        maxElements: number,
+        isEmptyData: bool
     }
 
     static defaultProps = {
@@ -29,7 +41,7 @@ class PaymentsGraph extends React.Component {
     }
 
     render() {
-        const { className, maxElements, paymentDetailsPerYear } = this.props;
+        const { className, maxElements, paymentDetailsPerYear, isEmptyData } = this.props;
         const startIndex = this.state.startIndex;
         const endIndex = Math.min(startIndex + maxElements, paymentDetailsPerYear.length);
         const paymentDetailsPerPeriodSliced = paymentDetailsPerYear.slice(startIndex, endIndex);
@@ -44,7 +56,8 @@ class PaymentsGraph extends React.Component {
 
         const data = {
             labels: _.range(1, numXValues + 1),
-            datasets: [
+            // If there is no data to show, display an empty graph with the correct scales
+            datasets: isEmptyData ? DATASET_FOR_EMPTY_GRAPH : [
                 {
                     label: str('total'),
                     backgroundColor: convertRgbToRgba(CSS.tealRGB, 0.6),
@@ -102,6 +115,11 @@ class PaymentsGraph extends React.Component {
             <div className={cx(styles.PaymentsGraphContainer, className)}>
                 <h3 className={styles.graphTitle}>{str('paymentsGraph')}</h3>
                 <Line data={data} options={options} redraw={redraw} />
+                {isEmptyData ?
+                    <Modal>
+                        <img className={styles.emptyDataImage} src={STORAGE_PATH_PREFIX + 'icons/graph.svg'} alt={str('paymentsGraph')} />
+                    </Modal> : null
+                }
             </div>
         );
     }

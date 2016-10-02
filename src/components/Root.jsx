@@ -90,10 +90,9 @@ class Root extends React.Component {
                 </div>
                 <div className={cx('row', styles.graphsRow, styles.equalHeightColumns)}>
                     <div className={cx(styles.graphColumn, 'col-md-9', 'col-xs-12')}>
-                        {showGraph ?
-                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
-                                maxElements={this.isSmallScreen ? 15 : 40}
-                            /> : ''}
+                        <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
+                            isEmptyData={!currentMortgage.hasValidParts} maxElements={this.isSmallScreen ? 15 : 40}
+                        />
                     </div>
                     <div className={cx(styles.graphColumn, 'col-md-3', 'col-xs-12')}>
                         {showGraph ? <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} /> : ''}
