@@ -1,11 +1,12 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import str from '../localization';
 import styles from'./LoginRow.scss';
 import cx from 'classnames';
 import { STORAGE_PATH_PREFIX } from '../consts';
 const { func, shape, string } = React.PropTypes;
 
-export const LoginRow = (props) => {
+function LoginRow(props) {
     return (
         <div className={cx(styles.loginRow, props.className)}>
             {props.user ?
@@ -20,7 +21,7 @@ export const LoginRow = (props) => {
             }
         </div>
     );
-};
+}
 
 LoginRow.propTypes = {
     user: shape({
@@ -32,3 +33,5 @@ LoginRow.propTypes = {
     signOut: func,
     className: string
 };
+
+export default observer(LoginRow);

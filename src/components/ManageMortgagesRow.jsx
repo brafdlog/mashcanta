@@ -1,7 +1,8 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 const { func, shape, string, arrayOf } = React.PropTypes;
 
-export const ManageMortgagesRow = (props) => {
+function ManageMortgagesRow(props) {
     return (
         <div className='row'>
             <div className='col-md-4'>
@@ -12,7 +13,7 @@ export const ManageMortgagesRow = (props) => {
             </div>
         </div>
     );
-};
+}
 
 ManageMortgagesRow.propTypes = {
     currentMortgage: shape({
@@ -26,3 +27,5 @@ ManageMortgagesRow.propTypes = {
     })),
     createNewMortgage: func
 };
+
+export default observer(ManageMortgagesRow);
