@@ -3,7 +3,8 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import str from '../../localization';
 import Modal from '../Modal';
-import { CSS, STORAGE_PATH_PREFIX } from '../../consts';
+import Icon from '../Icon';
+import { CSS } from '../../consts';
 import { removeAllDecimals, formatWholeDollarAmount, convertRgbToRgba } from '../../utils';
 import { Line } from 'react-chartjs-2';
 import _ from 'lodash';
@@ -117,7 +118,7 @@ class PaymentsGraph extends React.Component {
                 <Line data={data} options={options} redraw={redraw} />
                 {isEmptyData ?
                     <Modal>
-                        <img className={styles.emptyDataImage} src={STORAGE_PATH_PREFIX + 'icons/graph.svg'} alt={str('paymentsGraph')} />
+                        <Icon id='stats' color='#5B62A6' width='20%' height='20%' />
                     </Modal> : null
                 }
             </div>
