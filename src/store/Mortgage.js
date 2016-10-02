@@ -21,6 +21,10 @@ export default class Mortgage {
         };
     }
 
+    @computed get hasValidParts() {
+        return !!this.mortgageParts.filter(part => part.isValid).length;
+    }
+
     @computed get mortgageParts() {
         return _.sortBy(this.mortgagePartsInner, 'order');
     }

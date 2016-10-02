@@ -317,6 +317,44 @@ describe('Mortgage tests', function() {
         expect(mortgage.paymentDetailsPerMonth.length).to.equal(15*12);
     });
 
+    it('should calculate part and mortgage validity correctly', function() {
+        const mortgage = new Mortgage();
+        expect(mortgage.hasValidParts).to.be.false;
+        let newPartId = mortgage.addPart({
+            loanAmount: 0,
+            numYears: 0,
+            yearlyInterest: 0,
+            amortizationType: BULLET
+        });
+
+        expect(mortgage.getPart(newPartId).isValid).to.be.false;
+        expect(mortgage.hasValidParts).to.be.false;
+
+        newPartId = mortgage.addPart({
+            loanAmount: 150,
+            numYears: 15,
+            yearlyInterest: 0,
+            amortizationType: BULLET
+        });
+
+        expect(mortgage.getPart(newPartId).isValid).to.be.false;
+        expect(mortgage.hasValidParts).to.be.false;
+
+        newPartId = mortgage.addPart({
+            loanAmount: 150,
+            numYears: 15,
+            yearlyInterest: 10,
+            amortizationType: BULLET
+        });
+
+        expect(mortgage.getPart(newPartId).isValid).to.be.true;
+        expect(mortgage.hasValidParts).to.be.true;
+
+        mortgage.deletePart(newPartId);
+
+        expect(mortgage.hasValidParts).to.be.false;
+    });
+
 });
 
 export function createMortgageWithThreeParts() {
