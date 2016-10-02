@@ -2,12 +2,15 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './CostOfDollarGraph.scss';
 import str from '../../localization';
+import Modal from '../Modal';
 import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
 import { CSS } from '../../consts';
 import { Doughnut } from 'react-chartjs-2';
 import { observer } from 'mobx-react';
 
-const { string, number } = PropTypes;
+const { string, number, bool } = PropTypes;
+
+const EMPTY_DATA = [3000, 0];
 
 @observer
 class CostOfDollarGraph extends React.Component {
@@ -15,11 +18,12 @@ class CostOfDollarGraph extends React.Component {
     static propTypes = {
         className: string,
         loanAmount: number,
-        loanCost: number
+        loanCost: number,
+        isEmptyData: bool
     }
 
     render() {
-        const { loanAmount, loanCost, className } = this.props;
+        const { loanAmount, loanCost, className, isEmptyData } = this.props;
 
         const loanAmountFormatted = removeAllDecimals(loanAmount);
         const loanCostFormatted = removeAllDecimals(loanCost);
@@ -30,7 +34,7 @@ class CostOfDollarGraph extends React.Component {
                 str('loanAmount')
             ],
             datasets: [{
-                data: [loanCostFormatted, loanAmountFormatted],
+                data: isEmptyData ? EMPTY_DATA : [loanCostFormatted, loanAmountFormatted],
                 backgroundColor: [
                     CSS.purple,
                     CSS.teal
@@ -62,6 +66,7 @@ class CostOfDollarGraph extends React.Component {
             <div className={cx(styles.CostOfDollarGraphContainer, className)}>
                 <h3 className={styles.graphTitle}>{str('loanCost')}</h3>
                 <Doughnut data={pieChartData} options={options} />
+                {isEmptyData ? <Modal /> : null}
             </div>
         );
     }

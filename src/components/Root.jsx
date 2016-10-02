@@ -55,9 +55,8 @@ class Root extends React.Component {
 
     render() {
         const { currentMortgage, isLoading, createNewMortgage, mortgages, user } = this.props.stateStore;
-        const { mortgageParts, loanAmount, totalPaymentToBank, loanCost, paymentDetailsPerYearMonthlyAverage } = currentMortgage;
+        const { mortgageParts, loanAmount, loanCost, paymentDetailsPerYearMonthlyAverage } = currentMortgage;
         const showAddMortgageRow = getConfig('showAddMortgageRow');
-        const showGraph = loanAmount && totalPaymentToBank > 0;
         if (isLoading) {
             return (
                 <div className={styles.loaderContainer}>
@@ -95,7 +94,7 @@ class Root extends React.Component {
                         />
                     </div>
                     <div className={cx(styles.graphColumn, 'col-md-3', 'col-xs-12')}>
-                        {showGraph ? <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} /> : ''}
+                        <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={!currentMortgage.hasValidParts} />
                     </div>
                 </div>
             </div>
