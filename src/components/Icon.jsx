@@ -3,28 +3,30 @@ import { observer } from 'mobx-react';
 import cx from 'classnames';
 import _ from 'lodash';
 
-const { string } = PropTypes;
+const { string, func } = PropTypes;
 
 const addPxIfIsNumber = num => {
     return _.isNumber(Number(num)) ? `${num}px` : num;
 };
 
-const Icon = observer(({ id, className, color = 'black', width = 35, height = 35 }) => {
+const Icon = observer(({ id, className, color = 'black', width = 35, height = 35, onClick }) => {
     const svgElementStyle = {
         width: addPxIfIsNumber(width),
         height: addPxIfIsNumber(height)
     };
+
+    if (onClick) {
+        svgElementStyle.cursor = 'pointer';
+    }
 
     const useElementStyle = {};
     if (color) {
         useElementStyle.fill = color;
     }
     return (
-        <span>
-            <svg className={cx(className)} style={svgElementStyle}>
-                <use xlinkHref={`#${id}`} style={useElementStyle} />
-            </svg>
-        </span>
+        <svg className={cx(className)} style={svgElementStyle} onClick={onClick}>
+            <use xlinkHref={`#${id}`} style={useElementStyle} />
+        </svg>
     );
 });
 
@@ -32,7 +34,8 @@ Icon.propTypes = {
     id: string,
     color: string,
     width: string,
-    height: string
+    height: string,
+    onClick: func
 };
 
 export default Icon;
