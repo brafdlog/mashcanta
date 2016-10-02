@@ -27,3 +27,14 @@ body {
 .headingSection .headingSectionParagraph {
     max-width: 354px;
 }
+
+.loginButton {
+    display: none;
+    background-color:#2bc8ad; /* teal */
+    color: white;
+    width: 100px;
+    line-height: 31px;
+    text-align: center;
+    border-radius: 19px;
+    cursor: pointer;
+}

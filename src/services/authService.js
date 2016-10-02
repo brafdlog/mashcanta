@@ -32,9 +32,11 @@ if (isAuthEnabled()) {
             // User is signed in
             stateStore.setLoggedInUser(userInfo);
             saveUserDetailsIfDontExist(userInfo);
+            $('.loginButton').hide();
         } else {
             // No user is signed in
             stateStore.setLoggedOut();
+            $('.loginButton').show();
         }
     });
 }

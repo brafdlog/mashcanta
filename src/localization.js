@@ -32,7 +32,8 @@ const ENGLISH_STRINGS = {
     total: 'Total',
     changeGraphPeriod: 'Change period on graph',
     payment: 'Payment',
-    months: 'Months'
+    months: 'Months',
+    loginModalText: 'Login to save your mortgage data'
 };
 
 const HEBREW_STRINGS = {
@@ -66,7 +67,8 @@ const HEBREW_STRINGS = {
     total: 'סה״כ',
     changeGraphPeriod: 'שנה את התקופה המוצגת בגרף',
     payment: 'תשלום',
-    months: 'חודשים'
+    months: 'חודשים',
+    loginModalText: 'התחבר כדי לשמור את המידע שלך'
 };
 
 const strings = {

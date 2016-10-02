@@ -4,6 +4,8 @@ import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import ManageMortgagesRow from './ManageMortgagesRow';
 import LoginRow from './LoginRow';
+import Modal from './Modal';
+import LoginModal from './LoginModal';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
@@ -66,6 +68,11 @@ class Root extends React.Component {
         }
         return (
             <div className={cx('container-fluid', styles.rootAppContainer)}>
+                {this.state.showLoginModal ?
+                    <Modal zIndex={150} positionFixed>
+                        <LoginModal facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} closeModal={this.closeLoginModal} />
+                    </Modal> : null
+                }
                 {isAuthEnabled() ?
                     <LoginRow className={styles.loginRow} user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn}
                         signOut={signOut}
@@ -101,7 +108,29 @@ class Root extends React.Component {
         );
     }
 
-    state = {};
+    state = {
+        showLoginModal: false
+    };
+
+    componentDidMount = () => {
+        $('.loginButton').off('click').on('click', this.openLoginModal);
+    }
+
+    componentWillUnmount = () => {
+        $('.loginButton').off('click');
+    }
+
+    closeLoginModal = () => {
+        this.setState({
+            showLoginModal: false
+        });
+    }
+
+    openLoginModal = () => {
+        this.setState({
+            showLoginModal: true
+        });
+    }
 
     facebookLogin = () => {
         signIn(FACEBOOK);

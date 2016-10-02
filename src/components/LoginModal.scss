@@ -1,0 +1,42 @@
+.loginModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    padding: 10px;
+
+    .closeIcon {
+        align-self: flex-start;
+    }
+
+    .loginModalText {
+        margin-bottom: 20px;
+    }
+
+    .loginButton {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        color: white;
+        direction: ltr;
+        width: 180px;
+        height: 45px;
+        cursor: pointer;
+
+        &.googleLogin {
+            background: #DF4A32;
+            margin-bottom: 10px;
+        }
+
+        &.facebookLogin {
+            background: #33456F;
+        }
+
+        .loginText {
+            margin-left: 20px;
+        }
+    }  
+}
