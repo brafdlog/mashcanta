@@ -2,5 +2,8 @@
     "extends" : ["eslint:recommended", "./canonical.eslintrc.json"],
     "rules": {
         lodash/prefer-lodash-chain: 0
+    },
+    "globals": {
+        "$": true
     }
 }
