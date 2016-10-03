@@ -4,7 +4,7 @@
   "description": "Mortgage optimizer and calculator",
   "main": "''",
   "scripts": {
-    "deploy": "npm run test && npm run build && git push && firebase deploy",
+    "deploy": "npm run test && npm run build && firebase deploy",
     "build": "./build.sh",
     "build:dev": "webpack --progress --colors",
     "clean": "rm -f public/*",
