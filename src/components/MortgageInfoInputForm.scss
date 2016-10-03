@@ -5,12 +5,9 @@
     padding: 0 10px;
 
     .button {
-        display: block;
-        text-align: center;
-        padding: 10px 0;
+        margin-top: 10px;
+        margin-bottom: 5px;
         margin-right: 30px;
-        cursor: pointer;
         transform: rotate(135deg);
-        width: 20px;
     }
 }

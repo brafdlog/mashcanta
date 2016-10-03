@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './MortgageInfoInputForm.scss';
 import MortgageInfoInputRow from './MortgageInfoInputRow';
+import Icon from './Icon';
 import { formattedStringToNumber } from '../utils';
-import { KEREN_SHAVA, SHPITZER, BULLET, STORAGE_PATH_PREFIX } from '../consts';
-import str from '../localization';
+import { KEREN_SHAVA, SHPITZER, BULLET } from '../consts';
 import { observer } from 'mobx-react';
 import _ from 'lodash';
 
@@ -38,7 +38,7 @@ class MortgageInfoInputForm extends React.Component {
             <div className={cx(styles.MortgageInfoInputFormContainer, className)}>
                 <MortgageInfoInputRow key='headerRow' isHeaderRow />
                 {mortgageParts.map((mortgagePart, partIndex) => <MortgageInfoInputRow key={mortgagePart.id} mortgagePart={mortgagePart} onChange={this.onChange} onDelete={this.props.handleDelete} partIndex={partIndex} />)}
-                <img className={cx(styles.button)} src={`${STORAGE_PATH_PREFIX}icons/delete.svg`} alt={str('add')} onClick={handleAddPart} />
+                <Icon id='delete' className={styles.button} onClick={handleAddPart} height={20} />
             </div>
         );
     }
