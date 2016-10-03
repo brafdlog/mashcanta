@@ -24,6 +24,23 @@
             font-size: 14px; /* $regularFontSize */
         }
 
+        /* Temporary to prevent jump when bootstrap css is loaded - START */
+        html body {
+            margin: 0;
+            line-height: 1.42857143;
+        }
+
+        .headingSection .headingSectionParagraph {
+            margin-top: 0;
+            margin-bottom: 14px;
+        }
+        
+        .headingSection .headingSectionTitle {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        /* Temporary to prevent jump when bootstrap css is loaded - END */
+
         .topBar {
             background-color: #363744; /* $darkBackgroundColor */
             height: 40px;
