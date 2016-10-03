@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var getLoaders = require('./webpack.loaders');
 
 module.exports = {
@@ -24,6 +25,8 @@ module.exports = {
 				NODE_ENV: JSON.stringify("production") 
 			}
 		}),
-		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+		// new ExtractTextPlugin('[name].[chunkhash].css')
+		new ExtractTextPlugin('style.css', { disable: false })
 	]
 };

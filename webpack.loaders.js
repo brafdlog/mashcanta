@@ -1,11 +1,14 @@
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = function getLoaders(isProduction) {
 	var sourceMapLoaderParam = isProduction ? '' : '&sourceMap';
 	var postCssLoaderParam = 'importLoaders=1!postcss-loader';
 
-	var cssLoaders = ["style", "css?modules&localIdentName=[name]__[local]___[hash:base64:5]" + sourceMapLoaderParam + '&' + postCssLoaderParam];
-	var sassLoaders = cssLoaders.concat("sass?" + sourceMapLoaderParam);
+	var cssLoaders = '!css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]' + sourceMapLoaderParam + '&' + postCssLoaderParam;
+	var sassLoaders =  cssLoaders + '!sass?' + sourceMapLoaderParam;
 
 	var jsxLoaders = isProduction ? ['babel'] : ['react-hot', 'babel'];
+
 	return [
 		{
 			test: /\.jsx?$/,
@@ -14,11 +17,11 @@ module.exports = function getLoaders(isProduction) {
 		},
 		{
 			test: /\.css$/,
-			loaders: cssLoaders
+			loader: ExtractTextPlugin.extract('style', cssLoaders)
 		},
 		{
 		   test: /\.scss$/,
-		   loaders: sassLoaders
+		   loader: ExtractTextPlugin.extract('style', sassLoaders)
 		},
 		{
 			test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
