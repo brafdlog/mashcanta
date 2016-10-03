@@ -131,14 +131,6 @@ class Root extends React.Component {
         showLoginModal: false
     };
 
-    componentDidMount = () => {
-        $('.loginButton').off('click').on('click', this.openLoginModal);
-    }
-
-    componentWillUnmount = () => {
-        $('.loginButton').off('click');
-    }
-
     closeLoginModal = () => {
         this.setState({
             showLoginModal: false
