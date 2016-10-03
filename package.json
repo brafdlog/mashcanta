@@ -6,6 +6,7 @@
   "scripts": {
     "deploy": "npm run test && npm run build && git push && firebase deploy",
     "build": "./build.sh",
+    "build:dev": "webpack --progress --colors",
     "clean": "rm -f public/*",
     "dev": "webpack-dev-server --port 8181 --progress --profile --colors --hot",
     "test": "NODE_ENV=test mocha ./src/test/**/*.js --compilers js:babel-register",
