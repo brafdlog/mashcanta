@@ -1,6 +1,10 @@
 .MortgageDetailsDisplay {
     display: flex;
     flex-wrap: wrap;
+    
+    // This is a hack for google page speed - when fetching as google flex-wrap doesn't work
+    overflow: scroll;
+
     .infoLineColumn {
         margin-top: 4px;
         flex: 1;
