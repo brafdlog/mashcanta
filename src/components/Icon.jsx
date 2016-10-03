@@ -6,7 +6,8 @@ import _ from 'lodash';
 const { string, func } = PropTypes;
 
 const addPxIfIsNumber = num => {
-    return _.isNumber(Number(num)) ? `${num}px` : num;
+    // Is number doesn't work here because it considers NaN to be a number
+    return _.isFinite(Number(num)) ? `${num}px` : num;
 };
 
 const Icon = observer(({ id, className, color = 'black', width = 35, height = 35, onClick }) => {
