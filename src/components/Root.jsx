@@ -61,9 +61,9 @@ class Root extends React.Component {
         const showAddMortgageRow = getConfig('showAddMortgageRow');
         if (isLoading) {
             return (
-                <div className={styles.loaderContainer}>
+                <Modal>
                     <div className={styles.loader}></div>
-                </div>
+                </Modal>
             );
         }
         return (
