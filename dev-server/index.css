@@ -1,4 +1,4 @@
-body {
+html body {
     direction: rtl;
     background-color: #f1f1f1; /* $siteBackgroundColor */
     color: #363744; /* $fontColor */
