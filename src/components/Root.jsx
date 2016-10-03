@@ -1,23 +1,13 @@
 import React from 'react';
-import MortgageInfoInputForm from './MortgageInfoInputForm';
-import MortgageDetailsDisplay from './MortgageDetailsDisplay';
-import CostOfDollarGraph from './graphs/CostOfDollarGraph';
-import ManageMortgagesRow from './ManageMortgagesRow';
 import UserSection from './UserSection';
 import Modal from './Modal';
 import LoginModal from './LoginModal';
+import CalculatorApp from './CalculatorApp';
 import HeadingSection from './HeadingSection';
-import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
-import { getConfig } from '../config';
-import { signIn, signOut, isAuthEnabled } from '../services/authService';
+import { signOut, isAuthEnabled, signIn } from '../services/authService';
 import styles from './Root.scss';
-import cx from 'classnames';
-// Loaders are specified explicitly because we don't want css modules to run during the loading of these files
-import '!style!css!bootstrap/dist/css/bootstrap.css';
-import '!style!css!bootstrap-rtl/dist/css/bootstrap-rtl.css';
-import '!style!css!react-select/dist/react-select.css';
+import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
 
 const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
 
@@ -61,9 +51,7 @@ class Root extends React.Component {
     }
 
     render() {
-        const { currentMortgage, isLoading, createNewMortgage, mortgages, user } = this.props.stateStore;
-        const { mortgageParts, loanAmount, loanCost, paymentDetailsPerYearMonthlyAverage } = currentMortgage;
-        const showAddMortgageRow = getConfig('showAddMortgageRow');
+        const { isLoading, user } = this.props.stateStore;
         if (isLoading) {
             return (
                 <Modal>
@@ -75,47 +63,16 @@ class Root extends React.Component {
             <div className={styles.allWrapper}>
                 <div className={styles.topBar}>
                     {isAuthEnabled() ?
-                        <UserSection className={styles.UserSection} user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn}
-                            signOut={signOut}
-                        /> : null
+                        <UserSection className={styles.UserSection} user={user} signOut={signOut} /> : null
                     }
                 </div>
-                <div className={styles.content}>
-                    <HeadingSection user={user} handleLoginClick={this.openLoginModal} />
-                    <div className={cx('container-fluid', styles.rootAppContainer)}>
-                        {this.state.showLoginModal ?
-                            <Modal zIndex={150} positionFixed>
-                                <LoginModal facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} closeModal={this.closeLoginModal} />
-                            </Modal> : null
-                        }
-                        {showAddMortgageRow ?
-                            <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
-                        }
-                        <div className='row'>
-                            <div className={cx('col-md-12', styles.mortgageInputFormColumn)}>
-                                <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
-                                    handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
-                                    handleAddPart={this.onAddNewPart}
-                                />
-                            </div>
-                        </div>
-                        <div className='row'>
-                            <div className={cx('col-md-12', styles.MortgageDetailsDisplayContainer)}>
-                                <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
-                            </div>
-                        </div>
-                        <div className={cx('row', styles.graphsRow, styles.equalHeightColumns)}>
-                            <div className={cx(styles.graphColumn, 'col-md-9', 'col-xs-12')}>
-                                <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
-                                    isEmptyData={!currentMortgage.hasValidParts} maxElements={this.isSmallScreen ? 15 : 40}
-                                />
-                            </div>
-                            <div className={cx(styles.graphColumn, 'col-md-3', 'col-xs-12')}>
-                                <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={!currentMortgage.hasValidParts} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <HeadingSection user={user} handleLoginClick={this.openLoginModal} />
+                {this.state.showLoginModal ?
+                    <Modal zIndex={150} positionFixed>
+                        <LoginModal facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} closeModal={this.closeLoginModal} />
+                    </Modal> : null
+                }
+                <CalculatorApp stateStore={this.props.stateStore} />
             </div>
         );
     }
@@ -124,15 +81,15 @@ class Root extends React.Component {
         showLoginModal: false
     };
 
-    closeLoginModal = () => {
-        this.setState({
-            showLoginModal: false
-        });
-    }
-
     openLoginModal = () => {
         this.setState({
             showLoginModal: true
+        });
+    }
+
+    closeLoginModal = () => {
+        this.setState({
+            showLoginModal: false
         });
     }
 
@@ -143,44 +100,6 @@ class Root extends React.Component {
     googleLogin = () => {
         signIn(GOOGLE);
     };
-
-    onChangeCurrentMortgage = ({ target }) => {
-        this.props.stateStore.setCurrentMortgageId(target.value);
-    }
-
-    onDeletePart = (partId) => {
-        const mortgage = this.getCurrentMortgage();
-        mortgage.deletePart(partId);
-    }
-
-    onAddNewPart = () => {
-        const mortgage = this.getCurrentMortgage();
-        mortgage.addPart();
-    }
-
-    onUpdateMortgagePart = (updatedMortgagePart) => {
-        const mortgage = this.getCurrentMortgage();
-        mortgage.updatePart(updatedMortgagePart.id, updatedMortgagePart);
-    }
-
-    onMovePartUp = (partId) => {
-        const mortgage = this.getCurrentMortgage();
-        mortgage.movePartUp(partId);
-    }
-
-    onMovePartDown = (partId) => {
-        const mortgage = this.getCurrentMortgage();
-        mortgage.movePartDown(partId);
-    }
-
-    onClearClicked = () => {
-        const mortgage = this.getCurrentMortgage();
-        mortgage.reset();
-    }
-
-    getCurrentMortgage = () => {
-        return this.props.stateStore.currentMortgage;
-    }
 
 }
 

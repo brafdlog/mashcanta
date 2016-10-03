@@ -1,11 +1,11 @@
 $selectBoxShadow: 1px 1px 1px 0px #bec2cc;
 
 ///// Bootstrap columns equal height - see http://stackoverflow.com/a/19695851/1391050 //////////////////
-:global(.row).equalHeightColumns {
+:global(.row):global(.equalHeightColumns) {
     display: flex;
     flex-wrap: wrap;
 }
-:global(.row).equalHeightColumns > [class*='col-'] {
+:global(.row):global(.equalHeightColumns) > [class*='col-'] {
     display: flex;
     flex-direction: column;
 }
