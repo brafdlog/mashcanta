@@ -23,8 +23,6 @@ UserSection.propTypes = {
         id: string,
         name: string
     }),
-    facebookLogin: func,
-    googleLogin: func,
     signOut: func,
     className: string
 };
