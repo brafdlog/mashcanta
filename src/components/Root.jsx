@@ -82,38 +82,36 @@ class Root extends React.Component {
                 </div>
                 <div className={styles.content}>
                     <HeadingSection user={user} handleLoginClick={this.openLoginModal} />
-                    <div>
-                        <div className={cx('container-fluid', styles.rootAppContainer)}>
-                            {this.state.showLoginModal ?
-                                <Modal zIndex={150} positionFixed>
-                                    <LoginModal facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} closeModal={this.closeLoginModal} />
-                                </Modal> : null
-                            }
-                            {showAddMortgageRow ?
-                                <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
-                            }
-                            <div className='row'>
-                                <div className={cx('col-md-12', styles.mortgageInputFormColumn)}>
-                                    <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
-                                        handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
-                                        handleAddPart={this.onAddNewPart}
-                                    />
-                                </div>
+                    <div className={cx('container-fluid', styles.rootAppContainer)}>
+                        {this.state.showLoginModal ?
+                            <Modal zIndex={150} positionFixed>
+                                <LoginModal facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} closeModal={this.closeLoginModal} />
+                            </Modal> : null
+                        }
+                        {showAddMortgageRow ?
+                            <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
+                        }
+                        <div className='row'>
+                            <div className={cx('col-md-12', styles.mortgageInputFormColumn)}>
+                                <MortgageInfoInputForm mortgageParts={mortgageParts} handleChange={this.onUpdateMortgagePart}
+                                    handleDelete={this.onDeletePart} handleMoveUp={this.onMovePartUp} handleMoveDown={this.onMovePartDown}
+                                    handleAddPart={this.onAddNewPart}
+                                />
                             </div>
-                            <div className='row'>
-                                <div className={cx('col-md-12', styles.MortgageDetailsDisplayContainer)}>
-                                    <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
-                                </div>
+                        </div>
+                        <div className='row'>
+                            <div className={cx('col-md-12', styles.MortgageDetailsDisplayContainer)}>
+                                <MortgageDetailsDisplay mortgageInfo={currentMortgage} />
                             </div>
-                            <div className={cx('row', styles.graphsRow, styles.equalHeightColumns)}>
-                                <div className={cx(styles.graphColumn, 'col-md-9', 'col-xs-12')}>
-                                    <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
-                                        isEmptyData={!currentMortgage.hasValidParts} maxElements={this.isSmallScreen ? 15 : 40}
-                                    />
-                                </div>
-                                <div className={cx(styles.graphColumn, 'col-md-3', 'col-xs-12')}>
-                                    <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={!currentMortgage.hasValidParts} />
-                                </div>
+                        </div>
+                        <div className={cx('row', styles.graphsRow, styles.equalHeightColumns)}>
+                            <div className={cx(styles.graphColumn, 'col-md-9', 'col-xs-12')}>
+                                <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
+                                    isEmptyData={!currentMortgage.hasValidParts} maxElements={this.isSmallScreen ? 15 : 40}
+                                />
+                            </div>
+                            <div className={cx(styles.graphColumn, 'col-md-3', 'col-xs-12')}>
+                                <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={!currentMortgage.hasValidParts} />
                             </div>
                         </div>
                     </div>
