@@ -13,94 +13,10 @@
     להשוות בקלות בין אפשרויות שונות לבניית תמהיל המשכנתא." />
     
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        html body {
-            direction: rtl;
-            background-color: #f1f1f1; /* $siteBackgroundColor */
-            color: #363744; /* $fontColor */
-            font-family: ASISTANT; /* $fontFamily */
-            font-weight: 400; /* $regularFontWeight */
-            font-size: 14px; /* $regularFontSize */
-        }
-
-        /* Temporary to prevent jump when bootstrap css is loaded - START */
-        html body {
-            margin: 0;
-            line-height: 1.42857143;
-        }
-
-        .headingSection .headingSectionParagraph {
-            margin-top: 0;
-            margin-bottom: 14px;
-        }
-        
-        .headingSection .headingSectionTitle {
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        /* Temporary to prevent jump when bootstrap css is loaded - END */
-
-        .topBar {
-            background-color: #363744; /* $darkBackgroundColor */
-            height: 40px;
-        }
-
-        .headingSection {
-            height: 200px;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            /* browser specific prefixes */
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-        }
-
-        .headingSection .headingSectionTitle {
-            font-weight: 800;
-            font-size: 37px;
-        }
-        .headingSection .headingSectionParagraph {
-            max-width: 354px;
-        }
-
-        .loginButton {
-            display: none;
-            background-color:#2bc8ad; /* teal */
-            color: white;
-            width: 100px;
-            line-height: 31px;
-            text-align: center;
-            border-radius: 19px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
-    <div class="topBar">
-        
-    </div>
-    <div class="content">
-        <div class="headingSection">
-            <h1 class="headingSectionTitle"> מחשבון משכנתא</h1>
-            <p class="headingSectionParagraph">מחשבון משכנתא חכם וקל לשימוש. המחשבון מראה בצורה
-            גרפית ברורה את התשלומים על המשכנתא ומאפשר
-    להשוות בקלות בין אפשרויות שונות לבניית תמהיל המשכנתא.</p>
-            <span class='loginButton'> התחבר </span>
-        </div>
-        <div>
-            <div id="myApp"></div>
-        </div>    
-    </div>
+
+    <div id="myApp"></div>
     
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript">

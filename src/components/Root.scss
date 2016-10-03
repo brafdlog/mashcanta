@@ -1,53 +1,91 @@
 @import '../vars';
 @import '../globalStyles';
 
-.rootAppContainer {
-    margin-top: 10px;
-    margin-right: 15px;
-    margin-left: 15px;
+html body {
+    direction: rtl;
+    background-color: $siteBackgroundColor;
+    color: $fontColor;
+    font-family: $fontFamily;
+    font-weight: $regularFontWeight;
+    font-size: $regularFontSize;
 
-    .mortgageInputFormColumn {
-        padding-right: 0;
-        padding-left: 0;
+    .topBar {
+        background-color: $darkBackgroundColor;
+        height: 40px;
+        display: flex;
+        align-items: center;
     }
 
-    // Reduce padding and margin for elements on small screens
-    @media (max-width:500px) {
-        margin-right: 3px;
-        margin-left: 3px;
-        .mortgageInputFormColumn {
-            padding: 3px;
-            .react-bs-table {
-                margin: 0;
-            }
+    .headingSection {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .headingSectionTitle {
+            font-weight: 800;
+            font-size: 37px;
+        }
+
+        .headingSectionParagraph {
+            max-width: 354px;
+        }
+
+        .loginButton {
+            background-color: $teal;
+            color: white;
+            width: 100px;
+            line-height: 31px;
+            text-align: center;
+            border-radius: 19px;
+            cursor: pointer;
         }
     }
 
-    .loginRow {
-        position: absolute;
-        top: 5px;
-    }
+    .rootAppContainer {
+        margin-top: 10px;
+        margin-right: 15px;
+        margin-left: 15px;
 
-    .MortgageDetailsDisplayContainer {
-        margin-top: 3px;
-        margin-bottom: 7px;
-    }
+        .mortgageInputFormColumn {
+            padding-right: 0;
+            padding-left: 0;
+        }
 
-    .graphsRow {
-        margin-bottom: 20px;
-
-        .graphColumn {
-            background: $lightBackgroundColor;
-
-            // Use this workaround only when both columns appear next to each other
-            @media (min-width:992px) {
-                // Can't add margin to the column becuase it will break into a new line - this is the workaround
-                &:not(:first-child) {
-                    border-right: 5px solid $siteBackgroundColor;
+        // Reduce padding and margin for elements on small screens
+        @media (max-width:500px) {
+            margin-right: 3px;
+            margin-left: 3px;
+            .mortgageInputFormColumn {
+                padding: 3px;
+                .react-bs-table {
+                    margin: 0;
                 }
-                // Can't add margin to the column becuase it will break into a new line - this is the workaround
-                &:not(:last-child) {
-                    border-left: 5px solid $siteBackgroundColor;
+            }
+        }
+
+        .MortgageDetailsDisplayContainer {
+            margin-top: 3px;
+            margin-bottom: 7px;
+        }
+
+        .graphsRow {
+            margin-bottom: 20px;
+
+            .graphColumn {
+                background: $lightBackgroundColor;
+
+                // Use this workaround only when both columns appear next to each other
+                @media (min-width:992px) {
+                    // Can't add margin to the column becuase it will break into a new line - this is the workaround
+                    &:not(:first-child) {
+                        border-right: 5px solid $siteBackgroundColor;
+                    }
+                    // Can't add margin to the column becuase it will break into a new line - this is the workaround
+                    &:not(:last-child) {
+                        border-left: 5px solid $siteBackgroundColor;
+                    }
                 }
             }
         }
