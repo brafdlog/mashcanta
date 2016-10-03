@@ -13,6 +13,7 @@ import { getConfig } from '../config';
 import { signIn, signOut, isAuthEnabled } from '../services/authService';
 import styles from './Root.scss';
 import cx from 'classnames';
+import str from '../localization';
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!bootstrap/dist/css/bootstrap.css';
 import '!style!css!bootstrap-rtl/dist/css/bootstrap-rtl.css';
@@ -86,7 +87,7 @@ class Root extends React.Component {
                         גרפית ברורה את התשלומים על המשכנתא ומאפשר
                 להשוות בקלות בין אפשרויות שונות לבניית תמהיל המשכנתא.
                         </p>
-                        {user ? null : <span className={styles.loginButton} onClick={this.openLoginModal}> התחבר </span>}
+                        {user ? null : <span className={styles.loginButton} onClick={this.openLoginModal}> {str('login')} </span>}
                     </div>
                     <div>
                         <div className={cx('container-fluid', styles.rootAppContainer)}>
