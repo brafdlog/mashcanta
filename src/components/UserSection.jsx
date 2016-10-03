@@ -1,13 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import str from '../localization';
-import styles from'./LoginRow.scss';
+import styles from'./UserSection.scss';
 import cx from 'classnames';
 const { func, shape, string } = React.PropTypes;
 
-function LoginRow(props) {
+function UserSection(props) {
     return (
-        <div className={cx(styles.loginRow, props.className)}>
+        <div className={cx(styles.UserSection, props.className)}>
             {props.user ?
                 <div>
                     {props.user.imageUrl ? <img className={styles.userPicture} src={props.user.imageUrl} alt="User's picture" /> : null}
@@ -18,7 +18,7 @@ function LoginRow(props) {
     );
 }
 
-LoginRow.propTypes = {
+UserSection.propTypes = {
     user: shape({
         id: string,
         name: string
@@ -29,4 +29,4 @@ LoginRow.propTypes = {
     className: string
 };
 
-export default observer(LoginRow);
+export default observer(UserSection);

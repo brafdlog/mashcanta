@@ -3,7 +3,7 @@ import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import ManageMortgagesRow from './ManageMortgagesRow';
-import LoginRow from './LoginRow';
+import UserSection from './UserSection';
 import Modal from './Modal';
 import LoginModal from './LoginModal';
 import PaymentsGraph from './graphs/PaymentsGraph';
@@ -73,7 +73,7 @@ class Root extends React.Component {
             <div className={styles.allWrapper}>
                 <div className={styles.topBar}>
                     {isAuthEnabled() ?
-                        <LoginRow className={styles.loginRow} user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn}
+                        <UserSection className={styles.UserSection} user={user} facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} signIn={signIn}
                             signOut={signOut}
                         /> : null
                     }
