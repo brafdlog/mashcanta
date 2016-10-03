@@ -118,7 +118,7 @@ class PaymentsGraph extends React.Component {
                 <Line data={data} options={options} redraw={redraw} />
                 {isEmptyData ?
                     <Modal>
-                        <Icon id='stats' color='#5B62A6' width='20%' height='20%' />
+                        <Icon id='stats' color='#5B62A6' height='20%' />
                     </Modal> : null
                 }
             </div>
