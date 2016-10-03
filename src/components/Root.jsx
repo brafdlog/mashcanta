@@ -6,6 +6,7 @@ import ManageMortgagesRow from './ManageMortgagesRow';
 import UserSection from './UserSection';
 import Modal from './Modal';
 import LoginModal from './LoginModal';
+import HeadingSection from './HeadingSection';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
@@ -13,7 +14,6 @@ import { getConfig } from '../config';
 import { signIn, signOut, isAuthEnabled } from '../services/authService';
 import styles from './Root.scss';
 import cx from 'classnames';
-import str from '../localization';
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!bootstrap/dist/css/bootstrap.css';
 import '!style!css!bootstrap-rtl/dist/css/bootstrap-rtl.css';
@@ -81,14 +81,7 @@ class Root extends React.Component {
                     }
                 </div>
                 <div className={styles.content}>
-                    <div className={styles.headingSection}>
-                        <h1 className={styles.headingSectionTitle}> מחשבון משכנתא</h1>
-                        <p className={styles.headingSectionParagraph}>מחשבון משכנתא חכם וקל לשימוש. המחשבון מראה בצורה
-                        גרפית ברורה את התשלומים על המשכנתא ומאפשר
-                להשוות בקלות בין אפשרויות שונות לבניית תמהיל המשכנתא.
-                        </p>
-                        {user ? null : <span className={styles.loginButton} onClick={this.openLoginModal}> {str('login')} </span>}
-                    </div>
+                    <HeadingSection user={user} handleLoginClick={this.openLoginModal} />
                     <div>
                         <div className={cx('container-fluid', styles.rootAppContainer)}>
                             {this.state.showLoginModal ?

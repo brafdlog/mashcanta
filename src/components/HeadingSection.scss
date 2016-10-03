@@ -1,0 +1,28 @@
+@import '../vars';
+
+.headingSection {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .headingSectionTitle {
+        font-weight: 800;
+        font-size: 37px;
+    }
+
+    .headingSectionParagraph {
+        max-width: 354px;
+    }
+
+    .loginButton {
+        background-color: $teal;
+        color: white;
+        width: 100px;
+        line-height: 31px;
+        text-align: center;
+        border-radius: 19px;
+        cursor: pointer;
+    }
+}
