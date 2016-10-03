@@ -21,12 +21,18 @@ if (isAuthEnabled()) {
         if (user) {
             const { uid, displayName } = user;
             const email = _.get(user, 'providerData[0].email');
+            const providerUserId = _.get(user, 'providerData[0].uid');
+            const provider = _.get(user, 'providerData[0].providerId');
 
             const userInfo = {
                 id: uid,
                 name: displayName,
                 email,
-                imageUrl: user.photoURL
+                imageUrl: user.photoURL,
+                provider: {
+                    provider,
+                    providerUserId
+                }
             };
 
             // User is signed in
