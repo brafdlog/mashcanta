@@ -15,7 +15,7 @@ module.exports = function getLoaders(isProduction) {
 		},
 		{
 		   test: /\.scss$/,
-		   loaders: ["style", "css" + cssLoaderParms, "sass" + cssLoaderParms]
+		   loaders: ["style", "css" + cssLoaderParms, "sass"]
 		},
 		{
 			test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
