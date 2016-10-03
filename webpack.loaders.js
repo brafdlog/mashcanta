@@ -1,7 +1,10 @@
 module.exports = function getLoaders(isProduction) {
 	var sourceMapLoaderParam = isProduction ? '' : '&sourceMap';
 	var postCssLoaderParam = 'importLoaders=1!postcss-loader';
-	var cssLoaderParms = '?modules&localIdentName=[name]__[local]___[hash:base64:5]' + sourceMapLoaderParam + '&' + postCssLoaderParam;
+
+	var cssLoaders = ["style", "css?modules&localIdentName=[name]__[local]___[hash:base64:5]" + sourceMapLoaderParam + '&' + postCssLoaderParam];
+	var sassLoaders = cssLoaders.concat("sass?" + sourceMapLoaderParam);
+
 	var jsxLoaders = isProduction ? ['babel'] : ['react-hot', 'babel'];
 	return [
 		{
@@ -11,11 +14,11 @@ module.exports = function getLoaders(isProduction) {
 		},
 		{
 			test: /\.css$/,
-			loader: 'style-loader!css-loader' + cssLoaderParms
+			loaders: cssLoaders
 		},
 		{
 		   test: /\.scss$/,
-		   loaders: ["style", "css" + cssLoaderParms, "sass"]
+		   loaders: sassLoaders
 		},
 		{
 			test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
