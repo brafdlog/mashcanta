@@ -4,6 +4,7 @@ import { GOOGLE, FACEBOOK } from '../../consts';
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
+facebookProvider.addScope('email');
 
 
 export const registerOnAuthChangeHook = (authChangeHook) => {
