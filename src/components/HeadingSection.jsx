@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import styles from './HeadingSection.scss';
 import str from '../localization';
 
-const { string, func, shape } = PropTypes;
+const { func, bool } = PropTypes;
 
 const HeadingSection = observer(props => {
     return (
@@ -13,16 +13,13 @@ const HeadingSection = observer(props => {
             גרפית ברורה את התשלומים על המשכנתא ומאפשר
     להשוות בקלות בין אפשרויות שונות לבניית תמהיל המשכנתא.
             </p>
-            {props.user ? null : <span className={styles.loginButton} onClick={props.handleLoginClick}> {str('login')} </span>}
+            {props.showLoginButton ? <span className={styles.loginButton} onClick={props.handleLoginClick}> {str('login')} </span> : null}
         </div>
     );
 });
 
 HeadingSection.propTypes = {
-    user: shape({
-        id: string,
-        name: string
-    }),
+    showLoginButton: bool,
     handleLoginClick: func
 };
 

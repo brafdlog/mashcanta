@@ -70,7 +70,7 @@ class Root extends React.Component {
                         <UserSection className={styles.UserSection} user={user} signOut={signOut} /> : null
                     }
                 </div>
-                <HeadingSection user={user} handleLoginClick={this.openLoginModal} />
+                <HeadingSection showLoginButton={!user && !isLoading} handleLoginClick={this.openLoginModal} />
                 {this.state.showLoginModal ?
                     <Modal zIndex={150} positionFixed>
                         <LoginModal facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} closeModal={this.closeLoginModal} />
