@@ -3,6 +3,7 @@ var path = require('path');
 var getLoaders = require('./webpack.loaders');
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: {
@@ -29,7 +30,7 @@ module.exports = {
         cache: true
     },
 	devServer: {
-		contentBase: "./dev-server",
+		contentBase: "./public",
 			noInfo: true, //  --no-info option
 			hot: true,
 			inline: true
@@ -42,7 +43,11 @@ module.exports = {
 		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
 		// The plugin is used only in production so it is disabled for dev. We still define it
 		// here with disabled: true because if we don't the build fails
-		new ExtractTextPlugin('style.css', { disable: true })
+		new ExtractTextPlugin('style.css', { disable: true }),
+		new HtmlWebpackPlugin({
+		  template: 'src/index.html',
+		  filename: './index.html'
+		})
 	],
 	postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ]
 };

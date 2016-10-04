@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var getLoaders = require('./webpack.loaders');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: {
@@ -32,6 +33,9 @@ module.exports = {
 		    compress: {
 		        warnings: false
 		    }
+		}),
+		new HtmlWebpackPlugin({
+		  template: 'src/index.html'
 		})
 	]
 };
