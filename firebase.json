@@ -4,12 +4,15 @@
     },
     "hosting": {
         "public": "public",
-        "headers": [ {
-            "source" : "vendor.bundle.js",
-            "headers" : [ {
-                "key" : "Cache-Control",
-                "value" : "max-age=3600"
-            } ]
-        }]
+        "headers": [ 
+            {
+                "source" : "**/*hash--*",
+                "headers" : [ {
+                    "key" : "Cache-Control",
+                    "value" : "max-age=7200"
+                } ]
+            }
+        ]
     }
 }
+
