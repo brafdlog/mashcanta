@@ -8,7 +8,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	entry: {
 		app: './src/index.jsx',
-		vendor: ['lodash', 'react', 'react-dom']
+		vendor: ['chart.js', 'classnames', 'firebase', 'lodash', 'mobx', 
+			'mobx-react', 'react', 'react-chartjs-2', 'react-dom', 'react-select']
 	},
 	devtool: process.env.WEBPACK_DEVTOOL || 'source-map',
 	output: {

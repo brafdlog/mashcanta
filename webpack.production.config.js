@@ -7,7 +7,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	entry: {
 		app: './src/index.jsx',
-		vendor: ['lodash', 'react', 'react-dom']
+		vendor: ['chart.js', 'classnames', 'firebase', 'lodash', 'mobx', 
+			'mobx-react', 'react', 'react-chartjs-2', 'react-dom', 'react-select']
 	},
 	output: {
 		path: path.join(__dirname, 'public'),
