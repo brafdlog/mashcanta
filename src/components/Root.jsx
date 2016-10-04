@@ -2,7 +2,6 @@ import React from 'react';
 import UserSection from './UserSection';
 import Modal from './Modal';
 import LoginModal from './LoginModal';
-import CalculatorApp from './CalculatorApp';
 import HeadingSection from './HeadingSection';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { signOut, isAuthEnabled, signIn } from '../services/authService';
@@ -56,13 +55,6 @@ class Root extends React.Component {
 
     render() {
         const { isLoading, user } = this.props.stateStore;
-        if (isLoading) {
-            return (
-                <Modal>
-                    <div className={styles.loader}></div>
-                </Modal>
-            );
-        }
         return (
             <div className={styles.allWrapper}>
                 <div className={styles.topBar}>
@@ -76,9 +68,26 @@ class Root extends React.Component {
                         <LoginModal facebookLogin={this.facebookLogin} googleLogin={this.googleLogin} closeModal={this.closeLoginModal} />
                     </Modal> : null
                 }
-                <CalculatorApp stateStore={this.props.stateStore} />
+                {this.state.loadingComponent || isLoading ?
+                    <Modal>
+                        <div className='loader'></div>
+                    </Modal> :
+                    <this.CalculatorApp stateStore={this.props.stateStore} />
+                }
             </div>
         );
+    }
+
+    componentWillMount() {
+        this.setState({
+            loadingComponent: true
+        });
+        require.ensure([], require => {
+            this.CalculatorApp = require('./CalculatorApp').default;
+            this.setState({
+                loadingComponent: false
+            });
+        }, 'CalculatorApp');
     }
 
     state = {
