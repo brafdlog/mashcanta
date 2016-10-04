@@ -24,18 +24,24 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.DefinePlugin({
+			// This sets the environment variable env.
 			'env': JSON.stringify('production'),
 			'process.env': { 
 				NODE_ENV: JSON.stringify("production") 
 			}
 		}),
+		// This plugin extracts code that is common to multiple chunks and puts it in a separate chunk
 		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.hash--[hash].js"),
+		// This plugin extracts all the css that is imported inside the modules to a css file
 		new ExtractTextPlugin('[name].hash--[chunkhash].css', { disable: false }),
 		new webpack.optimize.UglifyJsPlugin({
 		    compress: {
+		    	// If this is not set, every build we get a ton of warnings for uglifyjs that are not interesting
 		        warnings: false
 		    }
 		}),
+		// Builds the html file and injects into it the bundle script tags and css style element.
+		// This is needed because these files are built with a hash that changes when they change.
 		new HtmlWebpackPlugin({
 		  template: 'src/index.html'
 		})
