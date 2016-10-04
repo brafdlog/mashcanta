@@ -13,7 +13,9 @@ module.exports = {
 	devtool: process.env.WEBPACK_DEVTOOL || 'source-map',
 	output: {
 		path: path.join(__dirname, 'public'),
-		filename: 'bundle.js'
+		filename: '[name].js',
+		// This is used for require.ensure.
+		chunkFilename: '[name].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx']
@@ -40,10 +42,10 @@ module.exports = {
 		new webpack.DefinePlugin({
 		  'env': JSON.stringify('dev')
 		}),
-		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.js"),
 		// The plugin is used only in production so it is disabled for dev. We still define it
 		// here with disabled: true because if we don't the build fails
-		new ExtractTextPlugin('style.css', { disable: true }),
+		new ExtractTextPlugin('[name].hash--[chunkhash].css', { disable: true }),
 		new HtmlWebpackPlugin({
 		  template: 'src/index.html',
 		  filename: './index.html'

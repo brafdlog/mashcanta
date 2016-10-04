@@ -11,7 +11,9 @@ module.exports = {
 	},
 	output: {
 		path: path.join(__dirname, 'public'),
-		filename: 'bundle.js'
+		filename: '[name].hash--[chunkhash].js',
+		// This is used for require.ensure.
+		chunkFilename: '[name].hash--[chunkhash].js'
 	},
 	resolve: {
 		extensions: ['', '.js', '.jsx']
@@ -26,9 +28,8 @@ module.exports = {
 				NODE_ENV: JSON.stringify("production") 
 			}
 		}),
-		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
-		// new ExtractTextPlugin('[name].[chunkhash].css')
-		new ExtractTextPlugin('style.css', { disable: false }),
+		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.hash--[hash].js"),
+		new ExtractTextPlugin('[name].hash--[chunkhash].css', { disable: false }),
 		new webpack.optimize.UglifyJsPlugin({
 		    compress: {
 		        warnings: false
