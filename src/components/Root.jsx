@@ -9,6 +9,10 @@ import { signOut, isAuthEnabled, signIn } from '../services/authService';
 import styles from './Root.scss';
 import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
 
+// Loaders are specified explicitly because we don't want css modules to run during the loading of these files
+import '!style!css!bootstrap/dist/css/bootstrap.css';
+import '!style!css!bootstrap-rtl/dist/css/bootstrap-rtl.css';
+
 const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
 
 @observer

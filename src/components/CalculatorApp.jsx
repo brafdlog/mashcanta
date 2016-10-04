@@ -11,8 +11,6 @@ import { getConfig } from '../config';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
-import '!style!css!bootstrap/dist/css/bootstrap.css';
-import '!style!css!bootstrap-rtl/dist/css/bootstrap-rtl.css';
 import '!style!css!react-select/dist/react-select.css';
 
 const { shape, number, arrayOf, string, oneOf, bool } = PropTypes;
