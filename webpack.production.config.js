@@ -27,6 +27,11 @@ module.exports = {
 		}),
 		new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
 		// new ExtractTextPlugin('[name].[chunkhash].css')
-		new ExtractTextPlugin('style.css', { disable: false })
+		new ExtractTextPlugin('style.css', { disable: false }),
+		new webpack.optimize.UglifyJsPlugin({
+		    compress: {
+		        warnings: false
+		    }
+		})
 	]
 };
