@@ -1,0 +1,19 @@
+.PaymentsTableContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+      
+    .tableWrapper {
+        overflow: scroll;
+        max-height: 507px;
+        text-align: center;
+        width: 90%;
+        // Leaving place for scrollbar
+        padding-left: 20px;
+
+        th {
+            text-align: center;
+        }
+    }
+}

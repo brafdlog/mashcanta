@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './CalculatorApp.scss';
+import Icon from './Icon';
+import PaymentsTable from './PaymentsTable';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import ManageMortgagesRow from './ManageMortgagesRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
-import { KEREN_SHAVA, SHPITZER } from '../consts';
+import { KEREN_SHAVA, SHPITZER, CSS } from '../consts';
 import { getConfig } from '../config';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 
@@ -51,8 +53,9 @@ class CalculatorApp extends React.Component {
 
     render() {
         const { currentMortgage, createNewMortgage, mortgages } = this.props.stateStore;
-        const { mortgageParts, loanAmount, loanCost, paymentDetailsPerYearMonthlyAverage } = currentMortgage;
+        const { mortgageParts, loanAmount, loanCost, paymentDetailsPerYearMonthlyAverage, paymentDetailsPerMonth } = currentMortgage;
         const showAddMortgageRow = getConfig('showAddMortgageRow');
+        const isEmptyData = !currentMortgage.hasValidParts;
         return (
             <div className={cx('container-fluid', styles.content, styles.calculatorApp)}>
                 {showAddMortgageRow ?
@@ -73,17 +76,44 @@ class CalculatorApp extends React.Component {
                 </div>
                 <div className={cx('row', styles.graphsRow, 'equalHeightColumns')}>
                     <div className={cx(styles.graphColumn, 'col-md-9', 'col-xs-12')}>
-                        <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
-                            isEmptyData={!currentMortgage.hasValidParts} maxElements={this.isSmallScreen ? 15 : 40}
-                        />
+                        {isEmptyData ?
+                            null :
+                            <div className={styles.graphTableSelectorContainer}>
+                                <Icon className={styles.icon} id='bar-chart' onClick={this.showPaymentsGraph} color={this.state.showPaymentsGraph ? CSS.purple : null} height={20} />
+                                <Icon className={styles.icon} id='table' onClick={this.showPaymentsTable} color={this.state.showPaymentsGraph ? null : CSS.purple} height={20} />
+                            </div>
+                        }
+                        {this.state.showPaymentsGraph ?
+                            <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
+                                isEmptyData={isEmptyData} maxElements={this.isSmallScreen ? 15 : 40}
+                            /> :
+                            <PaymentsTable paymentDetailsPerMonth={paymentDetailsPerMonth} />
+                        }
                     </div>
                     <div className={cx(styles.graphColumn, 'col-md-3', 'col-xs-12')}>
-                        <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={!currentMortgage.hasValidParts} />
+                        <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={isEmptyData} />
                     </div>
                 </div>
+                <div className={styles.iconAttribution}>Icons made by <a href='http://www.flaticon.com/authors/vaadin' title='Vaadin'>Vaadin</a> from <a href='http://www.flaticon.com' title='Flaticon'>www.flaticon.com</a> is licensed by <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative Commons BY 3.0' target='_blank'>CC 3.0 BY</a></div>
             </div>
         );
     }
+
+    state = {
+        showPaymentsGraph: true
+    }
+
+    showPaymentsGraph = () => this.setShowPaymentGraph(true);
+
+    showPaymentsTable = () => this.setShowPaymentGraph(false);
+
+    setShowPaymentGraph = showPaymentsGraph => {
+        if (this.state.showPaymentsGraph !== showPaymentsGraph) {
+            this.setState({
+                showPaymentsGraph
+            });
+        }
+    };
 
     onChangeCurrentMortgage = ({ target }) => {
         this.props.stateStore.setCurrentMortgageId(target.value);

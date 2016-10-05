@@ -32,6 +32,16 @@
         margin-bottom: 20px;
 
         .graphColumn {
+            .graphTableSelectorContainer {
+                margin-top: 15px;
+                display: flex;
+
+                .icon {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+            }
+
             background: $lightBackgroundColor;
 
             // Use this workaround only when both columns appear next to each other
@@ -46,5 +56,9 @@
                 }
             }
         }
+    }
+
+    .iconAttribution {
+        font-size: 10px;
     }
 }

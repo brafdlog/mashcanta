@@ -26,6 +26,7 @@ const ENGLISH_STRINGS = {
     shpitzer: 'shpitzer',
     bullet: 'bullet',
     paymentsGraph: 'Payment Graph',
+    paymentsTable: 'Payment Table',
     login: 'Login',
     logout: 'Log out',
     showInterestSeparately: 'Show interest separately',
@@ -33,7 +34,8 @@ const ENGLISH_STRINGS = {
     changeGraphPeriod: 'Change period on graph',
     payment: 'Payment',
     months: 'Months',
-    loginModalText: 'Login to save your mortgage data'
+    loginModalText: 'Login to save your mortgage data',
+    month: 'Month'
 };
 
 const HEBREW_STRINGS = {
@@ -61,6 +63,7 @@ const HEBREW_STRINGS = {
     shpitzer: 'שפיצר',
     bullet: 'בוליט',
     paymentsGraph: 'גרף תשלומים',
+    paymentsTable: 'טבלת תשלומים',
     login: 'התחבר',
     logout: 'התנתק',
     showInterestSeparately: 'הצג ריבית בנפרד',
@@ -68,7 +71,8 @@ const HEBREW_STRINGS = {
     changeGraphPeriod: 'שנה את התקופה המוצגת בגרף',
     payment: 'תשלום',
     months: 'חודשים',
-    loginModalText: 'התחבר כדי לשמור את המידע שלך'
+    loginModalText: 'התחבר כדי לשמור את המידע שלך',
+    month: 'חודש'
 };
 
 const strings = {
