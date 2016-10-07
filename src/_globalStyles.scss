@@ -19,8 +19,7 @@ $selectBoxShadow: 1px 1px 1px 0px #bec2cc;
 ////////// React-select dropdown styling /////////////////
 :global(.Select-control) {
     box-shadow: $selectBoxShadow;
-    // Make dropdown border not round
-    border-radius: 0;
+    border-radius: $inputBorderRadius;
 }
 :global(.Select-arrow) {
     // Make the arrow black instead of grey

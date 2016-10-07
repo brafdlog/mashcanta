@@ -24,6 +24,8 @@
         border-width: 1px;
         border-style: ridge;
         border-color: $disabledFieldColor;
+        border-radius: $inputBorderRadius;
+        border-style: solid;
 
         &.smallField {
             min-width: 35px;
