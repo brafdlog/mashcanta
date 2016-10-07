@@ -76,7 +76,7 @@ class CalculatorApp extends React.Component {
                     </div>
                 </div>
                 <div className={cx('row', styles.graphsRow, 'equalHeightColumns')}>
-                    <div className={cx(styles.graphColumn, 'col-md-9', 'col-xs-12')}>
+                    <div className={cx(styles.graphColumn, 'col-md-8', 'col-xs-12')}>
                         {isEmptyData ?
                             null :
                             <div className={styles.graphTableSelectorContainer}>
@@ -91,7 +91,7 @@ class CalculatorApp extends React.Component {
                             <PaymentsTable paymentDetailsPerMonth={paymentDetailsPerMonth} />
                         }
                     </div>
-                    <div className={cx(styles.graphColumn, 'col-md-3', 'col-xs-12')}>
+                    <div className={cx(styles.graphColumn, 'col-md-4', 'col-xs-12')}>
                         <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={isEmptyData} />
                     </div>
                 </div>
