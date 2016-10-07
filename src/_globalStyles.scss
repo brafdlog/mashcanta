@@ -20,6 +20,7 @@ $selectBoxShadow: 1px 1px 1px 0px #bec2cc;
 :global(.Select-control) {
     box-shadow: $selectBoxShadow;
     border-radius: $inputBorderRadius;
+    border-color: $inputBorderColor;
 }
 :global(.Select-arrow) {
     // Make the arrow black instead of grey
