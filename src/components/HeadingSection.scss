@@ -1,11 +1,13 @@
 @import '../vars';
 
 .headingSection {
-    height: 200px;
+    height: 430px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: url($storageUrl + 'images/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F+%D7%9E%D7%A9%D7%9B%D7%A0%D7%AA%D7%90.jpg');
+    background-position-y: -220px;
 
     .headingSectionTitle {
         font-weight: 800;
