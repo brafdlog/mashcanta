@@ -47,7 +47,8 @@ class CalculatorApp extends React.Component {
                     amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
                 }))
             })),
-            isLoading: bool
+            isLoading: bool,
+            className: string
         })
     }
 
@@ -57,7 +58,7 @@ class CalculatorApp extends React.Component {
         const showAddMortgageRow = getConfig('showAddMortgageRow');
         const isEmptyData = !currentMortgage.hasValidParts;
         return (
-            <div className={cx('container-fluid', styles.content, styles.calculatorApp)}>
+            <div className={cx('container-fluid', styles.content, styles.calculatorApp, this.props.className)}>
                 {showAddMortgageRow ?
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
