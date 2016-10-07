@@ -45,13 +45,13 @@ describe('utils test', function() {
     });
 
     it('should format whole dollar amount correctly', function() {
-        expect(formatWholeDollarAmount(1)).to.equal('₪1');
-        expect(formatWholeDollarAmount(13)).to.equal('₪13');
-        expect(formatWholeDollarAmount(100)).to.equal('₪100');
-        expect(formatWholeDollarAmount(1000)).to.equal('₪1,000');
-        expect(formatWholeDollarAmount(25413)).to.equal('₪25,413');
-        expect(formatWholeDollarAmount(412321)).to.equal('₪412,321');
-        expect(formatWholeDollarAmount(1534212)).to.equal('₪1,534,212');
+        expect(formatWholeDollarAmount(1)).to.equal('1 ₪');
+        expect(formatWholeDollarAmount(13)).to.equal('13 ₪');
+        expect(formatWholeDollarAmount(100)).to.equal('100 ₪');
+        expect(formatWholeDollarAmount(1000)).to.equal('1,000 ₪');
+        expect(formatWholeDollarAmount(25413)).to.equal('25,413 ₪');
+        expect(formatWholeDollarAmount(412321)).to.equal('412,321 ₪');
+        expect(formatWholeDollarAmount(1534212)).to.equal('1,534,212 ₪');
     });
 
     it('should format precent correctly', function() {
