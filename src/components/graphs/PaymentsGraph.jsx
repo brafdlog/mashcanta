@@ -114,7 +114,6 @@ class PaymentsGraph extends React.Component {
         };
         return (
             <div className={cx(styles.PaymentsGraphContainer, className)}>
-                <h3 className={styles.graphTitle}>{str('paymentsGraph')}</h3>
                 <Line data={data} options={options} redraw={redraw} />
                 {isEmptyData ?
                     <Modal>

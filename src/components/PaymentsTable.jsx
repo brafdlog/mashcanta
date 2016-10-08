@@ -25,7 +25,6 @@ class PaymentsTable extends React.Component {
 
         return (
             <div className={cx(styles.PaymentsTableContainer, className)}>
-                <h3 className={styles.graphTitle}>{str('paymentsTable')}</h3>
                 <div className={styles.tableWrapper}>
                     <table className={cx('table', 'table-bordered', 'table-striped', 'table-condensed', styles.paymentsTable, styles['table-fixedheader'])}>
                         <thead>

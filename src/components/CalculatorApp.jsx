@@ -9,6 +9,7 @@ import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import ManageMortgagesRow from './ManageMortgagesRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
 import { KEREN_SHAVA, SHPITZER, CSS } from '../consts';
+import str from '../localization';
 import { getConfig } from '../config';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 
@@ -55,6 +56,7 @@ class CalculatorApp extends React.Component {
     render() {
         const { currentMortgage, createNewMortgage, mortgages } = this.props.stateStore;
         const { mortgageParts, loanAmount, loanCost, paymentDetailsPerYearMonthlyAverage, paymentDetailsPerMonth } = currentMortgage;
+        const { showPaymentsGraph } = this.state;
         const showAddMortgageRow = getConfig('showAddMortgageRow');
         const isEmptyData = !currentMortgage.hasValidParts;
         return (
@@ -77,14 +79,15 @@ class CalculatorApp extends React.Component {
                 </div>
                 <div className={cx('row', styles.graphsRow, 'equalHeightColumns')}>
                     <div className={cx(styles.graphColumn, 'col-md-8', 'col-xs-12')}>
+                        <h3 className={styles.graphTitle}>{showPaymentsGraph ? str('paymentsGraph') : str('paymentsTable')}</h3>
                         {isEmptyData ?
                             null :
                             <div className={styles.graphTableSelectorContainer}>
-                                <Icon className={styles.icon} id='bar-chart' onClick={this.showPaymentsGraph} color={this.state.showPaymentsGraph ? CSS.purple : null} height={20} />
-                                <Icon className={styles.icon} id='table' onClick={this.showPaymentsTable} color={this.state.showPaymentsGraph ? null : CSS.purple} height={20} />
+                                <Icon className={styles.icon} id='bar-chart' onClick={this.showPaymentsGraph} color={showPaymentsGraph ? CSS.purple : null} height={20} />
+                                <Icon className={styles.icon} id='table' onClick={this.showPaymentsTable} color={showPaymentsGraph ? null : CSS.purple} height={20} />
                             </div>
                         }
-                        {this.state.showPaymentsGraph ?
+                        {showPaymentsGraph ?
                             <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
                                 isEmptyData={isEmptyData} maxElements={this.isSmallScreen ? 15 : 40}
                             /> :

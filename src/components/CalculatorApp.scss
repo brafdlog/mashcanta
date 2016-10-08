@@ -42,6 +42,9 @@
                 }
             }
 
+            .graphTitle {
+                align-self: center;
+            }
             background: $lightBackgroundColor;
 
             // Use this workaround only when both columns appear next to each other
