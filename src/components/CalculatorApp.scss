@@ -32,6 +32,8 @@
         margin-bottom: 20px;
 
         .graphColumn {
+            background: $lightBackgroundColor;
+
             .graphTableSelectorContainer {
                 margin-top: 15px;
                 display: flex;
@@ -45,7 +47,6 @@
             .graphTitle {
                 align-self: center;
             }
-            background: $lightBackgroundColor;
 
             // Use this workaround only when both columns appear next to each other
             @media (min-width:992px) {
