@@ -71,7 +71,7 @@ const HEBREW_STRINGS = {
     changeGraphPeriod: 'שנה את התקופה המוצגת בגרף',
     payment: 'תשלום',
     months: 'חודשים',
-    loginModalText: 'התחבר כדי לשמור את המידע שלך',
+    loginModalText: 'התחבר/י כדי לשמור את המידע שלך',
     month: 'חודש'
 };
 
