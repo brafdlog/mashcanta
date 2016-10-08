@@ -6,6 +6,7 @@ import Icon from './Icon';
 import { formattedStringToNumber } from '../utils';
 import { KEREN_SHAVA, SHPITZER, BULLET } from '../consts';
 import { observer } from 'mobx-react';
+import str from '../localization';
 import _ from 'lodash';
 
 const { func, shape, number, arrayOf, string, oneOf } = PropTypes;
@@ -38,7 +39,10 @@ class MortgageInfoInputForm extends React.Component {
             <div className={cx(styles.MortgageInfoInputFormContainer, className)}>
                 <MortgageInfoInputRow key='headerRow' isHeaderRow />
                 {mortgageParts.map((mortgagePart, partIndex) => <MortgageInfoInputRow key={mortgagePart.id} mortgagePart={mortgagePart} onChange={this.onChange} onDelete={this.props.handleDelete} partIndex={partIndex} />)}
-                <Icon id='add' className={styles.button} onClick={handleAddPart} height={20} color={CSS.fontColor} />
+                <div className={styles.addPartRow} onClick={handleAddPart}>
+                    {str('addPart')}
+                    <Icon id='add' className={styles.button} height={20} color={CSS.fontColor} />
+                </div>
             </div>
         );
     }
