@@ -72,6 +72,9 @@ describe('utils test', function() {
         expect(formattedStringToNumber('₪1,000')).to.equal(1000);
         expect(formattedStringToNumber('₪25,413')).to.equal(25413);
         expect(formattedStringToNumber('₪412,321')).to.equal(412321);
+
+        expect(formattedStringToNumber('₪ 1,000')).to.equal(1000);
+        expect(formattedStringToNumber('1,000 ₪ 5')).to.equal(10005);
     });
 
     it('should convert rgb to rgba correctly', function() {

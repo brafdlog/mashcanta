@@ -50,7 +50,7 @@ export const formattedStringToNumber = fomattedStr => {
     if (_.isNumber(fomattedStr)) {
         return fomattedStr;
     }
-    const withoutFormattingChars = replaceAll(fomattedStr, `[,%${str('currencySymbol')}]`, '');
+    const withoutFormattingChars = replaceAll(fomattedStr, `[,%${str('currencySymbol')} ]`, '');
     return Number(withoutFormattingChars);
 };
 
