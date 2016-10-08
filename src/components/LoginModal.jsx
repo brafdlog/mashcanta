@@ -9,7 +9,7 @@ const { func, string } = React.PropTypes;
 function LoginModal(props) {
     return (
         <div className={cx(styles.loginModal, props.className)}>
-            <Icon id='delete' className={styles.closeIcon} height='13' onClick={props.closeModal} />
+            <Icon id='close' className={styles.closeIcon} height='20' onClick={props.closeModal} />
             <p className={styles.loginModalText}> {str('loginModalText')}</p>
             <div className={cx(styles.loginButton, styles.googleLogin)} onClick={props.googleLogin}>
                 <Icon id='google' height='20' color='white' />
