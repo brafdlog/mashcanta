@@ -11,5 +11,6 @@ export const CSS = {
     tealRGB: 'rgb(43,200,173)',
     purple: '#828ced',
     purpleRGB: 'rgb(130,140,237)',
-    fontColor: '#363744'
+    fontColor: '#363744',
+    red: '#d93434'
 };

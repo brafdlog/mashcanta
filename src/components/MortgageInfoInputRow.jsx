@@ -92,7 +92,9 @@ class MortgageInfoInputRow extends React.Component {
                     <input type='text' className={cx(styles.inputField, styles.smallField)} value={this.state.numYears} {...inputEventHandlerProps} data-attribute-name='numYears' />
                     <input type='text' className={cx(styles.inputField, styles.smallField)} value={formatPrecent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
                     <input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} value={formatWholeDollarAmount(mortgagePart.monthlyPayment)} readOnly />
-                    <Icon id='delete' className={styles.removeIcon} onClick={this.handleDeletePart} height={20} color={CSS.fontColor} />
+                    <Icon id='delete' className={styles.removeIcon} onClick={this.handleDeletePart} height={20} color={CSS.fontColor}
+                        hoverColor={CSS.red}
+                    />
                 </div>
             );
         }
