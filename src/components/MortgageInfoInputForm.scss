@@ -25,6 +25,10 @@
 :global(.mobile) {
     .addPartRow {
         max-width: 120px;
+
+        &:hover {
+            background-color: inherit;
+        }
     }
 }
 
