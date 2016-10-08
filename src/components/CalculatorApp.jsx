@@ -111,9 +111,14 @@ class CalculatorApp extends React.Component {
     showPaymentsTable = () => this.setShowPaymentGraph(false);
 
     setShowPaymentGraph = showPaymentsGraph => {
+        const currentScrollX = window.scrollX;
+        const currentScrollY = window.scrollY;
         if (this.state.showPaymentsGraph !== showPaymentsGraph) {
             this.setState({
                 showPaymentsGraph
+            }, () => {
+                // Fix bug that when clicking show graph icon, the scoll y position would jump
+                scrollTo(currentScrollX, currentScrollY);
             });
         }
     };
