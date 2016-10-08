@@ -5,9 +5,7 @@
     flex-wrap: wrap;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom-width: 1px;
-    border-bottom-style: ridge;
-    border-bottom-color: $disabledFieldColor;
+    border-bottom: 1px ridge $disabledFieldColor;
 
     .partIndex {
         align-self: center;
@@ -21,11 +19,8 @@
         min-width: 75px;
         text-align: center;
         margin-left: 10px;
-        border-width: 1px;
-        border-style: ridge;
-        border-color: $inputBorderColor;
+        border: 1px solid $inputBorderColor;
         border-radius: $inputBorderRadius;
-        border-style: solid;
 
         &.smallField {
             min-width: 35px;
