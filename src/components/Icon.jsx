@@ -5,46 +5,54 @@ import _ from 'lodash';
 
 const { string, func, oneOfType, number } = PropTypes;
 
-const addPxIfIsNumber = num => {
-    // Is number doesn't work here because it considers NaN to be a number
-    return _.isFinite(Number(num)) ? `${num}px` : num;
-};
+@observer
+class Icon extends React.Component {
 
-const Icon = observer(({ id, className, color = 'black', width, height, onClick }) => {
-    // Default to having width equal height when only one of them is defined
-    if (height && (!width && width !== 0)) {
-        width = height; // eslint-disable-line no-param-reassign
-    }
-    if (width && (!height && height !== 0)) {
-        height = width; // eslint-disable-line no-param-reassign
+    static propTypes = {
+        id: string,
+        color: string,
+        width: oneOfType([string, number]),
+        height: oneOfType([string, number]),
+        onClick: func
     }
 
-    const svgElementStyle = {
-        width: addPxIfIsNumber(width),
-        height: addPxIfIsNumber(height)
-    };
+    render() {
+        const { id, className, color = 'black', onClick } = this.props;
+        let { width, height } = this.props;
 
-    if (onClick) {
-        svgElementStyle.cursor = 'pointer';
+        // Default to having width equal height when only one of them is defined
+        if (height && (!width && width !== 0)) {
+            width = height;
+        }
+        if (width && (!height && height !== 0)) {
+            height = width;
+        }
+
+        const svgElementStyle = {
+            width: this.addPxIfIsNumber(width),
+            height: this.addPxIfIsNumber(height)
+        };
+
+        if (onClick) {
+            svgElementStyle.cursor = 'pointer';
+        }
+
+        const useElementStyle = {};
+        if (color) {
+            useElementStyle.fill = color;
+        }
+        return (
+            <svg className={cx(className)} style={svgElementStyle} onClick={onClick}>
+                <use xlinkHref={`#${id}`} style={useElementStyle} />
+            </svg>
+        );
     }
 
-    const useElementStyle = {};
-    if (color) {
-        useElementStyle.fill = color;
+    addPxIfIsNumber = num => {
+        // Is number doesn't work here because it considers NaN to be a number
+        return _.isFinite(Number(num)) ? `${num}px` : num;
     }
-    return (
-        <svg className={cx(className)} style={svgElementStyle} onClick={onClick}>
-            <use xlinkHref={`#${id}`} style={useElementStyle} />
-        </svg>
-    );
-});
 
-Icon.propTypes = {
-    id: string,
-    color: string,
-    width: oneOfType([string, number]),
-    height: oneOfType([string, number]),
-    onClick: func
-};
+}
 
 export default Icon;
