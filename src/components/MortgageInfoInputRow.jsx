@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './MortgageInfoInputRow.scss';
 import { formatWholeDollarAmount, formatPrecent, formattedStringToNumber } from '../utils';
-import { KEREN_SHAVA, SHPITZER, BULLET } from '../consts';
+import { KEREN_SHAVA, SHPITZER, BULLET, CSS } from '../consts';
 import Icon from './Icon';
 import str from '../localization';
 import { observer } from 'mobx-react';
@@ -92,7 +92,7 @@ class MortgageInfoInputRow extends React.Component {
                     <input type='text' className={cx(styles.inputField, styles.smallField)} value={this.state.numYears} {...inputEventHandlerProps} data-attribute-name='numYears' />
                     <input type='text' className={cx(styles.inputField, styles.smallField)} value={formatPrecent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
                     <input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} value={formatWholeDollarAmount(mortgagePart.monthlyPayment)} readOnly />
-                    <Icon id='delete' className={styles.removeIcon} onClick={this.handleDeletePart} height={20} />
+                    <Icon id='delete' className={styles.removeIcon} onClick={this.handleDeletePart} height={20} color={CSS.fontColor} />
                 </div>
             );
         }

@@ -10,5 +10,6 @@ export const CSS = {
     teal: '#2bc8ad',
     tealRGB: 'rgb(43,200,173)',
     purple: '#828ced',
-    purpleRGB: 'rgb(130,140,237)'
+    purpleRGB: 'rgb(130,140,237)',
+    fontColor: '#363744'
 };
