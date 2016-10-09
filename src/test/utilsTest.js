@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { observer } from 'mobx';
 import { generateId, removeAllDecimals, retainNDecimals, addCommasToNumber, 
-    formatWholeDollarAmount, formatPrecent, replaceAll, formattedStringToNumber,
+    formatWholeDollarAmount, formatPercent, replaceAll, formattedStringToNumber,
     convertRgbToRgba } from '../utils';
 
 const ALLOWED_DIFFERENCE = 1;
@@ -55,11 +55,11 @@ describe('utils test', function() {
     });
 
     it('should format precent correctly', function() {
-        expect(formatPrecent()).to.equal('0%');
-        expect(formatPrecent(5)).to.equal('5%');
-        expect(formatPrecent(5.7)).to.equal('5.7%');
-        expect(formatPrecent(5.7647)).to.equal('5.76%');
-        expect(formatPrecent(3142.24215)).to.equal('3142.24%');
+        expect(formatPercent()).to.equal('0%');
+        expect(formatPercent(5)).to.equal('5%');
+        expect(formatPercent(5.7)).to.equal('5.7%');
+        expect(formatPercent(5.7647)).to.equal('5.76%');
+        expect(formatPercent(3142.24215)).to.equal('3142.24%');
     });
 
     it('should do replace all in a string correclty', function() {

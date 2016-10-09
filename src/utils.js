@@ -40,7 +40,7 @@ export const addCommasToNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(
 
 export const formatWholeDollarAmount = (original) => addCommasToNumber(removeAllDecimals(original)) + ' ' + str('currencySymbol');
 
-export const formatPrecent = (original) => retainNDecimals(original, 2) + '%';
+export const formatPercent = (original) => retainNDecimals(original, 2) + '%';
 
 export const replaceAll = (originalString, search, replacement) => {
     return originalString.replace(new RegExp(search, 'g'), replacement);

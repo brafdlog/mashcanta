@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './MortgageInfoInputRow.scss';
-import { formatWholeDollarAmount, formatPrecent, formattedStringToNumber } from '../utils';
+import { formatWholeDollarAmount, formatPercent, formattedStringToNumber } from '../utils';
 import { KEREN_SHAVA, SHPITZER, BULLET, CSS } from '../consts';
 import Icon from './Icon';
 import str from '../localization';
@@ -90,7 +90,7 @@ class MortgageInfoInputRow extends React.Component {
                     />
                     <input type='text' className={cx(styles.inputField)} value={formatWholeDollarAmount(this.state.loanAmount)} {...inputEventHandlerProps} data-attribute-name='loanAmount' />
                     <input type='text' className={cx(styles.inputField, styles.smallField)} value={this.state.numYears} {...inputEventHandlerProps} data-attribute-name='numYears' />
-                    <input type='text' className={cx(styles.inputField, styles.smallField)} value={formatPrecent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
+                    <input type='text' className={cx(styles.inputField, styles.smallField)} value={formatPercent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
                     <input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} value={formatWholeDollarAmount(mortgagePart.monthlyPayment)} readOnly />
                     <Icon id='delete' className={styles.removeIcon} onClick={this.handleDeletePart} height={20} color={CSS.fontColor}
                         hoverColor={CSS.red}
