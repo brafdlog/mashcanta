@@ -14,3 +14,6 @@ export const CSS = {
     fontColor: '#363744',
     red: '#d93434'
 };
+
+export const WHOLE_DOLLAR_AMOUT = 'wholeDollarAmount';
+export const PERCENT = 'percent';

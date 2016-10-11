@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './MortgageInfoInputRow.scss';
-import { formatWholeDollarAmount, formatPercent, formattedStringToNumber } from '../utils';
-import { KEREN_SHAVA, SHPITZER, BULLET, CSS } from '../consts';
+import { KEREN_SHAVA, SHPITZER, BULLET, CSS, WHOLE_DOLLAR_AMOUT, PERCENT } from '../consts';
 import Icon from './Icon';
+import Input from './Input';
 import str from '../localization';
 import { observer } from 'mobx-react';
 import Select from 'react-select';
-import _ from 'lodash';
 
 const { shape, number, string, oneOf, func, bool } = PropTypes;
 
@@ -75,12 +74,6 @@ class MortgageInfoInputRow extends React.Component {
         } else {
             const { amortizationType } = mortgagePart;
             const partIndexTxt = `${partIndex + 1}.`;
-            const inputEventHandlerProps = {
-                onBlur: this.handleInputBlur,
-                onChange: this.handleInputChange,
-                onKeyPress: this.handleKeyPress,
-                onFocus: this.handleFocus
-            };
             return (
                 <div className={cx(styles.MortgageInfoInputRow, className)}>
                     <span className={cx(styles.partIndex, 'hidden-xs')}>{partIndexTxt}</span>
@@ -88,10 +81,12 @@ class MortgageInfoInputRow extends React.Component {
                     <Select className={cx(styles.inputField, styles.selectBox)} options={AMORTIZATION_TYPE_OPTIONS} value={amortizationType} searchable={false} clearable={false}
                         onChange={this.handleChangeAmortizationType}
                     />
-                    <input type='text' className={cx(styles.inputField)} value={formatWholeDollarAmount(this.state.loanAmount)} {...inputEventHandlerProps} data-attribute-name='loanAmount' />
-                    <input type='text' className={cx(styles.inputField, styles.smallField)} value={this.state.numYears} {...inputEventHandlerProps} data-attribute-name='numYears' />
-                    <input type='text' className={cx(styles.inputField, styles.smallField)} value={formatPercent(this.state.yearlyInterest)} {...inputEventHandlerProps} data-attribute-name='yearlyInterest' />
-                    <input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} value={formatWholeDollarAmount(mortgagePart.monthlyPayment)} readOnly />
+                    <Input className={cx(styles.inputField)} value={mortgagePart.loanAmount} displayFormattingType={WHOLE_DOLLAR_AMOUT} onBlur={this.handleInputBlur} domAttributes={{ 'data-attribute-name': 'loanAmount' }} />
+                    <Input type='text' className={cx(styles.inputField, styles.smallField)} value={mortgagePart.numYears} onBlur={this.handleInputBlur} domAttributes={{ 'data-attribute-name': 'numYears' }} />
+                    <Input type='text' className={cx(styles.inputField, styles.smallField)} displayFormattingType={PERCENT} value={mortgagePart.yearlyInterest} onBlur={this.handleInputBlur}
+                        domAttributes={{ 'data-attribute-name': 'yearlyInterest' }}
+                    />
+                    <Input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} displayFormattingType={WHOLE_DOLLAR_AMOUT} value={mortgagePart.monthlyPayment} readOnly />
                     <Icon id='delete' className={styles.removeIcon} onClick={this.handleDeletePart} height={20} color={CSS.fontColor}
                         hoverColor={CSS.red}
                     />
@@ -100,32 +95,10 @@ class MortgageInfoInputRow extends React.Component {
         }
     }
 
-    handleFocus({ target }) {
-        // Select all text in the input
-        target.setSelectionRange(0, target.value.length);
-    }
-
-    handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            event.target.blur();
-        }
-    }
-
-    handleInputChange = ({ target }) => {
-        const attributeName = target.getAttribute('data-attribute-name');
-        const newValue = formattedStringToNumber(target.value);
-        this.setState({
-            [attributeName]: newValue
-        });
-    }
-
-    handleInputBlur = ({ target }) => {
+    handleInputBlur = (value, eventTarget) => {
         const { mortgagePart, onChange } = this.props;
-        const attributeName = target.getAttribute('data-attribute-name');
-        const newValue = formattedStringToNumber(target.value);
-        if (_.isNumber(newValue)) {
-            onChange(mortgagePart.id, attributeName, newValue);
-        }
+        const attributeName = eventTarget.getAttribute('data-attribute-name');
+        onChange(mortgagePart.id, attributeName, value);
     }
 
     handleDropdownSelection = (attributeName, { value }) => {

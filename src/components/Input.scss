@@ -1,0 +1,8 @@
+@import '../vars';
+
+.inputField {
+
+    &[readOnly] {
+        background-color: $disabledFieldColor;
+    }
+}
