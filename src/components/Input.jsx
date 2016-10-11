@@ -4,6 +4,7 @@ import styles from './Input.scss';
 import { WHOLE_DOLLAR_AMOUT, PERCENT } from '../consts';
 import { formatWholeDollarAmount, formatPercent } from '../utils';
 import { observer } from 'mobx-react';
+import ReactTooltip from 'react-tooltip';
 import _ from 'lodash';
 
 const { string, number, oneOf, func, bool, object, oneOfType, arrayOf } = PropTypes;
@@ -43,9 +44,9 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, domAttributes, invalidClassName, readOnly } = this.props;
+        const { className, domAttributes, invalidClassName, readOnly, direction } = this.props;
         const { value, isFocused, validationErrors } = this.state;
-        const isInvalid = validationErrors.length > 0;
+        const isInvalid = this.isInvalid(this.state);
         const inputEventHandlerProps = readOnly ? null : {
             onBlur: this.handleInputBlur,
             onChange: this.handleInputChange,
@@ -61,10 +62,28 @@ class Input extends React.Component {
             direction
         };
         return (
-            <input type='text' className={cx(styles.inputField, className, { [classNameIfInvalid]: isInvalid })} value={valueToDisplay}
+            <input type='text' ref={this.setReferenceToElement} className={cx(styles.inputField, className, { [classNameIfInvalid]: isInvalid })} value={valueToDisplay}
                 style={style} {...inputEventHandlerProps} {...domAttributes} readOnly={readOnly}
+                data-tip={isInvalid ? validationErrors[0] : null} data-for='validationWarning'
             />
         );
+    }
+
+    setReferenceToElement = element => {
+        this.inputElement = element;
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        // If should show tooltip and the text changed
+        const shouldCallShowTooltip = this.isInvalid(this.state) && prevState.validationErrors[0] !== this.state.validationErrors[0];
+        const shouldCallHideTooltip = !this.isInvalid(this.state) && this.isInvalid(prevState);
+
+        console.log(`Prev errors: ${prevState.validationErrors[0]}\n currentErrors: ${this.state.validationErrors[0]}\nshould show: ${shouldCallShowTooltip}\nshould hide: ${shouldCallHideTooltip}`);
+        if (shouldCallShowTooltip) {
+            ReactTooltip.show(this.inputElement);
+        } else if (shouldCallHideTooltip) {
+            ReactTooltip.hide();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -72,6 +91,10 @@ class Input extends React.Component {
         this.setState({
             value: nextProps.value
         });
+    }
+
+    isInvalid = state => {
+        return state.validationErrors.length > 0;
     }
 
     handleFocus = ({ target }) => {

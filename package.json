@@ -33,7 +33,8 @@
     "react": "15.3.0",
     "react-chartjs-2": "^1.2.3",
     "react-dom": "15.3.0",
-    "react-select": "^1.0.0-rc.2"
+    "react-select": "^1.0.0-rc.2",
+    "react-tooltip": "^3.2.1"
   },
   "devDependencies": {
     "babel-core": "6.7.7",

@@ -9,6 +9,7 @@ import str from '../localization';
 import { observer } from 'mobx-react';
 import Select from 'react-select';
 import _ from 'lodash';
+import ReactTooltip from 'react-tooltip';
 
 const { shape, number, string, oneOf, func, bool } = PropTypes;
 
@@ -78,6 +79,7 @@ class MortgageInfoInputRow extends React.Component {
             const partIndexTxt = `${partIndex + 1}.`;
             return (
                 <div className={cx(styles.MortgageInfoInputRow, className)}>
+                    <ReactTooltip id='validationWarning' effect='solid' />
                     <span className={cx(styles.partIndex, 'hidden-xs')}>{partIndexTxt}</span>
                     {showMaslul ? <Select className={cx(styles.inputField, styles.selectBox)} options={HATZMADA_TYPE_OPTIONS} value={amortizationType} searchable={false} clearable={false} /> : null}
                     <Select className={cx(styles.inputField, styles.selectBox)} options={AMORTIZATION_TYPE_OPTIONS} value={amortizationType} searchable={false} clearable={false}
