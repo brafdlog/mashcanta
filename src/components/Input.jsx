@@ -24,11 +24,13 @@ class Input extends React.Component {
         displayFormattingType: oneOf([WHOLE_DOLLAR_AMOUT, PERCENT]),
         displayFormattingFunction: func,
         validationFunctions: oneOfType([func, arrayOf(func)]),
-        readOnly: bool
+        readOnly: bool,
+        direction: oneOf(['ltr', 'rtl'])
     }
 
     static defaultProps = {
-        selectAllInputOnFocus: true
+        selectAllInputOnFocus: true,
+        direction: 'ltr'
     }
 
     constructor(props) {
@@ -54,9 +56,13 @@ class Input extends React.Component {
         const valueToDisplay = isFocused ? value : this.formatForDisplay(value);
         // If got a custom invalid calss name, use it. Otherwise use the default invalid styles
         const classNameIfInvalid = invalidClassName || styles.invalid;
+
+        const style = {
+            direction
+        };
         return (
             <input type='text' className={cx(styles.inputField, className, { [classNameIfInvalid]: isInvalid })} value={valueToDisplay}
-                {...inputEventHandlerProps} {...domAttributes} readOnly={readOnly}
+                style={style} {...inputEventHandlerProps} {...domAttributes} readOnly={readOnly}
             />
         );
     }
