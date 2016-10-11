@@ -277,6 +277,53 @@ describe('Mortgage tests', function() {
         });
     })
 
+    describe('avergage monthly payment', function() {
+        it('should calculate average monthly payment correctly for simple BULLET mortgage', function() {
+            const mortgage = new Mortgage();
+
+            const newPartId = mortgage.addPart({
+                loanAmount: 100000,
+                numYears: 5,
+                yearlyInterest: 3,
+                amortizationType: BULLET
+            });
+
+            expect(mortgage.averageMonthlyPayment).to.equal(250);
+        });
+
+        it('should calculate average monthly payment correctly for BULLET mortgage', function() {
+            const mortgage = new Mortgage();
+
+            mortgage.addPart({
+                loanAmount: 100000,
+                numYears: 5,
+                yearlyInterest: 3,
+                amortizationType: BULLET
+            });
+
+            mortgage.addPart({
+                loanAmount: 200000,
+                numYears: 7,
+                yearlyInterest: 7,
+                amortizationType: BULLET
+            });
+
+            expect(mortgage.averageMonthlyPayment).to.be.closeTo(1345.57, ALLOWED_DIFFERENCE);
+        });
+
+        it('should calculate average monthly payment correctly for simple SHPITZER mortgage', function() {
+            const mortgage = new Mortgage();
+
+            const newPartId = mortgage.addPart({
+                loanAmount: 100000,
+                numYears: 5,
+                yearlyInterest: 3,
+                amortizationType: SHPITZER
+            });
+
+            expect(mortgage.averageMonthlyPayment).to.be.closeTo(1797, ALLOWED_DIFFERENCE);
+        });
+    })
     
     it('should have zero values by default', function() {
         const mortgage = new Mortgage();
