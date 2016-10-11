@@ -162,7 +162,12 @@ class Input extends React.Component {
         let formatFunction;
         switch(displayFormattingType) {
         case WHOLE_DOLLAR_AMOUT:
-            formatFunction = formatWholeDollarAmount;
+            if (this.props.direction === 'ltr') {
+                // If direction is ltr, show dollar symbol in the other direction
+                formatFunction = val => formatWholeDollarAmount(val, true);
+            } else {
+                formatFunction = formatWholeDollarAmount;
+            }
             break;
         case PERCENT:
             formatFunction = formatPercent;
