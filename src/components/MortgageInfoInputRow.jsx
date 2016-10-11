@@ -102,14 +102,19 @@ class MortgageInfoInputRow extends React.Component {
     }
 
     wholeNumberValidation = value => {
-        if (!isWholeNumber(Number(value))) {
+        if (!this.isNumber(value) || !isWholeNumber(Number(value))) {
             return str('validationErrors.wholeNumber');
         }
         return null;
     }
 
     numberValidation = value => {
-        return _.isFinite(Number(value)) ? null : str('validationErrors.number');
+        return this.isNumber(value) ? null : str('validationErrors.number');
+    }
+
+    isNumber = value => {
+        const endsWithPeriod = value.endsWith && value.endsWith('.');
+        return !endsWithPeriod && _.isFinite(Number(value));
     }
 
     nonNegativeNumberValidation = value => {
@@ -125,6 +130,10 @@ class MortgageInfoInputRow extends React.Component {
         const maxDefined = !_.isUndefined(max);
         const isSmallerThanMin = value < min;
         const isLargetThanMax = value > max;
+
+        if (!this.isNumber(value)) {
+            return str('validationErrors.number');
+        }
 
         if (minDefined && maxDefined) {
             return (isSmallerThanMin || isLargetThanMax) ? str('validationErrors.numberRange')(min, max) : null;
