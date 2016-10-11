@@ -71,7 +71,7 @@ class MortgageInfoInputRow extends React.Component {
                     <p className={cx(styles.inputField, styles.smallField)} > {str('years')} </p>
                     <p className={cx(styles.inputField, styles.smallField)} > {str('interest')} </p>
                     <p className={cx(styles.inputField, 'hidden-xs')} > {str('monthlyPayment')} </p>
-                    <span className={styles.removeIcon} />
+                    <Icon id='delete' className={styles.removeIcon} height={20} color={CSS.fontColor} />
                 </div>
             );
         } else {
