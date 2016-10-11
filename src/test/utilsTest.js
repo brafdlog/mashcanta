@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { observer } from 'mobx';
 import { generateId, removeAllDecimals, retainNDecimals, addCommasToNumber, 
     formatWholeDollarAmount, formatPercent, replaceAll, formattedStringToNumber,
-    convertRgbToRgba } from '../utils';
+    convertRgbToRgba, isWholeNumber } from '../utils';
 
 const ALLOWED_DIFFERENCE = 1;
 
@@ -85,6 +85,18 @@ describe('utils test', function() {
         expect(convertRgbToRgba(rgb1, 1)).to.equal('rgba(130,140,237,1)');
         expect(convertRgbToRgba(rgb2, 0.5)).to.equal('rgba(43,200,173,0.5)');
         expect(convertRgbToRgba(rgb2, 0)).to.equal('rgba(43,200,173,0)');
+    });
+
+    it('should detect correctly if is whole number', function() {
+        expect(isWholeNumber(350)).to.be.true;
+        expect(isWholeNumber(0)).to.be.true;
+        expect(isWholeNumber(-520)).to.be.true;
+
+        expect(isWholeNumber()).to.be.false;
+        expect(isWholeNumber('350')).to.be.false;
+        expect(isWholeNumber('something')).to.be.false;
+        expect(isWholeNumber(0.5)).to.be.false;
+        expect(isWholeNumber(3502.2)).to.be.false;
     });
 
 });

@@ -18,7 +18,7 @@ export const removeAllDecimals = (someNumber) => {
     return Math.floor(someNumber);
 };
 
-const isWholeNumber = (someNumber) => someNumber % 1 === 0;
+export const isWholeNumber = (someNumber) => _.isNumber(someNumber) && (someNumber % 1 === 0);
 
 export const retainNDecimals = (someNumber, numDecimalsToRetain) => {
     if (!someNumber) {
