@@ -78,7 +78,6 @@ class Input extends React.Component {
         const shouldCallShowTooltip = this.isInvalid(this.state) && prevState.validationErrors[0] !== this.state.validationErrors[0];
         const shouldCallHideTooltip = !this.isInvalid(this.state) && this.isInvalid(prevState);
 
-        console.log(`Prev errors: ${prevState.validationErrors[0]}\n currentErrors: ${this.state.validationErrors[0]}\nshould show: ${shouldCallShowTooltip}\nshould hide: ${shouldCallHideTooltip}`);
         if (shouldCallShowTooltip) {
             ReactTooltip.show(this.inputElement);
         } else if (shouldCallHideTooltip) {
