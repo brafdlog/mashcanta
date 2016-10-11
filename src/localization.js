@@ -1,3 +1,4 @@
+import _ from 'lodash';
 
 const languageCode = 'he';
 
@@ -35,7 +36,14 @@ const ENGLISH_STRINGS = {
     payment: 'Payment',
     months: 'Months',
     loginModalText: 'Login to save your mortgage data',
-    month: 'Month'
+    month: 'Month',
+    validationErrors: {
+        wholeNumber: 'Should be a whole number',
+        numberRange: (min, max) => `Should be between ${min} and ${max}`,
+        lessThan: max => `Should be less than ${max}`,
+        greaterThan: min => `Should be greater than ${min}`,
+        number: 'Should be a number'
+    }
 };
 
 const HEBREW_STRINGS = {
@@ -72,7 +80,14 @@ const HEBREW_STRINGS = {
     payment: 'תשלום',
     months: 'חודשים',
     loginModalText: 'התחבר/י כדי לשמור את המידע שלך',
-    month: 'חודש'
+    month: 'חודש',
+    validationErrors: {
+        wholeNumber: 'צריך להיות מספר שלם',
+        numberRange: (min, max) => `הערך צריך להיות בין ${min} ל${max}`,
+        lessThan: max => `צריך להיות קטן מ ${max}`,
+        greaterThan: min => `צריך להיות גדול מ ${min}`,
+        number: 'צריך להיות מספר'
+    }
 };
 
 const strings = {
@@ -82,5 +97,5 @@ const strings = {
 
 export default function str(key) {
     const currentLangStrings = strings[languageCode];
-    return currentLangStrings[key] || key;
+    return _.get(currentLangStrings, key) || key;
 }

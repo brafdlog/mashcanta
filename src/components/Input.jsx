@@ -4,8 +4,9 @@ import styles from './Input.scss';
 import { WHOLE_DOLLAR_AMOUT, PERCENT } from '../consts';
 import { formatWholeDollarAmount, formatPercent } from '../utils';
 import { observer } from 'mobx-react';
+import _ from 'lodash';
 
-const { string, number, oneOf, func, bool, object, oneOfType } = PropTypes;
+const { string, number, oneOf, func, bool, object, oneOfType, arrayOf } = PropTypes;
 
 @observer
 class Input extends React.Component {
@@ -22,7 +23,7 @@ class Input extends React.Component {
         selectAllInputOnFocus: bool,
         displayFormattingType: oneOf([WHOLE_DOLLAR_AMOUT, PERCENT]),
         displayFormattingFunction: func,
-        validationFunction: func,
+        validationFunctions: oneOfType([func, arrayOf(func)]),
         readOnly: bool
     }
 
@@ -34,14 +35,15 @@ class Input extends React.Component {
         super(props);
         this.state = {
             value: props.value,
-            isFocused: false
+            isFocused: false,
+            validationErrors: []
         };
     }
 
     render() {
         const { className, domAttributes, invalidClassName, readOnly } = this.props;
         const { value, isFocused, validationErrors } = this.state;
-        const isInvalid = validationErrors;
+        const isInvalid = validationErrors.length > 0;
         const inputEventHandlerProps = readOnly ? null : {
             onBlur: this.handleInputBlur,
             onChange: this.handleInputChange,
@@ -103,9 +105,10 @@ class Input extends React.Component {
         const stateUpdates = {
             isFocused: false
         };
-        if (this.state.validationErrors) {
+        if (this.state.validationErrors.length) {
             // If the input is not valid, revert back to the saved value so we don't save invalid values
             stateUpdates.value = valueBeforeChange;
+            stateUpdates.validationErrors = [];
         } else {
             onBlur && onBlur(target.value, target);
         }
@@ -113,8 +116,16 @@ class Input extends React.Component {
     }
 
     runValidations = value => {
-        const { validationFunction } = this.props;
-        const validationErrors = validationFunction && validationFunction(value);
+        const validationErrors = [];
+        let { validationFunctions } = this.props;
+        if (validationFunctions) {
+            // Support both multiple and single validation functions
+            validationFunctions = _.isArray(validationFunctions) ? validationFunctions : [validationFunctions];
+            validationFunctions.forEach(validationFunc => {
+                const validationError = validationFunc(value);
+                validationError && validationErrors.push(validationError);
+            });
+        }
         return validationErrors;
     }
 

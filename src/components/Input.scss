@@ -2,6 +2,10 @@
 
 .inputField {
 
+    &.invalid {
+        border-color: red;
+    }
+
     &[readOnly] {
         background-color: $disabledFieldColor;
     }
