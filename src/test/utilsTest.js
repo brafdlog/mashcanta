@@ -52,6 +52,10 @@ describe('utils test', function() {
         expect(formatWholeDollarAmount(25413)).to.equal('25,413 ₪');
         expect(formatWholeDollarAmount(412321)).to.equal('412,321 ₪');
         expect(formatWholeDollarAmount(1534212)).to.equal('1,534,212 ₪');
+
+        expect(formatWholeDollarAmount(1, true)).to.equal('₪ 1');
+        expect(formatWholeDollarAmount(412321, true)).to.equal('₪ 412,321');
+        expect(formatWholeDollarAmount(1534212, true)).to.equal('₪ 1,534,212');
     });
 
     it('should format precent correctly', function() {

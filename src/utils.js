@@ -38,7 +38,13 @@ export const retainNDecimals = (someNumber, numDecimalsToRetain) => {
 
 export const addCommasToNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-export const formatWholeDollarAmount = (original) => addCommasToNumber(removeAllDecimals(original)) + ' ' + str('currencySymbol');
+export const formatWholeDollarAmount = (original, symbolBefore) => {
+    if (symbolBefore) {
+        return `${str('currencySymbol')} ${addCommasToNumber(removeAllDecimals(original))}`;
+    } else {
+        return `${addCommasToNumber(removeAllDecimals(original))} ${str('currencySymbol')}`;
+    }
+};
 
 export const formatPercent = (original) => retainNDecimals(original, 2) + '%';
 
