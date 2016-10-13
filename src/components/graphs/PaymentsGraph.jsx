@@ -2,8 +2,6 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import str from '../../localization';
-import Modal from '../Modal';
-import Icon from '../Icon';
 import { CSS } from '../../consts';
 import { removeAllDecimals, formatWholeDollarAmount, convertRgbToRgba } from '../../utils';
 import { Line } from 'react-chartjs-2';
@@ -115,11 +113,6 @@ class PaymentsGraph extends React.Component {
         return (
             <div className={cx(styles.PaymentsGraphContainer, className)}>
                 <Line data={data} options={options} redraw={redraw} />
-                {isEmptyData ?
-                    <Modal>
-                        <Icon id='bar-chart' color='#5B62A6' height='20%' />
-                    </Modal> : null
-                }
             </div>
         );
     }

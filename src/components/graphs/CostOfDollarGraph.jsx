@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './CostOfDollarGraph.scss';
 import str from '../../localization';
-import Modal from '../Modal';
 import { removeAllDecimals, formatWholeDollarAmount } from '../../utils';
 import { CSS } from '../../consts';
 import { Doughnut } from 'react-chartjs-2';
@@ -66,7 +65,6 @@ class CostOfDollarGraph extends React.Component {
             <div className={cx(styles.CostOfDollarGraphContainer, className)}>
                 <h3 className={styles.graphTitle}>{str('loanCost')}</h3>
                 <Doughnut data={pieChartData} options={options} />
-                {isEmptyData ? <Modal /> : null}
             </div>
         );
     }
