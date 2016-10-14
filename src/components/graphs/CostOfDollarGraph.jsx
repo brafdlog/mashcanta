@@ -24,6 +24,11 @@ class CostOfDollarGraph extends React.Component {
         isEmptyData: bool
     }
 
+    constructor(props) {
+        super(props);
+        this.shouldRedraw = false;
+    }
+
     render() {
         const { loanAmount, loanCost, className, isEmptyData } = this.props;
 
@@ -78,15 +83,28 @@ class CostOfDollarGraph extends React.Component {
             };
         }
 
+        // There are changes that require redrawing to update, like tooltips and legend option changes
+        const redraw = this.shouldRedraw;
+        if (redraw) {
+            // After redrawing, we reset the flag because we don't want every render to trigger a redraw
+            this.shouldRedraw = false;
+        }
         return (
             <div className={cx(styles.CostOfDollarGraphContainer, className)}>
                 <h3 className={styles.graphTitle}>{str('loanCost')}</h3>
                 <div className={styles.innerGraphContainer}>
-                    <Doughnut data={pieChartData} options={options} />
+                    <Doughnut data={pieChartData} options={options} redraw={redraw} />
                 </div>
 
             </div>
         );
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        // Empty data changes the tooltips and legend settings and requires a redraw
+        if (this.props.isEmptyData !== nextProps.isEmptyData) {
+            this.shouldRedraw = true;
+        }
     }
 
 }
