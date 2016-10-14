@@ -37,6 +37,7 @@ const ENGLISH_STRINGS = {
     months: 'Months',
     loginModalText: 'Login to save your mortgage data',
     month: 'Month',
+    noDataToDisplay: 'No data to display',
     validationErrors: {
         wholeNumber: 'Should be a whole number',
         numberRange: (min, max) => `Should be between ${min} and ${max}`,
@@ -81,6 +82,7 @@ const HEBREW_STRINGS = {
     months: 'חודשים',
     loginModalText: 'התחבר/י כדי לשמור את המידע שלך',
     month: 'חודש',
+    noDataToDisplay: 'אין מידע להצגה',
     validationErrors: {
         wholeNumber: 'צריך להיות מספר שלם',
         numberRange: (min, max) => `הערך צריך להיות בין ${min} ל${max}`,

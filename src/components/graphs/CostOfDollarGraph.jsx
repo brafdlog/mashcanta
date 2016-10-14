@@ -9,7 +9,10 @@ import { observer } from 'mobx-react';
 
 const { string, number, bool } = PropTypes;
 
-const EMPTY_DATA = [3000, 0];
+const EMPTY_DATA_DATASETS = [{
+    data: [3000, 0],
+    backgroundColor: ['#F1F1F1']
+}];
 
 @observer
 class CostOfDollarGraph extends React.Component {
@@ -33,7 +36,7 @@ class CostOfDollarGraph extends React.Component {
                 str('loanAmount')
             ],
             datasets: [{
-                data: isEmptyData ? EMPTY_DATA : [loanCostFormatted, loanAmountFormatted],
+                data: [loanCostFormatted, loanAmountFormatted],
                 backgroundColor: [
                     CSS.purple,
                     CSS.teal
@@ -61,6 +64,20 @@ class CostOfDollarGraph extends React.Component {
                 }
             }
         };
+
+        // If there is no data, display placeholder empty data
+        if (isEmptyData) {
+            pieChartData.datasets = EMPTY_DATA_DATASETS;
+            options.legend.display = false;
+            options.tooltips = {
+                callbacks: {
+                    label: (tooltipItem, data) => {
+                        return str('noDataToDisplay');
+                    }
+                }
+            };
+        }
+
         return (
             <div className={cx(styles.CostOfDollarGraphContainer, className)}>
                 <h3 className={styles.graphTitle}>{str('loanCost')}</h3>
