@@ -38,6 +38,8 @@ const ENGLISH_STRINGS = {
     loginModalText: 'Login to save your mortgage data',
     month: 'Month',
     noDataToDisplay: 'No data to display',
+    disclaimerLinkText: 'Disclaimer',
+    privacyLinkText: 'Privacy policy',
     validationErrors: {
         wholeNumber: 'Should be a whole number',
         numberRange: (min, max) => `Should be between ${min} and ${max}`,
@@ -83,6 +85,10 @@ const HEBREW_STRINGS = {
     loginModalText: 'התחבר/י כדי לשמור את המידע שלך',
     month: 'חודש',
     noDataToDisplay: 'אין מידע להצגה',
+    disclaimerText: 'האתר במתכונתו הנוכחית מוגש כשירות חינם לציבור. השימוש באתר על אחריות המשתמש בלבד. <br> פיננסי - מחשבון משכנתא, בעלי האתר, או מפעיליו אינם אחראים לנכונות המידע, דיוקו, או לטעוית כלשהם.<br> המידע המופיע באתר אינו משקף את החזרי המשכנתא המחייבים- החזרים אלו יקבעו על ידי נותן המשכנתא.',
+    disclaimerLinkText: 'תנאי שימוש',
+    privacyText: 'פרטיותכם חשובה לנו! לא נחלוק את המידע שלכם עם גורמים חיצוניים פרט לדרוש להתנהלות השוטפת של האתר',
+    privacyLinkText: 'מדיניות פרטיות',
     validationErrors: {
         wholeNumber: 'צריך להיות מספר שלם',
         numberRange: (min, max) => `הערך צריך להיות בין ${min} ל${max}`,

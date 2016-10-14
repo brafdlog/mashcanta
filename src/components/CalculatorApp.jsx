@@ -12,6 +12,7 @@ import { CSS, MORTGAGE_SHAPE } from '../consts';
 import str from '../localization';
 import { getConfig } from '../config';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import ReactTooltip from 'react-tooltip';
 
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!react-select/dist/react-select.css';
@@ -39,6 +40,7 @@ class CalculatorApp extends React.Component {
         const isEmptyData = !currentMortgage.hasValidParts;
         return (
             <div className={cx('container-fluid', styles.content, styles.calculatorApp, this.props.className)}>
+                <ReactTooltip effect='solid' multiline />
                 {showAddMortgageRow ?
                     <ManageMortgagesRow currentMortgage={currentMortgage} onChangeCurrentMortgage={this.onChangeCurrentMortgage} mortgages={mortgages.toJS()} createNewMortgage={createNewMortgage} /> : null
                 }
@@ -75,6 +77,10 @@ class CalculatorApp extends React.Component {
                     <div className={cx(styles.graphColumn, 'col-md-4', 'col-xs-12')}>
                         <CostOfDollarGraph className={styles.costGraph} loanAmount={loanAmount} loanCost={loanCost} isEmptyData={isEmptyData} />
                     </div>
+                </div>
+                <div className={styles.disclaimer}>
+                    <span data-tip={str('disclaimerText')}>{str('disclaimerLinkText')}</span>
+                    <span data-tip={str('privacyText')}>{str('privacyLinkText')}</span>
                 </div>
             </div>
         );
