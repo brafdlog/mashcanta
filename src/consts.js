@@ -24,6 +24,7 @@ export const MORTGAGE_SHAPE = shape({
     id: string,
     loanAmount: number,
     monthlyPayment: number,
+    averageMonthlyPayment: number,
     totalPaymentToBank: number,
     costOfEachDollar: number,
     paymentDetailsPerMonth: arrayOf(shape({

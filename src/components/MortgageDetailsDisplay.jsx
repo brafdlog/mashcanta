@@ -14,7 +14,7 @@ class MortgageDetailsDisplay extends React.Component {
     static propTypes = {
         mortgageInfo: shape({
             loanAmount: number,
-            monthlyPayment: number,
+            averageMonthlyPayment: number,
             totalPaymentToBank: number,
             costOfEachDollar: number
         }).isRequired
@@ -22,11 +22,11 @@ class MortgageDetailsDisplay extends React.Component {
 
     render() {
         const mortgageInfo = this.formatNumbersNicely(this.props.mortgageInfo);
-        const { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
+        const { loanAmount, averageMonthlyPayment, totalPaymentToBank, costOfEachDollar } = mortgageInfo;
         return (
             <div className={cx(styles.MortgageDetailsDisplay, 'row')}>
                 <InfoLine className={styles.infoLineColumn} title={str('loanAmount')} value={loanAmount} />
-                <InfoLine className={styles.infoLineColumn} title={str('monthlyPayment')} value={monthlyPayment} />
+                <InfoLine className={styles.infoLineColumn} title={str('averageMonthlyPayment')} value={averageMonthlyPayment} />
                 <InfoLine className={styles.infoLineColumn} title={str('totalPayment')} value={totalPaymentToBank} />
                 <InfoLine className={styles.infoLineColumn} title={str('costOfDollar')} value={costOfEachDollar} />
             </div>
@@ -34,14 +34,14 @@ class MortgageDetailsDisplay extends React.Component {
     }
 
     formatNumbersNicely(mortgageInfo) {
-        let { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar } = this.props.mortgageInfo;
+        let { loanAmount, averageMonthlyPayment, totalPaymentToBank, costOfEachDollar } = this.props.mortgageInfo;
         // Remove ugly decimals
         totalPaymentToBank = formatWholeDollarAmount(totalPaymentToBank);
         costOfEachDollar = retainNDecimals(costOfEachDollar, 3);
-        monthlyPayment = formatWholeDollarAmount(monthlyPayment);
+        averageMonthlyPayment = formatWholeDollarAmount(averageMonthlyPayment);
         loanAmount = formatWholeDollarAmount(loanAmount);
 
-        return { loanAmount, monthlyPayment, totalPaymentToBank, costOfEachDollar };
+        return { loanAmount, averageMonthlyPayment, totalPaymentToBank, costOfEachDollar };
     }
 
 }
