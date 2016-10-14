@@ -28,6 +28,8 @@ const ENGLISH_STRINGS = {
     bullet: 'bullet',
     paymentsGraph: 'Payment Graph',
     paymentsTable: 'Payment Table',
+    graph: 'Graph',
+    table: 'Table',
     login: 'Login',
     logout: 'Log out',
     showInterestSeparately: 'Show interest separately',
@@ -40,6 +42,7 @@ const ENGLISH_STRINGS = {
     noDataToDisplay: 'No data to display',
     disclaimerLinkText: 'Disclaimer',
     privacyLinkText: 'Privacy policy',
+    graphTableSectionTitle: 'Display:',
     validationErrors: {
         wholeNumber: 'Should be a whole number',
         numberRange: (min, max) => `Should be between ${min} and ${max}`,
@@ -75,6 +78,8 @@ const HEBREW_STRINGS = {
     bullet: 'בוליט',
     paymentsGraph: 'גרף תשלומים',
     paymentsTable: 'טבלת תשלומים',
+    graph: 'גרף',
+    table: 'טבלה',
     login: 'התחבר',
     logout: 'התנתק',
     showInterestSeparately: 'הצג ריבית בנפרד',
@@ -89,6 +94,7 @@ const HEBREW_STRINGS = {
     disclaimerLinkText: 'תנאי שימוש',
     privacyText: 'פרטיותכם חשובה לנו! לא נחלוק את המידע שלכם עם גורמים חיצוניים פרט לדרוש להתנהלות השוטפת של האתר',
     privacyLinkText: 'מדיניות פרטיות',
+    graphTableSectionTitle: 'תצוגה:',
     validationErrors: {
         wholeNumber: 'צריך להיות מספר שלם',
         numberRange: (min, max) => `הערך צריך להיות בין ${min} ל${max}`,

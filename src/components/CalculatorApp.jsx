@@ -1,23 +1,30 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import styles from './CalculatorApp.scss';
-import Icon from './Icon';
 import PaymentsTable from './PaymentsTable';
 import MortgageInfoInputForm from './MortgageInfoInputForm';
 import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import ManageMortgagesRow from './ManageMortgagesRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
-import { CSS, MORTGAGE_SHAPE } from '../consts';
+import { MORTGAGE_SHAPE } from '../consts';
 import str from '../localization';
 import { getConfig } from '../config';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import Select from 'react-select';
 import ReactTooltip from 'react-tooltip';
 
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!react-select/dist/react-select.css';
 
 const { shape, string, bool } = PropTypes;
+const GRAPH = 'graph';
+const TABLE = 'table';
+
+const GRAPH_TABLE_SELECITON_OPTIONS = [
+    { label: str('graph'), value: GRAPH },
+    { label: str('table'), value: TABLE }
+];
 
 @observer
 class CalculatorApp extends React.Component {
@@ -60,13 +67,14 @@ class CalculatorApp extends React.Component {
                 <div className={cx('row', styles.graphsRow, 'equalHeightColumns')}>
                     <div className={cx(styles.graphColumn, 'col-md-8', 'col-xs-12')}>
                         <h3 className={styles.graphTitle}>{showPaymentsGraph ? str('paymentsGraph') : str('paymentsTable')}</h3>
-                        {isEmptyData ?
-                            null :
-                            <div className={styles.graphTableSelectorContainer}>
-                                <Icon className={styles.icon} id='bar-chart' onClick={this.showPaymentsGraph} color={showPaymentsGraph ? CSS.purple : null} height={20} />
-                                <Icon className={styles.icon} id='table' onClick={this.showPaymentsTable} color={showPaymentsGraph ? null : CSS.purple} height={20} />
-                            </div>
-                        }
+                        <div className={styles.graphSettingsContainer}>
+                            <span className={styles.graphTableSelectorDropdownWrapper}>
+                                <span>{str('graphTableSectionTitle')}</span>
+                                <Select className={cx(styles.graphTableSelectorDropdown)} options={GRAPH_TABLE_SELECITON_OPTIONS} value={showPaymentsGraph ? GRAPH : TABLE} searchable={false} clearable={false}
+                                    onChange={this.handleGraphTableDropdownChange} disabled={isEmptyData}
+                                />
+                            </span>
+                        </div>
                         {showPaymentsGraph ?
                             <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
                                 isEmptyData={isEmptyData} isSmallScreen={isSmallScreen} maxElements={isSmallScreen ? 15 : 40}
@@ -90,9 +98,9 @@ class CalculatorApp extends React.Component {
         showPaymentsGraph: true
     }
 
-    showPaymentsGraph = () => this.setShowPaymentGraph(true);
-
-    showPaymentsTable = () => this.setShowPaymentGraph(false);
+    handleGraphTableDropdownChange = ({ value }) => {
+        this.setShowPaymentGraph(value === GRAPH);
+    }
 
     setShowPaymentGraph = showPaymentsGraph => {
         const currentScrollX = window.scrollX;
