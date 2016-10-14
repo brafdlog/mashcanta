@@ -51,6 +51,10 @@ export default class Mortgage {
     }
 
     @computed get averageMonthlyPayment() {
+        if (!this.paymentDetailsPerMonth.length) {
+            return 0;
+        }
+
         // The reason we do the sum calculation manually and don't use totalPaymentToBank is that in Bullet amortization
         // type the monthly payment includes only the interest, not the principal but the totalPaymentToBank includes also
         // the principal and makes the calculation wrong.

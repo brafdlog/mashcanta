@@ -278,6 +278,12 @@ describe('Mortgage tests', function() {
     })
 
     describe('avergage monthly payment', function() {
+
+        it('should return 0 average monthly for empty mortgage', function() {
+            const mortgage = new Mortgage();
+            expect(mortgage.averageMonthlyPayment).to.equal(0);
+        });
+
         it('should calculate average monthly payment correctly for simple BULLET mortgage', function() {
             const mortgage = new Mortgage();
 
