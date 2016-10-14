@@ -11,18 +11,6 @@
         padding-left: 0;
     }
 
-    // Reduce padding and margin for elements on small screens
-    @media (max-width:500px) {
-        margin-right: 3px;
-        margin-left: 3px;
-        .mortgageInputFormColumn {
-            padding: 3px;
-            .react-bs-table {
-                margin: 0;
-            }
-        }
-    }
-
     .MortgageDetailsDisplayContainer {
         margin-top: 3px;
         margin-bottom: 7px;
@@ -33,7 +21,9 @@
 
         .graphColumn {
             background: $lightBackgroundColor;
-            padding-bottom: 10px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
 
             .graphTableSelectorContainer {
                 margin-top: 15px;
@@ -59,6 +49,26 @@
                 &:not(:last-child) {
                     border-left: 5px solid $siteBackgroundColor;
                 }
+            }
+        }
+    }
+
+    // Reduce padding and margin for elements on small screens
+    @media (max-width:500px) {
+        margin-right: 3px;
+        margin-left: 3px;
+        .mortgageInputFormColumn {
+            padding: 3px;
+            .react-bs-table {
+                margin: 0;
+            }
+        }
+
+        .graphsRow {
+            .graphColumn {
+                padding-bottom: 7px;
+                padding-right: 7px;
+                padding-left: 7px;
             }
         }
     }
