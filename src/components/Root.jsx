@@ -48,7 +48,7 @@ class Root extends React.Component {
                     <Modal>
                         <div className='loader'></div>
                     </Modal> :
-                    <this.CalculatorApp stateStore={this.props.stateStore} />
+                    <this.CalculatorApp stateStore={this.props.stateStore} isSmallScreen={this.isSmallScreen} />
                 }
             </div>
         );

@@ -26,7 +26,8 @@ class CalculatorApp extends React.Component {
             mortgages: MobxPropTypes.observableArrayOf(MORTGAGE_SHAPE),
             isLoading: bool,
             className: string
-        })
+        }),
+        isSmallScreen: bool
     }
 
     render() {
@@ -65,7 +66,7 @@ class CalculatorApp extends React.Component {
                         }
                         {showPaymentsGraph ?
                             <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
-                                isEmptyData={isEmptyData} maxElements={this.isSmallScreen ? 15 : 40}
+                                isEmptyData={isEmptyData} maxElements={this.props.isSmallScreen ? 15 : 40}
                             /> :
                             <PaymentsTable paymentDetailsPerMonth={paymentDetailsPerMonth} />
                         }
