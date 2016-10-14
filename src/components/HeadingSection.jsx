@@ -9,7 +9,7 @@ const HeadingSection = observer(props => {
     return (
         <div className={styles.headingSection}>
             <div className={styles.textContainer}>
-                <h1 className={styles.headingSectionTitle}> מחשבון משכנתא</h1>
+                <h1 className={styles.headingSectionTitle}> פיננסי - מחשבון משכנתא</h1>
                 <p className={styles.headingSectionParagraph}>
                 מחשבון משכנתא חכם וקל לשימוש. המחשבון מראה בצורה
                 גרפית ברורה את התשלומים על המשכנתא ומאפשר
