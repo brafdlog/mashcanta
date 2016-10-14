@@ -7,9 +7,9 @@
     justify-content: center;
     align-items: center;
     background-repeat: no-repeat;
-    // background-image: url($storageUrl + 'images/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F+%D7%9E%D7%A9%D7%9B%D7%A0%D7%AA%D7%90.jpg');
-    background-image: url($storageUrl + 'images/background-medium.jpg');
-    background-position-x: -150px;
+    background-image: url($storageUrl + 'images/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F+%D7%9E%D7%A9%D7%9B%D7%A0%D7%AA%D7%90.jpg');
+    background-position-y: -161px;
+    background-size: cover;
     
     .textContainer {
         .headingSectionTitle {
@@ -37,8 +37,11 @@
 :global(.mobile) {
     .headingSection {
         height: 350px;
+        // background-image: url($storageUrl + 'images/mobile/%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%9F+%D7%9E%D7%A9%D7%9B%D7%A0%D7%AA%D7%90.jpg');
         background-image: url($storageUrl + 'images/mobile/background-medium.jpg');
-        background-position-x: 0;
+        background-position-x: 11px;
+        background-position-y: 0;
+        background-size: inherit;
         justify-content: flex-end;
         margin-bottom: 20px;
 
