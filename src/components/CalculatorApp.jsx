@@ -8,7 +8,7 @@ import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import ManageMortgagesRow from './ManageMortgagesRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
-import { KEREN_SHAVA, SHPITZER, BULLET, CSS } from '../consts';
+import { CSS, MORTGAGE_SHAPE } from '../consts';
 import str from '../localization';
 import { getConfig } from '../config';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
@@ -16,38 +16,14 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!react-select/dist/react-select.css';
 
-const { shape, number, arrayOf, string, oneOf, bool } = PropTypes;
+const { shape, string, bool } = PropTypes;
 
 @observer
 class CalculatorApp extends React.Component {
 
     static propTypes = {
         stateStore: shape({
-            mortgages: MobxPropTypes.observableArrayOf(shape({
-                id: string,
-                loanAmount: number,
-                monthlyPayment: number,
-                totalPaymentToBank: number,
-                costOfEachDollar: number,
-                paymentDetailsPerMonth: arrayOf(shape({
-                    principal: number,
-                    interest: number,
-                    total: number
-                })),
-                paymentDetailsPerYearMonthlyAverage: arrayOf(shape({
-                    principal: number,
-                    interest: number,
-                    total: number
-                })),
-                mortgageParts: arrayOf(shape({
-                    id: string,
-                    order: number,
-                    loanAmount: number,
-                    numYears: number,
-                    yearlyInterest: number,
-                    amortizationType: oneOf([KEREN_SHAVA, SHPITZER, BULLET])
-                }))
-            })),
+            mortgages: MobxPropTypes.observableArrayOf(MORTGAGE_SHAPE),
             isLoading: bool,
             className: string
         })

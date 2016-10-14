@@ -6,44 +6,20 @@ import HeadingSection from './HeadingSection';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { signOut, isAuthEnabled, signIn } from '../services/authService';
 import styles from './Root.scss';
-import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK, BULLET } from '../consts';
+import { GOOGLE, FACEBOOK, MORTGAGE_SHAPE } from '../consts';
 
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!bootstrap/dist/css/bootstrap.css';
 import '!style!css!bootstrap-rtl/dist/css/bootstrap-rtl.css';
 
-const { shape, oneOf, arrayOf, string, number, bool } = React.PropTypes;
+const { shape, bool } = React.PropTypes;
 
 @observer
 class Root extends React.Component {
 
     static propTypes = {
         stateStore: shape({
-            mortgages: MobxPropTypes.observableArrayOf(shape({
-                id: string,
-                loanAmount: number,
-                monthlyPayment: number,
-                totalPaymentToBank: number,
-                costOfEachDollar: number,
-                paymentDetailsPerMonth: arrayOf(shape({
-                    principal: number,
-                    interest: number,
-                    total: number
-                })),
-                paymentDetailsPerYearMonthlyAverage: arrayOf(shape({
-                    principal: number,
-                    interest: number,
-                    total: number
-                })),
-                mortgageParts: arrayOf(shape({
-                    id: string,
-                    order: number,
-                    loanAmount: number,
-                    numYears: number,
-                    yearlyInterest: number,
-                    amortizationType: oneOf([KEREN_SHAVA, SHPITZER, BULLET])
-                }))
-            })),
+            mortgages: MobxPropTypes.observableArrayOf(MORTGAGE_SHAPE),
             isLoading: bool
         })
     }

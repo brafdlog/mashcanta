@@ -1,3 +1,5 @@
+import React from 'react';
+const { shape, oneOf, arrayOf, string, number } = React.PropTypes;
 
 export const KEREN_SHAVA = 'keren shava';
 export const SHPITZER = 'shpitzer';
@@ -17,3 +19,29 @@ export const CSS = {
 
 export const WHOLE_DOLLAR_AMOUT = 'wholeDollarAmount';
 export const PERCENT = 'percent';
+
+export const MORTGAGE_SHAPE = shape({
+    id: string,
+    loanAmount: number,
+    monthlyPayment: number,
+    totalPaymentToBank: number,
+    costOfEachDollar: number,
+    paymentDetailsPerMonth: arrayOf(shape({
+        principal: number,
+        interest: number,
+        total: number
+    })),
+    paymentDetailsPerYearMonthlyAverage: arrayOf(shape({
+        principal: number,
+        interest: number,
+        total: number
+    })),
+    mortgageParts: arrayOf(shape({
+        id: string,
+        order: number,
+        loanAmount: number,
+        numYears: number,
+        yearlyInterest: number,
+        amortizationType: oneOf([KEREN_SHAVA, SHPITZER, BULLET])
+    }))
+});
