@@ -26,12 +26,15 @@ class Input extends React.Component {
         displayFormattingFunction: func,
         validationFunctions: oneOfType([func, arrayOf(func)]),
         readOnly: bool,
-        direction: oneOf(['ltr', 'rtl'])
+        direction: oneOf(['ltr', 'rtl']),
+        placeholder: string,
+        showPlaceholderForZeroValue: bool
     }
 
     static defaultProps = {
         selectAllInputOnFocus: true,
-        direction: 'ltr'
+        direction: 'ltr',
+        showPlaceholderForZeroValue: true
     }
 
     constructor(props) {
@@ -44,7 +47,7 @@ class Input extends React.Component {
     }
 
     render() {
-        const { className, domAttributes, invalidClassName, readOnly, direction } = this.props;
+        const { className, domAttributes, invalidClassName, readOnly, direction, placeholder, showPlaceholderForZeroValue } = this.props;
         const { value, isFocused, validationErrors } = this.state;
         const isInvalid = this.isInvalid(this.state);
         const inputEventHandlerProps = readOnly ? null : {
@@ -54,7 +57,11 @@ class Input extends React.Component {
             onFocus: this.handleFocus
         };
         // Only run formatting when not focused to prevent issues with formatting not allowing user input
-        const valueToDisplay = isFocused ? value : this.formatForDisplay(value);
+        let valueToDisplay = isFocused ? value : this.formatForDisplay(value);
+
+        if (value === 0 && showPlaceholderForZeroValue) {
+            valueToDisplay = null;
+        }
         // If got a custom invalid calss name, use it. Otherwise use the default invalid styles
         const classNameIfInvalid = invalidClassName || styles.invalid;
 
@@ -63,7 +70,7 @@ class Input extends React.Component {
         };
         return (
             <input type='text' ref={this.setReferenceToElement} className={cx(styles.inputField, className, { [classNameIfInvalid]: isInvalid })} value={valueToDisplay}
-                style={style} {...inputEventHandlerProps} {...domAttributes} readOnly={readOnly}
+                style={style} {...inputEventHandlerProps} {...domAttributes} readOnly={readOnly} placeholder={placeholder}
                 data-tip={isInvalid ? validationErrors[0] : null} data-for='validationWarning'
             />
         );

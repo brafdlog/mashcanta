@@ -86,13 +86,14 @@ class MortgageInfoInputRow extends React.Component {
                         onChange={this.handleChangeAmortizationType}
                     />
                     <Input className={cx(styles.inputField)} value={mortgagePart.loanAmount} displayFormattingType={WHOLE_DOLLAR_AMOUT} onBlur={this.handleInputBlur} domAttributes={{ 'data-attribute-name': 'loanAmount' }}
-                        validationFunctions={[this.wholeNumberValidation, this.nonNegativeNumberValidation]}
+                        validationFunctions={[this.wholeNumberValidation, this.nonNegativeNumberValidation]} placeholder={str('loanAmount')}
                     />
                     <Input type='text' className={cx(styles.inputField, styles.smallField)} value={mortgagePart.numYears} onBlur={this.handleInputBlur} domAttributes={{ 'data-attribute-name': 'numYears' }}
-                        validationFunctions={[this.wholeNumberValidation, this.rangeFromZeroToFifteeValidation]}
+                        validationFunctions={[this.wholeNumberValidation, this.rangeFromZeroToFifteeValidation]} placeholder={str('years')}
                     />
                     <Input type='text' className={cx(styles.inputField, styles.smallField)} displayFormattingType={PERCENT} value={mortgagePart.yearlyInterest} onBlur={this.handleInputBlur}
                         validationFunctions={[this.numberValidation, this.rangeFromZeroToFifteeValidation]} domAttributes={{ 'data-attribute-name': 'yearlyInterest' }}
+                        placeholder={str('interest')}
                     />
                     <Input type='text' className={cx(styles.inputField, styles.monthlyPayment, 'hidden-xs')} displayFormattingType={WHOLE_DOLLAR_AMOUT} value={mortgagePart.monthlyPayment} readOnly />
                     <Icon id='delete' className={styles.removeIcon} onClick={this.handleDeletePart} height={20} color={CSS.fontColor}
