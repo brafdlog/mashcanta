@@ -5,8 +5,12 @@
     height: 100%;
 
     .innerGraphContainer {
-        flex: 1;
         display: flex;
+    }
+
+    // Tried flex 1 on the innerGraphContainer but it causes the graph to be bigger
+    .hackForPositioningGraphInCenter {
+        flex: 1;
     }
 }
 
