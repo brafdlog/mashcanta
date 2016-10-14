@@ -64,7 +64,10 @@ class CostOfDollarGraph extends React.Component {
         return (
             <div className={cx(styles.CostOfDollarGraphContainer, className)}>
                 <h3 className={styles.graphTitle}>{str('loanCost')}</h3>
-                <Doughnut data={pieChartData} options={options} />
+                <div className={styles.innerGraphContainer}>
+                    <Doughnut data={pieChartData} options={options} />
+                </div>
+
             </div>
         );
     }

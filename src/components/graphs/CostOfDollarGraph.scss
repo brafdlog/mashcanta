@@ -2,5 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    // The min height is so that in mobile the graph won't be too small
+    min-height: 300px;
+
+    .innerGraphContainer {
+        flex: 1;
+        display: flex;
+    }
 }
 
