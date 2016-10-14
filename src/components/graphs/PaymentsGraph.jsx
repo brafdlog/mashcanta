@@ -32,7 +32,8 @@ class PaymentsGraph extends React.Component {
             total: number
         })).isRequired,
         maxElements: number,
-        isEmptyData: bool
+        isEmptyData: bool,
+        isSmallScreen: bool
     }
 
     static defaultProps = {
@@ -40,7 +41,7 @@ class PaymentsGraph extends React.Component {
     }
 
     render() {
-        const { className, maxElements, paymentDetailsPerYear, isEmptyData } = this.props;
+        const { className, maxElements, paymentDetailsPerYear, isEmptyData, isSmallScreen } = this.props;
         const startIndex = this.state.startIndex;
         const endIndex = Math.min(startIndex + maxElements, paymentDetailsPerYear.length);
         const paymentDetailsPerPeriodSliced = paymentDetailsPerYear.slice(startIndex, endIndex);
@@ -72,6 +73,7 @@ class PaymentsGraph extends React.Component {
 
         const options = {
             responsive: true,
+            maintainAspectRatio: false,
             tooltips: {
                 enabled: true,
                 mode: 'label',
@@ -112,7 +114,7 @@ class PaymentsGraph extends React.Component {
         };
         return (
             <div className={cx(styles.PaymentsGraphContainer, className)}>
-                <Line data={data} options={options} redraw={redraw} />
+                <Line data={data} options={options} redraw={redraw} height={isSmallScreen ? null : 350} />
             </div>
         );
     }

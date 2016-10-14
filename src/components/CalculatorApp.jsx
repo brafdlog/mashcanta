@@ -31,6 +31,7 @@ class CalculatorApp extends React.Component {
     }
 
     render() {
+        const isSmallScreen = this.props.isSmallScreen;
         const { currentMortgage, createNewMortgage, mortgages } = this.props.stateStore;
         const { mortgageParts, loanAmount, loanCost, paymentDetailsPerYearMonthlyAverage, paymentDetailsPerMonth } = currentMortgage;
         const { showPaymentsGraph } = this.state;
@@ -66,7 +67,7 @@ class CalculatorApp extends React.Component {
                         }
                         {showPaymentsGraph ?
                             <PaymentsGraph loanAmount={loanAmount} loanCost={loanCost} paymentDetailsPerYear={paymentDetailsPerYearMonthlyAverage}
-                                isEmptyData={isEmptyData} maxElements={this.props.isSmallScreen ? 15 : 40}
+                                isEmptyData={isEmptyData} isSmallScreen={isSmallScreen} maxElements={isSmallScreen ? 15 : 40}
                             /> :
                             <PaymentsTable paymentDetailsPerMonth={paymentDetailsPerMonth} />
                         }
