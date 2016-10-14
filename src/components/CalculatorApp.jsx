@@ -8,7 +8,7 @@ import MortgageDetailsDisplay from './MortgageDetailsDisplay';
 import CostOfDollarGraph from './graphs/CostOfDollarGraph';
 import ManageMortgagesRow from './ManageMortgagesRow';
 import PaymentsGraph from './graphs/PaymentsGraph';
-import { KEREN_SHAVA, SHPITZER, CSS } from '../consts';
+import { KEREN_SHAVA, SHPITZER, BULLET, CSS } from '../consts';
 import str from '../localization';
 import { getConfig } from '../config';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
@@ -45,7 +45,7 @@ class CalculatorApp extends React.Component {
                     loanAmount: number,
                     numYears: number,
                     yearlyInterest: number,
-                    amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
+                    amortizationType: oneOf([KEREN_SHAVA, SHPITZER, BULLET])
                 }))
             })),
             isLoading: bool,

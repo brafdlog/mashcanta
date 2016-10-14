@@ -6,7 +6,7 @@ import HeadingSection from './HeadingSection';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { signOut, isAuthEnabled, signIn } from '../services/authService';
 import styles from './Root.scss';
-import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK } from '../consts';
+import { KEREN_SHAVA, SHPITZER, GOOGLE, FACEBOOK, BULLET } from '../consts';
 
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!bootstrap/dist/css/bootstrap.css';
@@ -41,7 +41,7 @@ class Root extends React.Component {
                     loanAmount: number,
                     numYears: number,
                     yearlyInterest: number,
-                    amortizationType: oneOf([KEREN_SHAVA, SHPITZER])
+                    amortizationType: oneOf([KEREN_SHAVA, SHPITZER, BULLET])
                 }))
             })),
             isLoading: bool
