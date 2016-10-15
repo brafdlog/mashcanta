@@ -9,7 +9,7 @@
     "build:dev": "webpack --progress --colors",
     "clean": "rm -f public/*hash--*",
     "dev": "webpack-dev-server --port 8181 --progress --profile --colors --hot",
-    "test": "NODE_ENV=test mocha ./src/test/**/*.js --compilers js:babel-register",
+    "test": "NODE_ENV=test mocha ./src/test/**/*.js ./src/scripts/**/*-Test.js --compilers js:babel-register",
     "test:watch": "NODE_ENV=test mocha ./src/test/**/*.js --compilers js:babel-register --watch",
     "test:coverage": "nyc npm test",
     "generateSvgSprite": "svg-sprite-generate -d icons -o svgSprite.svg"
