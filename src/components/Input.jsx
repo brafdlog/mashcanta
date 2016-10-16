@@ -68,6 +68,12 @@ class Input extends React.Component {
         const style = {
             direction
         };
+
+        // Correct formatting for placeholders - if placeholder is in hebrew, the direction should be rtl
+        if (!valueToDisplay) {
+            style.textOverflow = 'ellipsis';
+            style.direction = 'rtl';
+        }
         return (
             <input type='text' ref={this.setReferenceToElement} className={cx(styles.inputField, className, { [classNameIfInvalid]: isInvalid })} value={valueToDisplay}
                 style={style} {...inputEventHandlerProps} {...domAttributes} readOnly={readOnly} placeholder={placeholder}
