@@ -60,7 +60,7 @@ class Input extends React.Component {
         let valueToDisplay = isFocused ? value : this.formatForDisplay(value);
 
         if (value === 0 && showPlaceholderForZeroValue) {
-            valueToDisplay = null;
+            valueToDisplay = '';
         }
         // If got a custom invalid calss name, use it. Otherwise use the default invalid styles
         const classNameIfInvalid = invalidClassName || styles.invalid;
