@@ -26,6 +26,7 @@
     "bootstrap-rtl": "^3.3.4",
     "chart.js": "^2.2.1",
     "classnames": "^2.2.5",
+    "eslint-plugin-sorting": "^0.3.0",
     "firebase": "^3.3.0",
     "lodash": "^4.13.1",
     "mobx": "^2.5.1",
