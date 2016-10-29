@@ -16,15 +16,19 @@ const COMMON_CONFIG = {
 };
 
 const DEV_CONFIG = {
+    environmentName: 'development',
     storageKeyPrefix: 'test',
    ***REMOVED***
+    ravenDSN: 'https://5c5413641aa7467fb952f6aa13c7563e@sentry.io/110422'
 };
 
 const PROD_CONFIG = {
+    environmentName: 'production',
     storageKeyPrefix: 'prod',
     useFirebaseStorage: true,
     useFirebaseAuth: true,
    ***REMOVED***
+    ravenDSN: 'https://173ce8dd688d460a9db8ad21067c45a7@sentry.io/110418'
 };
 
 let config;

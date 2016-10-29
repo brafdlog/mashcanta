@@ -4,6 +4,7 @@
         lodash/prefer-lodash-chain: 0
     },
     "globals": {
-        "$": true
+        "$": true,
+        "Raven": true
     }
 }

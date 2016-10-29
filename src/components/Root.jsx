@@ -7,6 +7,7 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { signOut, isAuthEnabled, signIn } from '../services/authService';
 import styles from './Root.scss';
 import { GOOGLE, FACEBOOK, MORTGAGE_SHAPE } from '../consts';
+import { getConfig } from '../config';
 
 // Loaders are specified explicitly because we don't want css modules to run during the loading of these files
 import '!style!css!bootstrap/dist/css/bootstrap.css';
@@ -27,6 +28,12 @@ class Root extends React.Component {
     constructor(props) {
         super(props);
         this.isSmallScreen = window.isSmallScreen;
+        // Setup raven logging
+        const ravenDSN = getConfig('ravenDSN');
+        /* eslint no-undef: "off" */
+        Raven.config(ravenDSN, {
+            environment: getConfig('environmentName')
+        }).install();
     }
 
     render() {

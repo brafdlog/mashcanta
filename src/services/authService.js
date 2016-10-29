@@ -38,9 +38,11 @@ if (isAuthEnabled()) {
             // User is signed in
             stateStore.setLoggedInUser(userInfo);
             saveUserDetailsIfDontExist(userInfo);
+            Raven.setUserContext(userInfo);
         } else {
             // No user is signed in
             stateStore.setLoggedOut();
+            Raven.setUserContext();
         }
     });
 }
